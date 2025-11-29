@@ -88,15 +88,23 @@
             transform: translateY(-5px);
         }
         
-        /* Loading skeleton animation */
-        .skeleton {
-            background: linear-gradient(90deg, #27272a 25%, #3f3f46 50%, #27272a 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
+        /* Language Flags Transition */
+        .lang-btn {
+            transition: transform 0.2s, opacity 0.2s;
+            opacity: 0.5;
+            filter: grayscale(100%);
         }
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        .lang-btn:hover {
+            transform: scale(1.1);
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+        .lang-btn.active {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.1);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
         }
     </style>
 </head>
@@ -105,21 +113,40 @@
     <nav class="fixed w-full z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold">F</div>
                     <span class="text-xl font-bold tracking-tight text-white">Felipe Canneli<span class="text-brand-500">.</span></span>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Início</a>
-                        <a href="#projects" class="bg-white/5 text-white px-3 py-2 rounded-md text-sm font-medium border border-white/10">Projetos</a>
-                        <a href="#contact" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Contato</a>
+
+                <!-- Right Side (Menu + Flags) -->
+                <div class="flex items-center gap-6">
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-baseline space-x-6">
+                        <a href="#home" data-i18n="nav_home" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Início</a>
+                        <a href="#projects" data-i18n="nav_projects" class="bg-white/5 text-white px-3 py-2 rounded-md text-sm font-medium border border-white/10">Projetos</a>
+                        <a href="#contact" data-i18n="nav_contact" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Contato</a>
                     </div>
-                </div>
-                <div class="md:hidden">
-                    <button class="text-zinc-400 hover:text-white">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
-                    </button>
+
+                    <!-- Language Flags -->
+                    <div class="flex items-center gap-3 pl-4 md:border-l border-white/10">
+                        <button onclick="changeLanguage('pt')" class="lang-btn active w-6 h-6 overflow-hidden rounded-full" title="Português">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="#009b3a" d="M36 27a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v18z"/><path fill="#fedf00" d="M32.73 18L18 29.27 3.27 18 18 6.73z"/><circle fill="#002776" cx="18" cy="18" r="6.5"/><path fill="#fff" d="M13.25 18.27a8.6 8.6 0 0 0 9.27-2.34c-.26.23-1.09.84-2.82 1.34-2.61.76-4.94.34-6.45 1z"/></svg>
+                        </button>
+                        <button onclick="changeLanguage('en')" class="lang-btn w-6 h-6 overflow-hidden rounded-full" title="English">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="#bd3d44" d="M32 5H4a4 4 0 0 0-4 4v18a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4V9a4 4 0 0 0-4-4z"/><path fill="#fff" d="M0 27a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4V9a4 4 0 0 0-4-4H4a4 4 0 0 0-4 4v18z"/><path fill="#bd3d44" d="M36 20.5H0v-5h36v5z"/><path fill="#bd3d44" d="M36 25.5H0v-1h36v1zm0-15H0v-1h36v1z"/><path fill="#192f5d" d="M19.38 5H4a4 4 0 0 0-4 4v12.23h19.38V5z"/><path fill="#fff" d="M2.35 19.35l1.69-1.39 1.15 1.54 1.35-1.92 1.58 1.19 1.35-1.92 1.15 1.54 1.69-1.39-.77 2.23H10.7l-.39 2.16L9.62 19.2l-2.04 1.27.35-2.35-2.31-.5 2.12-1.07zm14.88 0l-1.69-1.39-1.15 1.54-1.35-1.92-1.58 1.19-1.35-1.92-1.15 1.54-1.69-1.39.77 2.23h1.85l.39 2.16.69-2.04 2.04 1.27-.35-2.35 2.31-.5-2.12-1.07zM3.6 15.65l1.04-1.93 1.89.65.65-1.93 1.89.65 1.04-1.93.42 2.16 2.31.35-1.73 1.62.92 2.15-2.27-.77-1.46 1.81-1.46-1.81-2.27.77.92-2.15-1.73-1.62zm10.77 0l-1.04-1.93-1.89.65-.65-1.93-1.89.65-1.04-1.93-.42 2.16-2.31.35 1.73 1.62-.92 2.15 2.27-.77 1.46 1.81 1.46-1.81 2.27.77-.92-2.15 1.73-1.62zM3.22 8.54l1.62.77-.15 2.19 2.08-.88 1.31 1.77 1.31-1.77 2.08.88-.15-2.19 1.62-.77-2.16-.39.46-2.15-1.96 1.12L8.08 5l-1.19 2.12L4.93 5l.46 2.15z"/></svg>
+                        </button>
+                        <button onclick="changeLanguage('es')" class="lang-btn w-6 h-6 overflow-hidden rounded-full" title="Español">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="#bd3d44" d="M32 5H4a4 4 0 0 0-4 4v18a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4V9a4 4 0 0 0-4-4z"/><path fill="#fbd116" d="M0 26h36V10H0z"/><path fill="#bd3d44" d="M6 15h9v6H6z"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button class="text-zinc-400 hover:text-white">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -133,19 +160,19 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div class="inline-flex items-center px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs font-medium mb-6 animate-fade-in">
-                <span>Disponível para novos projetos</span>
+                <span data-i18n="hero_status">Disponível para novos projetos</span>
             </div>
             <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 animate-slide-up">
-                Criando experiências visuais <br>
-                <span class="gradient-text">impactantes e modernas</span>
+                <span data-i18n="hero_title_1">Criando experiências visuais</span> <br>
+                <span class="gradient-text" data-i18n="hero_title_2">impactantes e modernas</span>
             </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-zinc-400 animate-slide-up" style="animation-delay: 0.1s;">
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-zinc-400 animate-slide-up" style="animation-delay: 0.1s;" data-i18n="hero_desc">
                 Especialista em edição de vídeo, motion graphics e storytelling. Confira meus trabalhos mais recentes abaixo.
             </p>
             <div class="mt-10 flex justify-center gap-4 animate-slide-up" style="animation-delay: 0.2s;">
                 <a href="#projects" class="px-8 py-3 rounded-full bg-white text-dark-900 font-semibold hover:bg-zinc-200 transition-colors flex items-center gap-2">
                     <i data-lucide="play-circle" class="w-5 h-5"></i>
-                    Ver Portfólio
+                    <span data-i18n="hero_btn">Ver Portfólio</span>
                 </a>
             </div>
         </div>
@@ -156,18 +183,18 @@
             
             <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
                 <div id="section-header">
-                    <h2 class="text-3xl font-bold text-white mb-2">Projetos</h2>
-                    <p class="text-zinc-400">Navegue pelas categorias abaixo.</p>
+                    <h2 class="text-3xl font-bold text-white mb-2" data-i18n="projects_title">Projetos</h2>
+                    <p class="text-zinc-400" id="header-desc" data-i18n="projects_desc">Navegue pelas categorias abaixo.</p>
                 </div>
                 
                 <button id="back-btn" onclick="showCategories()" class="hidden group flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-zinc-300 hover:text-white transition-all">
                     <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
-                    <span>Voltar para Categorias</span>
+                    <span data-i18n="btn_back">Voltar para Categorias</span>
                 </button>
             </div>
 
             <div id="dynamic-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-opacity duration-300">
-                </div>
+            </div>
         </div>
     </section>
 
@@ -177,9 +204,9 @@
                 <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <i data-lucide="folder-plus" class="w-8 h-8 text-zinc-500"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-white mb-3">Mais tópicos em breve</h2>
-                <p class="text-zinc-400 mb-8">Novas categorias serão adicionadas conforme novos projetos forem finalizados.</p>
-                <a href="https://wa.me/5531985547183" target="_blank" class="inline-block text-sm font-medium text-brand-500 hover:text-brand-400 transition-colors uppercase tracking-wider cursor-pointer">
+                <h2 class="text-2xl font-bold text-white mb-3" data-i18n="more_soon_title">Mais tópicos em breve</h2>
+                <p class="text-zinc-400 mb-8" data-i18n="more_soon_desc">Novas categorias serão adicionadas conforme novos projetos forem finalizados.</p>
+                <a href="https://wa.me/5531985547183" target="_blank" class="inline-block text-sm font-medium text-brand-500 hover:text-brand-400 transition-colors uppercase tracking-wider cursor-pointer" data-i18n="btn_quote">
                     Solicitar Orçamento
                 </a>
             </div>
@@ -204,7 +231,7 @@
                         <i data-lucide="mail" class="w-5 h-5"></i>
                     </a>
                 </div>
-                <p class="text-zinc-600 text-sm">© 2024 Felipe Canneli. Todos os direitos reservados.</p>
+                <p class="text-zinc-600 text-sm" data-i18n="footer_rights">© 2024 Felipe Canneli. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
@@ -218,10 +245,10 @@
                 <iframe id="modal-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
             </div>
             <div class="mt-4 text-center">
-                <p class="text-zinc-400 text-sm mb-2">O vídeo não carregou?</p>
+                <p class="text-zinc-400 text-sm mb-2" data-i18n="modal_error">O vídeo não carregou?</p>
                 <a id="modal-external-link" href="#" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm text-white transition-colors">
                     <i data-lucide="external-link" class="w-4 h-4"></i>
-                    Abrir diretamente no Google Drive
+                    <span data-i18n="modal_btn">Abrir diretamente no Google Drive</span>
                 </a>
             </div>
         </div>
@@ -232,80 +259,158 @@
         lucide.createIcons();
 
         // ---------------------------------------------------------
+        // I18N CONFIG (Translations)
+        // ---------------------------------------------------------
+        let currentLang = 'pt';
+        
+        const translations = {
+            pt: {
+                nav_home: "Início",
+                nav_projects: "Projetos",
+                nav_contact: "Contato",
+                hero_status: "Disponível para novos projetos",
+                hero_title_1: "Criando experiências visuais",
+                hero_title_2: "impactantes e modernas",
+                hero_desc: "Especialista em edição de vídeo, motion graphics e storytelling. Confira meus trabalhos mais recentes abaixo.",
+                hero_btn: "Ver Portfólio",
+                projects_title: "Projetos",
+                projects_desc: "Navegue pelas categorias abaixo.",
+                btn_back: "Voltar para Categorias",
+                card_videos: "Vídeos",
+                card_open: "Abrir Pasta",
+                card_watch: "Assista agora",
+                more_soon_title: "Mais tópicos em breve",
+                more_soon_desc: "Novas categorias serão adicionadas conforme novos projetos forem finalizados.",
+                btn_quote: "Solicitar Orçamento",
+                footer_rights: "© 2024 Felipe Canneli. Todos os direitos reservados.",
+                modal_error: "O vídeo não carregou?",
+                modal_btn: "Abrir diretamente no Google Drive"
+            },
+            en: {
+                nav_home: "Home",
+                nav_projects: "Projects",
+                nav_contact: "Contact",
+                hero_status: "Available for new projects",
+                hero_title_1: "Creating visual experiences",
+                hero_title_2: "impactful and modern",
+                hero_desc: "Specialist in video editing, motion graphics, and storytelling. Check out my latest work below.",
+                hero_btn: "View Portfolio",
+                projects_title: "Projects",
+                projects_desc: "Browse categories below.",
+                btn_back: "Back to Categories",
+                card_videos: "Videos",
+                card_open: "Open Folder",
+                card_watch: "Watch now",
+                more_soon_title: "More topics coming soon",
+                more_soon_desc: "New categories will be added as new projects are completed.",
+                btn_quote: "Request a Quote",
+                footer_rights: "© 2024 Felipe Canneli. All rights reserved.",
+                modal_error: "Video didn't load?",
+                modal_btn: "Open directly on Google Drive"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_projects: "Proyectos",
+                nav_contact: "Contacto",
+                hero_status: "Disponible para nuevos proyectos",
+                hero_title_1: "Creando experiencias visuales",
+                hero_title_2: "impactantes y modernas",
+                hero_desc: "Especialista en edición de video, motion graphics y storytelling. Mira mis trabajos más recientes abajo.",
+                hero_btn: "Ver Portafolio",
+                projects_title: "Proyectos",
+                projects_desc: "Navega por las categorías a continuación.",
+                btn_back: "Volver a Categorías",
+                card_videos: "Videos",
+                card_open: "Abrir Carpeta",
+                card_watch: "Ver ahora",
+                more_soon_title: "Más temas pronto",
+                more_soon_desc: "Se agregarán nuevas categorías a medida que se finalicen nuevos proyectos.",
+                btn_quote: "Solicitar Presupuesto",
+                footer_rights: "© 2024 Felipe Canneli. Todos los derechos reservados.",
+                modal_error: "¿El video no cargó?",
+                modal_btn: "Abrir directamente en Google Drive"
+            }
+        };
+
+        // ---------------------------------------------------------
         // DATA STRUCTURES
         // ---------------------------------------------------------
 
         // 1. NEXHUB VIDEOS
         const marketingVideos = [
-            { title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct", duration: "Vídeo" },
-            { title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly", duration: "Vídeo" },
-            { title: "10k Stories", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2", duration: "Vídeo" },
-            { title: "Bancos de Imagens", id: "1JcDkfkpiX9Z_sDssHPlNy_fGLYWN0HD7", duration: "Vídeo" },
-            { title: "Engage", id: "1y4lmSSGnz8kuhVmbo0U3PS2rq-WGlqCZ", duration: "Vídeo" },
-            { title: "High Ticket", id: "1OoFFZlMFz4zGd8seJ9zBA5AwAzvQ05xT", duration: "Vídeo" },
-            { title: "IA e o Futuro", id: "1yCi0mSVTmr6vGXcvabcvgnPo4pSq6LAO", duration: "Vídeo" },
-            { title: "IA Secretaria", id: "1veSV7mpgozq6EPQCDK34X1cIa3s0rAw0", duration: "Vídeo" },
-            { title: "Nicho de Oportunidades", id: "1mHGWIMU1o5X8rIjHP8ovsnyXoNIjlxzP", duration: "Vídeo" },
-            { title: "Objeção Oculta", id: "1t58XstU5Nzis6Lh6yVJIgjR4RWVNWgun", duration: "Vídeo" },
-            { title: "Project Business Check", id: "1CiOOI9rtaImNGZUTAGYC3LE2Ur4vJmqm", duration: "Vídeo" },
-            { title: "Responder Whatsapp", id: "1SZ8x6oZo6_1rMHZ5TXJ3E2oYhn3lGQCp", duration: "Vídeo" },
-            { title: "Tráfego Pago Morreu", id: "1pSg2wwIHVskqZUY7RItDUpZh2YpY-uSc", duration: "Vídeo" },
-            { title: "Vendas", id: "1cg9nIgjWejsqsoN15GD9qlMzk8CN4Zu0", duration: "Vídeo" },
-            { title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p", duration: "Vídeo" }
+            { title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct" },
+            { title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly" },
+            { title: "10k Stories", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2" },
+            { title: "Bancos de Imagens", id: "1JcDkfkpiX9Z_sDssHPlNy_fGLYWN0HD7" },
+            { title: "Engage", id: "1y4lmSSGnz8kuhVmbo0U3PS2rq-WGlqCZ" },
+            { title: "High Ticket", id: "1OoFFZlMFz4zGd8seJ9zBA5AwAzvQ05xT" },
+            { title: "IA e o Futuro", id: "1yCi0mSVTmr6vGXcvabcvgnPo4pSq6LAO" },
+            { title: "IA Secretaria", id: "1veSV7mpgozq6EPQCDK34X1cIa3s0rAw0" },
+            { title: "Nicho de Oportunidades", id: "1mHGWIMU1o5X8rIjHP8ovsnyXoNIjlxzP" },
+            { title: "Objeção Oculta", id: "1t58XstU5Nzis6Lh6yVJIgjR4RWVNWgun" },
+            { title: "Project Business Check", id: "1CiOOI9rtaImNGZUTAGYC3LE2Ur4vJmqm" },
+            { title: "Responder Whatsapp", id: "1SZ8x6oZo6_1rMHZ5TXJ3E2oYhn3lGQCp" },
+            { title: "Tráfego Pago Morreu", id: "1pSg2wwIHVskqZUY7RItDUpZh2YpY-uSc" },
+            { title: "Vendas", id: "1cg9nIgjWejsqsoN15GD9qlMzk8CN4Zu0" },
+            { title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p" }
         ];
 
         // 2. ORY CLÍNICA VIDEOS
         const oryVideos = [
-            { title: "Vídeo Ory 1", id: "1TIpRumKxHaH_U6c6ZuV25Eom0IV3KC6P", duration: "Vídeo" },
-            { title: "Vídeo Ory 2", id: "1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC", duration: "Vídeo" }
+            { title: "Vídeo Ory 1", id: "1TIpRumKxHaH_U6c6ZuV25Eom0IV3KC6P" },
+            { title: "Vídeo Ory 2", id: "1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC" }
         ];
 
         // 3. AeC Estética VIDEOS
         const aecVideos = [
-            { title: "Vídeo AeC 1", id: "1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G", duration: "Vídeo" },
-            { title: "Vídeo AeC 2", id: "1u96j8o7CkxDh3zEkv1ph1otV23U05epp", duration: "Vídeo" },
-            { title: "Vídeo AeC 3", id: "1egrGgX4O5nmAZBDOyelSHsM-xxGHmpwz", duration: "Vídeo" }
+            { title: "Vídeo AeC 1", id: "1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G" },
+            { title: "Vídeo AeC 2", id: "1u96j8o7CkxDh3zEkv1ph1otV23U05epp" },
+            { title: "Vídeo AeC 3", id: "1egrGgX4O5nmAZBDOyelSHsM-xxGHmpwz" }
         ];
 
         // 4. UNIGRANDE VIDEOS
         const unigrandeVideos = [
-            { title: "Vídeo UNIGRANDE 1", id: "1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B", duration: "Vídeo" },
-            { title: "Vídeo UNIGRANDE 2", id: "1w_tAUw_n6MKQPJr1o6Y4m93EaqmljYz1", duration: "Vídeo" },
-            { title: "Vídeo UNIGRANDE 3", id: "1O7TP-ue6NRI2WpU_3aRgpSfd_2ZOJcNS", duration: "Vídeo" },
-            { title: "Vídeo UNIGRANDE 4", id: "17YINTRqEBHnHYoy903eZRy1qylsGLFGM", duration: "Vídeo" }
+            { title: "Vídeo UNIGRANDE 1", id: "1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B" },
+            { title: "Vídeo UNIGRANDE 2", id: "1w_tAUw_n6MKQPJr1o6Y4m93EaqmljYz1" },
+            { title: "Vídeo UNIGRANDE 3", id: "1O7TP-ue6NRI2WpU_3aRgpSfd_2ZOJcNS" },
+            { title: "Vídeo UNIGRANDE 4", id: "17YINTRqEBHnHYoy903eZRy1qylsGLFGM" }
         ];
 
         // 5. VANESSA NUTRICIONISTA VIDEOS
         const vanessaVideos = [
-            { title: "Vídeo Vanessa 1", id: "10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN", duration: "Vídeo" },
-            { title: "Vídeo Vanessa 2", id: "11D822i55Q-6_x9v1D3ZP2IYMMGTuXvrg", duration: "Vídeo" },
-            { title: "Vídeo Vanessa 3", id: "1BzPS__2-s3hgDe8t76ntIegvAxCDEIhN", duration: "Vídeo" },
-            { title: "Vídeo Vanessa 4", id: "1GfH3Ewk6RjPfciXM5hONTZYhiOILnZHP", duration: "Vídeo" },
-            { title: "Vídeo Vanessa 5", id: "1Q89l3bX4KACw2ayaSq0ZvdFsU9ds-6nn", duration: "Vídeo" },
-            { title: "Vídeo Vanessa 6", id: "1_Euy9QQovmTJcDYKoNoAIYDDl394kNr5", duration: "Vídeo" },
-            { title: "Vídeo Vanessa 7", id: "1ndisi-g9Nw5JtVM7U53NNmvpl6DfhpFr", duration: "Vídeo" },
-            { title: "Vídeo Vanessa 8", id: "1rTPQebGyQMLeFMbEbgv_sdoAHTzzfjLr", duration: "Vídeo" }
+            { title: "Vídeo Vanessa 1", id: "10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN" },
+            { title: "Vídeo Vanessa 2", id: "11D822i55Q-6_x9v1D3ZP2IYMMGTuXvrg" },
+            { title: "Vídeo Vanessa 3", id: "1BzPS__2-s3hgDe8t76ntIegvAxCDEIhN" },
+            { title: "Vídeo Vanessa 4", id: "1GfH3Ewk6RjPfciXM5hONTZYhiOILnZHP" },
+            { title: "Vídeo Vanessa 5", id: "1Q89l3bX4KACw2ayaSq0ZvdFsU9ds-6nn" },
+            { title: "Vídeo Vanessa 6", id: "1_Euy9QQovmTJcDYKoNoAIYDDl394kNr5" },
+            { title: "Vídeo Vanessa 7", id: "1ndisi-g9Nw5JtVM7U53NNmvpl6DfhpFr" },
+            { title: "Vídeo Vanessa 8", id: "1rTPQebGyQMLeFMbEbgv_sdoAHTzzfjLr" }
         ];
 
         // 6. UNIANCHIETA VIDEOS
         const unianchietaVideos = [
-            { title: "Vídeo UNIANCHIETA 1", id: "1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U", duration: "Vídeo" },
-            { title: "Vídeo UNIANCHIETA 2", id: "1jKJseAWQD5qWo5Xzy8kxobHUOezAhHnz", duration: "Vídeo" },
-            { title: "Vídeo UNIANCHIETA 3", id: "1kVENsSyafJc3YYj7jVSYCw_L5NLEU_tz", duration: "Vídeo" }
+            { title: "Vídeo UNIANCHIETA 1", id: "1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U" },
+            { title: "Vídeo UNIANCHIETA 2", id: "1jKJseAWQD5qWo5Xzy8kxobHUOezAhHnz" },
+            { title: "Vídeo UNIANCHIETA 3", id: "1kVENsSyafJc3YYj7jVSYCw_L5NLEU_tz" }
         ];
 
         // 7. CAESB VIDEOS
         const caesbVideos = [
-            { title: "Vídeo CAESB 1", id: "1MgqWRiBM7M2hQVYk8PEETJC1UjsKTEB2", duration: "Vídeo" },
-            { title: "Vídeo CAESB 2", id: "1QRMShNqdxI0HMfkr4YaQAsaE4_TPa7Oh", duration: "Vídeo" }
+            { title: "Vídeo CAESB 1", id: "1MgqWRiBM7M2hQVYk8PEETJC1UjsKTEB2" },
+            { title: "Vídeo CAESB 2", id: "1QRMShNqdxI0HMfkr4YaQAsaE4_TPa7Oh" }
         ];
 
-        // Categories Configuration
+        // Categories Configuration - Updated with Multilingual Descriptions
         const categories = [
             {
                 id: 'unianchieta',
                 title: 'UNIANCHIETA',
-                description: 'Projetos audiovisuais acadêmicos e institucionais.',
+                description: {
+                    pt: 'Projetos audiovisuais acadêmicos e institucionais.',
+                    en: 'Academic and institutional audiovisual projects.',
+                    es: 'Proyectos audiovisuales académicos e institucionales.'
+                },
                 count: unianchietaVideos.length,
                 icon: 'library',
                 coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U',
@@ -314,7 +419,11 @@
             {
                 id: 'nexhub',
                 title: 'NexHub',
-                description: 'Estratégias, lançamentos e conteúdo high-end para redes sociais.',
+                description: {
+                    pt: 'Estratégias, lançamentos e conteúdo high-end para redes sociais.',
+                    en: 'Strategies, launches, and high-end content for social media.',
+                    es: 'Estrategias, lanzamientos y contenido de alta gama para redes sociales.'
+                },
                 count: marketingVideos.length,
                 icon: 'trending-up',
                 coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', 
@@ -323,7 +432,11 @@
             {
                 id: 'ory_clinica',
                 title: 'Ory Clínica',
-                description: 'Conteúdos focados em saúde, bem-estar e estética clínica.',
+                description: {
+                    pt: 'Conteúdos focados em saúde, bem-estar e estética clínica.',
+                    en: 'Content focused on health, wellness, and clinical aesthetics.',
+                    es: 'Contenido enfocado en salud, bienestar y estética clínica.'
+                },
                 count: oryVideos.length,
                 icon: 'heart-pulse',
                 coverId: '1TIpRumKxHaH_U6c6ZuV25Eom0IV3KC6P',
@@ -332,7 +445,11 @@
             {
                 id: 'aec_estetica',
                 title: 'AeC Estética',
-                description: 'Produções exclusivas para estética e cuidados pessoais.',
+                description: {
+                    pt: 'Produções exclusivas para estética e cuidados pessoais.',
+                    en: 'Exclusive productions for aesthetics and personal care.',
+                    es: 'Producciones exclusivas para estética y cuidado personal.'
+                },
                 count: aecVideos.length,
                 icon: 'sparkles',
                 coverId: '1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G',
@@ -341,7 +458,11 @@
             {
                 id: 'unigrande',
                 title: 'UNIGRANDE',
-                description: 'Conteúdo institucional e educacional.',
+                description: {
+                    pt: 'Conteúdo institucional e educacional.',
+                    en: 'Institutional and educational content.',
+                    es: 'Contenido institucional y educativo.'
+                },
                 count: unigrandeVideos.length,
                 icon: 'graduation-cap',
                 coverId: '1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B',
@@ -350,7 +471,11 @@
             {
                 id: 'vanessa_nutri',
                 title: 'Vanessa - Nutricionista',
-                description: 'Conteúdos sobre alimentação saudável e nutrição.',
+                description: {
+                    pt: 'Conteúdos sobre alimentação saudável e nutrição.',
+                    en: 'Content about healthy eating and nutrition.',
+                    es: 'Contenido sobre alimentación saludable y nutrición.'
+                },
                 count: vanessaVideos.length,
                 icon: 'apple',
                 coverId: '10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN',
@@ -359,7 +484,11 @@
             {
                 id: 'caesb',
                 title: 'CAESB',
-                description: 'Comunicação corporativa e gestão de recursos hídricos.',
+                description: {
+                    pt: 'Comunicação corporativa e gestão de recursos hídricos.',
+                    en: 'Corporate communication and water resources management.',
+                    es: 'Comunicación corporativa y gestión de recursos hídricos.'
+                },
                 count: caesbVideos.length,
                 icon: 'droplets',
                 coverId: '1MgqWRiBM7M2hQVYk8PEETJC1UjsKTEB2',
@@ -368,30 +497,65 @@
         ];
 
         // ---------------------------------------------------------
-        // DOM ELEMENTS
+        // DOM ELEMENTS & STATE
         // ---------------------------------------------------------
         const gridContainer = document.getElementById('dynamic-grid');
         const headerTitle = document.querySelector('#section-header h2');
-        const headerDesc = document.querySelector('#section-header p');
+        const headerDesc = document.querySelector('#header-desc');
         const backBtn = document.getElementById('back-btn');
         
         const modal = document.getElementById('video-modal');
         const modalIframe = document.getElementById('modal-iframe');
         const modalLink = document.getElementById('modal-external-link');
 
+        let currentView = 'categories'; // 'categories' or 'videos'
+        let activeCategoryId = null;
+
+        // ---------------------------------------------------------
+        // LANGUAGE LOGIC
+        // ---------------------------------------------------------
+        
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // 1. Update Buttons State
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if(btn.onclick.toString().includes(lang)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // 2. Update Static Text
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // 3. Refresh Dynamic Content (maintain view)
+            if (currentView === 'categories') {
+                showCategories(false); // false = no animation delay
+            } else if (currentView === 'videos' && activeCategoryId) {
+                openCategory(activeCategoryId, false);
+            }
+        }
+
         // ---------------------------------------------------------
         // RENDER FUNCTIONS
         // ---------------------------------------------------------
 
         // 1. Render Categories (Folders)
-        function showCategories() {
-            // Animate transition
-            gridContainer.style.opacity = '0';
-            
-            setTimeout(() => {
+        function showCategories(animate = true) {
+            currentView = 'categories';
+            activeCategoryId = null;
+
+            const render = () => {
                 // Update Header
-                headerTitle.textContent = "Projetos";
-                headerDesc.textContent = "Selecione uma categoria para explorar os vídeos.";
+                headerTitle.textContent = translations[currentLang].projects_title;
+                headerDesc.textContent = translations[currentLang].projects_desc;
                 backBtn.classList.add('hidden');
 
                 // Clear Grid
@@ -399,7 +563,6 @@
 
                 // Render Cards
                 categories.forEach((cat, index) => {
-                    // Added referrer policy fix here just in case, though usually meta tag handles it.
                     const thumbUrl = `https://drive.google.com/thumbnail?id=${cat.coverId}&sz=w640-h360`;
                     
                     const card = document.createElement('div');
@@ -418,14 +581,14 @@
 
                         <div class="p-6 flex-1 flex flex-col relative">
                             <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors mb-2">${cat.title}</h3>
-                            <p class="text-zinc-400 text-sm mb-4 line-clamp-2">${cat.description}</p>
+                            <p class="text-zinc-400 text-sm mb-4 line-clamp-2">${cat.description[currentLang]}</p>
                             
                             <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
                                 <span class="text-xs font-medium px-2 py-1 rounded bg-white/5 text-zinc-300 border border-white/10">
-                                    ${cat.count} Vídeos
+                                    ${cat.count} ${translations[currentLang].card_videos}
                                 </span>
                                 <span class="text-brand-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                                    Abrir Pasta <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                    ${translations[currentLang].card_open} <i data-lucide="arrow-right" class="w-4 h-4"></i>
                                 </span>
                             </div>
                         </div>
@@ -435,22 +598,32 @@
 
                 lucide.createIcons();
                 gridContainer.style.opacity = '1';
-            }, 300);
+            };
+
+            if (animate) {
+                gridContainer.style.opacity = '0';
+                setTimeout(render, 300);
+            } else {
+                render();
+            }
         }
 
         // 2. Render Videos (Grid inside a category)
-        function openCategory(catId) {
+        function openCategory(catId, animate = true) {
             const category = categories.find(c => c.id === catId);
             if (!category) return;
 
-            // Animate transition
-            gridContainer.style.opacity = '0';
+            currentView = 'videos';
+            activeCategoryId = catId;
 
-            setTimeout(() => {
+            const render = () => {
                 // Update Header
                 headerTitle.textContent = category.title;
-                headerDesc.textContent = category.description;
+                headerDesc.textContent = category.description[currentLang];
                 backBtn.classList.remove('hidden');
+                
+                // Update back button text explicitly here just in case
+                backBtn.querySelector('span').textContent = translations[currentLang].btn_back;
 
                 // Clear Grid
                 gridContainer.innerHTML = '';
@@ -489,7 +662,7 @@
                             </h3>
                             <div class="mt-2 flex items-center justify-between text-xs text-zinc-500">
                                 <span class="flex items-center gap-1">
-                                    <i data-lucide="clock" class="w-3 h-3"></i> Assista agora
+                                    <i data-lucide="clock" class="w-3 h-3"></i> ${translations[currentLang].card_watch}
                                 </span>
                             </div>
                         </div>
@@ -500,9 +673,17 @@
                 lucide.createIcons();
                 gridContainer.style.opacity = '1';
                 
-                // Scroll to top of section smoothly
-                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-            }, 300);
+                if(animate) {
+                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+
+            if (animate) {
+                gridContainer.style.opacity = '0';
+                setTimeout(render, 300);
+            } else {
+                render();
+            }
         }
 
         // ---------------------------------------------------------
@@ -537,8 +718,7 @@
         // ---------------------------------------------------------
         // INIT
         // ---------------------------------------------------------
-        // Start by showing categories
-        showCategories();
+        showCategories(true);
 
     </script>
 </body>
