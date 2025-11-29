@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta tag essencial para o Google Drive aceitar as imagens no GitHub -->
+    <meta name="referrer" content="no-referrer">
+    <title>Felipe Canneli - Portfólio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            500: '#6366f1', // Indigo
+                            600: '#4f46e5',
+                        },
+                        dark: {
+                            900: '#0f0f12', // Almost black
+                            800: '#18181b', // Zinc 900
+                            700: '#27272a', // Zinc 800
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0f0f12;
+            color: #e4e4e7;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #18181b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b; 
+        }
+
+        .video-card:hover .play-overlay {
+            opacity: 1;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .folder-card {
+            transition: all 0.3s ease;
+        }
+        .folder-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Loading skeleton animation */
+        .skeleton {
+            background: linear-gradient(90deg, #27272a 25%, #3f3f46 50%, #27272a 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold">F</div>
+                    <span class="text-xl font-bold tracking-tight text-white">Felipe Canneli<span class="text-brand-500">.</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Início</a>
+                        <a href="#projects" class="bg-white/5 text-white px-3 py-2 rounded-md text-sm font-medium border border-white/10">Projetos</a>
+                        <a href="#contact" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Contato</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-zinc-400 hover:text-white">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-12 sm:pt-40 sm:pb-16 lg:pb-24 overflow-hidden relative">
+        <!-- Background Glow -->
+        <div class="absolute top-0 left-1/2 w-full -translate-x-1/2 h-full z-0 pointer-events-none">
+             <div class="absolute top-20 left-1/4 w-[500px] h-[500px] bg-brand-600/20 rounded-full blur-[100px]"></div>
+             <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs font-medium mb-6 animate-fade-in">
+                <span>Disponível para novos projetos</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 animate-slide-up">
+                Criando experiências visuais <br>
+                <span class="gradient-text">impactantes e modernas</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-zinc-400 animate-slide-up" style="animation-delay: 0.1s;">
+                Especialista em edição de vídeo, motion graphics e storytelling. Confira meus trabalhos mais recentes abaixo.
+            </p>
+            <div class="mt-10 flex justify-center gap-4 animate-slide-up" style="animation-delay: 0.2s;">
+                <a href="#projects" class="px-8 py-3 rounded-full bg-white text-dark-900 font-semibold hover:bg-zinc-200 transition-colors flex items-center gap-2">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                    Ver Portfólio
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section (Categories & Videos) -->
+    <section id="projects" class="py-20 bg-dark-800 relative border-t border-white/5 min-h-[600px]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Dynamic Header -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
+                <div id="section-header">
+                    <!-- Text injected by JS -->
+                    <h2 class="text-3xl font-bold text-white mb-2">Projetos</h2>
+                    <p class="text-zinc-400">Navegue pelas categorias abaixo.</p>
+                </div>
+                
+                <!-- Back Button (Hidden by default) -->
+                <button id="back-btn" onclick="showCategories()" class="hidden group flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-zinc-300 hover:text-white transition-all">
+                    <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+                    <span>Voltar para Categorias</span>
+                </button>
+            </div>
+
+            <!-- Content Grid (Switches between Categories and Videos) -->
+            <div id="dynamic-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-opacity duration-300">
+                <!-- Content will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Topics Placeholder -->
+    <section class="py-20 border-t border-white/5 bg-dark-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-md mx-auto">
+                <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i data-lucide="folder-plus" class="w-8 h-8 text-zinc-500"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Mais tópicos em breve</h2>
+                <p class="text-zinc-400 mb-8">Novas categorias serão adicionadas conforme novos projetos forem finalizados.</p>
+                <button class="text-sm font-medium text-brand-500 hover:text-brand-400 transition-colors uppercase tracking-wider">
+                    Solicitar Orçamento
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-black py-12 border-t border-white/10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 bg-brand-600 rounded flex items-center justify-center text-white text-xs font-bold">F</div>
+                    <span class="text-lg font-bold text-white">Felipe Canneli</span>
+                </div>
+                <div class="flex gap-6">
+                    <a href="#" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                </div>
+                <p class="text-zinc-600 text-sm">© 2024 Felipe Canneli. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Video Modal (Overlay) -->
+    <div id="video-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="flex flex-col items-center w-full max-w-5xl">
+            <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+                <button onclick="closeModal()" class="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-brand-600 rounded-full text-white transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <iframe id="modal-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+            <!-- Help text below video -->
+            <div class="mt-4 text-center">
+                <p class="text-zinc-400 text-sm mb-2">O vídeo não carregou?</p>
+                <a id="modal-external-link" href="#" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm text-white transition-colors">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    Abrir diretamente no Google Drive
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // ---------------------------------------------------------
+        // DATA STRUCTURES
+        // ---------------------------------------------------------
+
+        // 1. NEXHUB VIDEOS
+        const marketingVideos = [
+            { title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct", duration: "Vídeo" },
+            { title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly", duration: "Vídeo" },
+            { title: "10k Stories", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2", duration: "Vídeo" },
+            { title: "Bancos de Imagens", id: "1JcDkfkpiX9Z_sDssHPlNy_fGLYWN0HD7", duration: "Vídeo" },
+            { title: "Engage", id: "1y4lmSSGnz8kuhVmbo0U3PS2rq-WGlqCZ", duration: "Vídeo" },
+            { title: "High Ticket", id: "1OoFFZlMFz4zGd8seJ9zBA5AwAzvQ05xT", duration: "Vídeo" },
+            { title: "IA e o Futuro", id: "1yCi0mSVTmr6vGXcvabcvgnPo4pSq6LAO", duration: "Vídeo" },
+            { title: "IA Secretaria", id: "1veSV7mpgozq6EPQCDK34X1cIa3s0rAw0", duration: "Vídeo" },
+            { title: "Nicho de Oportunidades", id: "1mHGWIMU1o5X8rIjHP8ovsnyXoNIjlxzP", duration: "Vídeo" },
+            { title: "Objeção Oculta", id: "1t58XstU5Nzis6Lh6yVJIgjR4RWVNWgun", duration: "Vídeo" },
+            { title: "Project Business Check", id: "1CiOOI9rtaImNGZUTAGYC3LE2Ur4vJmqm", duration: "Vídeo" },
+            { title: "Responder Whatsapp", id: "1SZ8x6oZo6_1rMHZ5TXJ3E2oYhn3lGQCp", duration: "Vídeo" },
+            { title: "Tráfego Pago Morreu", id: "1pSg2wwIHVskqZUY7RItDUpZh2YpY-uSc", duration: "Vídeo" },
+            { title: "Vendas", id: "1cg9nIgjWejsqsoN15GD9qlMzk8CN4Zu0", duration: "Vídeo" },
+            { title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p", duration: "Vídeo" }
+        ];
+
+        // 2. ORY CLÍNICA VIDEOS
+        // ATENÇÃO: Substitua pelos IDs reais caso não apareçam, os atuais são exemplos.
+        const oryVideos = [
+            { title: "Vídeo Ory 1", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly", duration: "Vídeo" },
+            { title: "Vídeo Ory 2", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2", duration: "Vídeo" },
+            { title: "Vídeo Ory 3", id: "1JcDkfkpiX9Z_sDssHPlNy_fGLYWN0HD7", duration: "Vídeo" },
+        ];
+
+        // 3. AeC Estética VIDEOS
+        const aecVideos = [
+            { title: "Vídeo AeC 1", id: "1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G", duration: "Vídeo" },
+            { title: "Vídeo AeC 2", id: "1u96j8o7CkxDh3zEkv1ph1otV23U05epp", duration: "Vídeo" },
+            { title: "Vídeo AeC 3", id: "1egrGgX4O5nmAZBDOyelSHsM-xxGHmpwz", duration: "Vídeo" }
+        ];
+
+        // 4. UNIGRANDE VIDEOS
+        const unigrandeVideos = [
+            { title: "Vídeo UNIGRANDE 1", id: "1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B", duration: "Vídeo" },
+            { title: "Vídeo UNIGRANDE 2", id: "1w_tAUw_n6MKQPJr1o6Y4m93EaqmljYz1", duration: "Vídeo" },
+            { title: "Vídeo UNIGRANDE 3", id: "1O7TP-ue6NRI2WpU_3aRgpSfd_2ZOJcNS", duration: "Vídeo" },
+            { title: "Vídeo UNIGRANDE 4", id: "17YINTRqEBHnHYoy903eZRy1qylsGLFGM", duration: "Vídeo" }
+        ];
+
+        // 5. VANESSA NUTRICIONISTA VIDEOS
+        const vanessaVideos = [
+            { title: "Vídeo Vanessa 1", id: "10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN", duration: "Vídeo" },
+            { title: "Vídeo Vanessa 2", id: "11D822i55Q-6_x9v1D3ZP2IYMMGTuXvrg", duration: "Vídeo" },
+            { title: "Vídeo Vanessa 3", id: "1BzPS__2-s3hgDe8t76ntIegvAxCDEIhN", duration: "Vídeo" },
+            { title: "Vídeo Vanessa 4", id: "1GfH3Ewk6RjPfciXM5hONTZYhiOILnZHP", duration: "Vídeo" },
+            { title: "Vídeo Vanessa 5", id: "1Q89l3bX4KACw2ayaSq0ZvdFsU9ds-6nn", duration: "Vídeo" },
+            { title: "Vídeo Vanessa 6", id: "1_Euy9QQovmTJcDYKoNoAIYDDl394kNr5", duration: "Vídeo" },
+            { title: "Vídeo Vanessa 7", id: "1ndisi-g9Nw5JtVM7U53NNmvpl6DfhpFr", duration: "Vídeo" },
+            { title: "Vídeo Vanessa 8", id: "1rTPQebGyQMLeFMbEbgv_sdoAHTzzfjLr", duration: "Vídeo" }
+        ];
+
+        // 6. UNIANCHIETA VIDEOS
+        const unianchietaVideos = [
+            { title: "Vídeo UNIANCHIETA 1", id: "1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U", duration: "Vídeo" },
+            { title: "Vídeo UNIANCHIETA 2", id: "1jKJseAWQD5qWo5Xzy8kxobHUOezAhHnz", duration: "Vídeo" },
+            { title: "Vídeo UNIANCHIETA 3", id: "1kVENsSyafJc3YYj7jVSYCw_L5NLEU_tz", duration: "Vídeo" }
+        ];
+
+        // 7. CAESB VIDEOS
+        const caesbVideos = [
+            { title: "Vídeo CAESB 1", id: "1MgqWRiBM7M2hQVYk8PEETJC1UjsKTEB2", duration: "Vídeo" },
+            { title: "Vídeo CAESB 2", id: "1QRMShNqdxI0HMfkr4YaQAsaE4_TPa7Oh", duration: "Vídeo" }
+        ];
+
+        // Categories Configuration
+        const categories = [
+            {
+                id: 'nexhub',
+                title: 'NexHub',
+                description: 'Estratégias, lançamentos e conteúdo high-end para redes sociais.',
+                count: marketingVideos.length,
+                icon: 'trending-up',
+                coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', 
+                items: marketingVideos
+            },
+            {
+                id: 'ory_clinica',
+                title: 'Ory Clínica',
+                description: 'Conteúdos focados em saúde, bem-estar e estética clínica.',
+                count: oryVideos.length,
+                icon: 'heart-pulse',
+                coverId: '1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly',
+                items: oryVideos
+            },
+            {
+                id: 'aec_estetica',
+                title: 'AeC Estética',
+                description: 'Produções exclusivas para estética e cuidados pessoais.',
+                count: aecVideos.length,
+                icon: 'sparkles',
+                coverId: '1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G',
+                items: aecVideos
+            },
+            {
+                id: 'unigrande',
+                title: 'UNIGRANDE',
+                description: 'Conteúdo institucional e educacional.',
+                count: unigrandeVideos.length,
+                icon: 'graduation-cap',
+                coverId: '1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B',
+                items: unigrandeVideos
+            },
+            {
+                id: 'vanessa_nutri',
+                title: 'Vanessa - Nutricionista',
+                description: 'Conteúdos sobre alimentação saudável e nutrição.',
+                count: vanessaVideos.length,
+                icon: 'apple',
+                coverId: '10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN',
+                items: vanessaVideos
+            },
+            {
+                id: 'unianchieta',
+                title: 'UNIANCHIETA',
+                description: 'Projetos audiovisuais acadêmicos e institucionais.',
+                count: unianchietaVideos.length,
+                icon: 'library',
+                coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U',
+                items: unianchietaVideos
+            },
+            {
+                id: 'caesb',
+                title: 'CAESB',
+                description: 'Comunicação corporativa e gestão de recursos hídricos.',
+                count: caesbVideos.length,
+                icon: 'droplets',
+                coverId: '1MgqWRiBM7M2hQVYk8PEETJC1UjsKTEB2',
+                items: caesbVideos
+            }
+        ];
+
+        // ---------------------------------------------------------
+        // DOM ELEMENTS
+        // ---------------------------------------------------------
+        const gridContainer = document.getElementById('dynamic-grid');
+        const headerTitle = document.querySelector('#section-header h2');
+        const headerDesc = document.querySelector('#section-header p');
+        const backBtn = document.getElementById('back-btn');
+        
+        const modal = document.getElementById('video-modal');
+        const modalIframe = document.getElementById('modal-iframe');
+        const modalLink = document.getElementById('modal-external-link');
+
+        // ---------------------------------------------------------
+        // RENDER FUNCTIONS
+        // ---------------------------------------------------------
+
+        // 1. Render Categories (Folders)
+        function showCategories() {
+            // Animate transition
+            gridContainer.style.opacity = '0';
+            
+            setTimeout(() => {
+                // Update Header
+                headerTitle.textContent = "Projetos";
+                headerDesc.textContent = "Selecione uma categoria para explorar os vídeos.";
+                backBtn.classList.add('hidden');
+
+                // Clear Grid
+                gridContainer.innerHTML = '';
+
+                // Render Cards
+                categories.forEach((cat, index) => {
+                    // Added referrer policy fix here just in case, though usually meta tag handles it.
+                    const thumbUrl = `https://drive.google.com/thumbnail?id=${cat.coverId}&sz=w640-h360`;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'folder-card group relative bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 cursor-pointer h-full min-h-[280px] flex flex-col';
+                    card.onclick = () => openCategory(cat.id);
+                    
+                    card.innerHTML = `
+                        <!-- Cover Image with Dark Overlay -->
+                        <div class="h-40 w-full relative overflow-hidden bg-zinc-800">
+                             <img src="${thumbUrl}" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/640x360/3f3f46/ffffff?text=Capa';">
+                             <div class="absolute inset-0 bg-gradient-to-t from-dark-700 via-transparent to-transparent"></div>
+                             
+                             <!-- Icon Badge -->
+                             <div class="absolute top-4 right-4 w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white shadow-lg z-10">
+                                <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
+                             </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-6 flex-1 flex flex-col relative">
+                            <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors mb-2">${cat.title}</h3>
+                            <p class="text-zinc-400 text-sm mb-4 line-clamp-2">${cat.description}</p>
+                            
+                            <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
+                                <span class="text-xs font-medium px-2 py-1 rounded bg-white/5 text-zinc-300 border border-white/10">
+                                    ${cat.count} Vídeos
+                                </span>
+                                <span class="text-brand-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    Abrir Pasta <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                    gridContainer.appendChild(card);
+                });
+
+                lucide.createIcons();
+                gridContainer.style.opacity = '1';
+            }, 300);
+        }
+
+        // 2. Render Videos (Grid inside a category)
+        function openCategory(catId) {
+            const category = categories.find(c => c.id === catId);
+            if (!category) return;
+
+            // Animate transition
+            gridContainer.style.opacity = '0';
+
+            setTimeout(() => {
+                // Update Header
+                headerTitle.textContent = category.title;
+                headerDesc.textContent = category.description;
+                backBtn.classList.remove('hidden');
+
+                // Clear Grid
+                gridContainer.innerHTML = '';
+
+                // Render Video Cards
+                category.items.forEach((video, index) => {
+                    const thumbUrl = `https://drive.google.com/thumbnail?id=${video.id}&sz=w640-h360`;
+
+                    const card = document.createElement('div');
+                    card.className = 'group bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-900/20 flex flex-col animate-fade-in';
+                    card.style.animationDelay = `${index * 0.05}s`;
+
+                    card.innerHTML = `
+                        <div class="relative aspect-video bg-zinc-800 group-hover:bg-zinc-700 transition-colors cursor-pointer overflow-hidden" onclick="openModal('${video.id}')">
+                            <img 
+                                src="${thumbUrl}" 
+                                referrerpolicy="no-referrer"
+                                alt="${video.title}"
+                                class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
+                                onerror="this.onerror=null; this.parentElement.querySelector('.fallback-gradient').classList.remove('hidden'); this.style.display='none';"
+                            >
+                            
+                            <!-- Fallback Gradient (Hidden by default, shown on error) -->
+                            <div class="fallback-gradient hidden absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-400 via-zinc-900 to-black"></div>
+                            
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                            <div class="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                                <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-xl group-hover:bg-brand-600 group-hover:border-brand-500 transition-all">
+                                    <i data-lucide="play" class="w-5 h-5 text-white fill-current translate-x-0.5"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 flex-1 flex flex-col relative bg-dark-700">
+                            <h3 class="font-semibold text-base text-white group-hover:text-brand-400 transition-colors line-clamp-1">
+                                ${video.title}
+                            </h3>
+                            <div class="mt-2 flex items-center justify-between text-xs text-zinc-500">
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="clock" class="w-3 h-3"></i> Assista agora
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                    gridContainer.appendChild(card);
+                });
+
+                lucide.createIcons();
+                gridContainer.style.opacity = '1';
+                
+                // Scroll to top of section smoothly
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+
+        // ---------------------------------------------------------
+        // MODAL LOGIC
+        // ---------------------------------------------------------
+        function openModal(driveId) {
+            const embedUrl = `https://drive.google.com/file/d/${driveId}/preview`;
+            const directLink = `https://drive.google.com/file/d/${driveId}/view`;
+            modalIframe.src = embedUrl;
+            modalLink.href = directLink;
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalIframe.src = '';
+            }, 300);
+            document.body.style.overflow = '';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ---------------------------------------------------------
+        // INIT
+        // ---------------------------------------------------------
+        // Start by showing categories
+        showCategories();
+
+    </script>
+</body>
+</html>
