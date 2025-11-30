@@ -104,6 +104,19 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+
+        /* Language Buttons */
+        .lang-btn {
+            font-size: 1.2rem;
+            filter: grayscale(100%);
+            transition: all 0.2s;
+            opacity: 0.7;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            filter: grayscale(0%);
+            transform: scale(1.2);
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -116,14 +129,31 @@
                     <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold">F</div>
                     <span class="text-xl font-bold tracking-tight text-white">Felipe Canneli<span class="text-brand-500">.</span></span>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Início</a>
-                        <a href="#projects" class="bg-white/5 text-white px-3 py-2 rounded-md text-sm font-medium border border-white/10">Projetos</a>
-                        <a href="#contact" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Contato</a>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <div class="flex items-baseline space-x-8">
+                        <a href="#home" data-i18n="nav_home" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Início</a>
+                        <a href="#projects" data-i18n="nav_projects" class="bg-white/5 text-white px-3 py-2 rounded-md text-sm font-medium border border-white/10">Projetos</a>
+                        <a href="#contact" data-i18n="nav_contact" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Contato</a>
+                    </div>
+                    
+                    <!-- Language Switcher Desktop -->
+                    <div class="flex items-center gap-3 border-l border-white/10 pl-6">
+                        <button onclick="changeLanguage('pt')" class="lang-btn" id="btn-pt" title="Português">🇧🇷</button>
+                        <button onclick="changeLanguage('en')" class="lang-btn" id="btn-en" title="English">🇺🇸</button>
+                        <button onclick="changeLanguage('es')" class="lang-btn" id="btn-es" title="Español">🇪🇸</button>
+                        <button onclick="changeLanguage('fr')" class="lang-btn" id="btn-fr" title="Français">🇫🇷</button>
                     </div>
                 </div>
-                <div class="md:hidden">
+
+                <!-- Mobile Menu Button & Lang -->
+                <div class="md:hidden flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <button onclick="changeLanguage('pt')" class="text-lg hover:scale-110 transition-transform">🇧🇷</button>
+                        <button onclick="changeLanguage('en')" class="text-lg hover:scale-110 transition-transform">🇺🇸</button>
+                        <button onclick="changeLanguage('es')" class="text-lg hover:scale-110 transition-transform">🇪🇸</button>
+                        <button onclick="changeLanguage('fr')" class="text-lg hover:scale-110 transition-transform">🇫🇷</button>
+                    </div>
                     <button class="text-zinc-400 hover:text-white">
                         <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
@@ -142,19 +172,19 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div class="inline-flex items-center px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs font-medium mb-6 animate-fade-in">
-                <span>Disponível para novos projetos</span>
+                <span data-i18n="hero_badge">Disponível para novos projetos</span>
             </div>
             <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 animate-slide-up">
-                Criando experiências visuais <br>
-                <span class="gradient-text">impactantes e modernas</span>
+                <span data-i18n="hero_title_1">Criando experiências visuais</span> <br>
+                <span class="gradient-text" data-i18n="hero_title_2">impactantes e modernas</span>
             </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-zinc-400 animate-slide-up" style="animation-delay: 0.1s;">
+            <p data-i18n="hero_subtitle" class="mt-4 max-w-2xl mx-auto text-xl text-zinc-400 animate-slide-up" style="animation-delay: 0.1s;">
                 Especialista em edição de vídeo, motion graphics e storytelling. Confira meus trabalhos mais recentes abaixo.
             </p>
             <div class="mt-10 flex justify-center gap-4 animate-slide-up" style="animation-delay: 0.2s;">
                 <a href="#projects" class="px-8 py-3 rounded-full bg-white text-dark-900 font-semibold hover:bg-zinc-200 transition-colors flex items-center gap-2">
                     <i data-lucide="play-circle" class="w-5 h-5"></i>
-                    Ver Portfólio
+                    <span data-i18n="hero_cta">Ver Portfólio</span>
                 </a>
             </div>
         </div>
@@ -168,14 +198,14 @@
             <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
                 <div id="section-header">
                     <!-- Text injected by JS -->
-                    <h2 class="text-3xl font-bold text-white mb-2">Projetos</h2>
-                    <p class="text-zinc-400">Navegue pelas categorias abaixo.</p>
+                    <h2 class="text-3xl font-bold text-white mb-2" data-i18n="projects_header">Projetos</h2>
+                    <p class="text-zinc-400" data-i18n="projects_subheader">Navegue pelas categorias abaixo.</p>
                 </div>
                 
                 <!-- Back Button (Hidden by default) -->
                 <button id="back-btn" onclick="showCategories()" class="hidden group flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-zinc-300 hover:text-white transition-all">
                     <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
-                    <span>Voltar para Categorias</span>
+                    <span data-i18n="btn_back">Voltar para Categorias</span>
                 </button>
             </div>
 
@@ -193,11 +223,12 @@
                 <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <i data-lucide="folder-plus" class="w-8 h-8 text-zinc-500"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-white mb-3">Mais tópicos em breve</h2>
-                <p class="text-zinc-400 mb-8">Novas categorias serão adicionadas conforme novos projetos forem finalizados.</p>
-                <button class="text-sm font-medium text-brand-500 hover:text-brand-400 transition-colors uppercase tracking-wider">
+                <h2 class="text-2xl font-bold text-white mb-3" data-i18n="more_topics_title">Mais tópicos em breve</h2>
+                <p class="text-zinc-400 mb-8" data-i18n="more_topics_desc">Novas categorias serão adicionadas conforme novos projetos forem finalizados.</p>
+                <!-- Updated Quote Button to WhatsApp Link -->
+                <a href="https://wa.me/5531965547183" target="_blank" data-i18n="btn_quote" class="text-sm font-medium text-brand-500 hover:text-brand-400 transition-colors uppercase tracking-wider">
                     Solicitar Orçamento
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -210,12 +241,13 @@
                     <div class="w-6 h-6 bg-brand-600 rounded flex items-center justify-center text-white text-xs font-bold">F</div>
                     <span class="text-lg font-bold text-white">Felipe Canneli</span>
                 </div>
+                <!-- Updated Social Links -->
                 <div class="flex gap-6">
-                    <a href="#" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="#" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                    <a href="#" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                    <a href="https://instagram.com/felipecanneli" target="_blank" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="https://www.linkedin.com/in/felipecanneli/" target="_blank" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    <a href="mailto:canellifelipe@gmail.com" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></a>
                 </div>
-                <p class="text-zinc-600 text-sm">© 2024 Felipe Canneli. Todos os direitos reservados.</p>
+                <p class="text-zinc-600 text-sm" data-i18n="footer_rights">© 2024 Felipe Canneli. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
@@ -231,10 +263,10 @@
             </div>
             <!-- Help text below video -->
             <div class="mt-4 text-center">
-                <p class="text-zinc-400 text-sm mb-2">O vídeo não carregou?</p>
+                <p class="text-zinc-400 text-sm mb-2" data-i18n="modal_error">O vídeo não carregou?</p>
                 <a id="modal-external-link" href="#" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm text-white transition-colors">
                     <i data-lucide="external-link" class="w-4 h-4"></i>
-                    Abrir original
+                    <span data-i18n="modal_open_original">Abrir original</span>
                 </a>
             </div>
         </div>
@@ -243,6 +275,164 @@
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
+
+        // ---------------------------------------------------------
+        // INTERNATIONALIZATION (i18n)
+        // ---------------------------------------------------------
+        
+        let currentLang = localStorage.getItem('siteLang') || 'pt';
+        
+        const translations = {
+            pt: {
+                nav_home: "Início",
+                nav_projects: "Projetos",
+                nav_contact: "Contato",
+                hero_badge: "Disponível para novos projetos",
+                hero_title_1: "Criando experiências visuais",
+                hero_title_2: "impactantes e modernas",
+                hero_subtitle: "Especialista em edição de vídeo, motion graphics e storytelling. Confira meus trabalhos mais recentes abaixo.",
+                hero_cta: "Ver Portfólio",
+                projects_header: "Projetos",
+                projects_subheader: "Navegue pelas categorias abaixo.",
+                btn_back: "Voltar para Categorias",
+                video_count: "Vídeos",
+                btn_open_folder: "Abrir Pasta",
+                btn_open_compare: "Abrir Comparação",
+                more_topics_title: "Mais tópicos em breve",
+                more_topics_desc: "Novas categorias serão adicionadas conforme novos projetos forem finalizados.",
+                btn_quote: "Solicitar Orçamento",
+                footer_rights: "© 2024 Felipe Canneli. Todos os direitos reservados.",
+                modal_error: "O vídeo não carregou?",
+                modal_open_original: "Abrir original",
+                watch_now: "Assista agora",
+                compare_title: "✨ Comparação de Tecnologia:",
+                compare_desc: "Veja a diferença de qualidade entre o clipe original e a remasterização processada por Inteligência Artificial.",
+                compare_orig_label: "Original",
+                compare_orig_sub: "Resolução original do clipe oficial.",
+                compare_remaster_label: "Remasterizado com IA",
+                compare_remaster_sub: "Melhoria de nitidez, colores e resolução."
+            },
+            en: {
+                nav_home: "Home",
+                nav_projects: "Projects",
+                nav_contact: "Contact",
+                hero_badge: "Available for new projects",
+                hero_title_1: "Creating visual experiences",
+                hero_title_2: "impactful and modern",
+                hero_subtitle: "Specialist in video editing, motion graphics, and storytelling. Check out my latest work below.",
+                hero_cta: "View Portfolio",
+                projects_header: "Projects",
+                projects_subheader: "Browse categories below.",
+                btn_back: "Back to Categories",
+                video_count: "Videos",
+                btn_open_folder: "Open Folder",
+                btn_open_compare: "Open Comparison",
+                more_topics_title: "More topics coming soon",
+                more_topics_desc: "New categories will be added as new projects are finalized.",
+                btn_quote: "Request Quote",
+                footer_rights: "© 2024 Felipe Canneli. All rights reserved.",
+                modal_error: "Video didn't load?",
+                modal_open_original: "Open original",
+                watch_now: "Watch now",
+                compare_title: "✨ Technology Comparison:",
+                compare_desc: "See the quality difference between the original clip and the AI-processed remaster.",
+                compare_orig_label: "Original",
+                compare_orig_sub: "Original official clip resolution.",
+                compare_remaster_label: "Remastered with AI",
+                compare_remaster_sub: "Improved sharpness, colors, and resolution."
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_projects: "Proyectos",
+                nav_contact: "Contacto",
+                hero_badge: "Disponible para nuevos proyectos",
+                hero_title_1: "Creando experiencias visuales",
+                hero_title_2: "impactantes y modernas",
+                hero_subtitle: "Especialista en edición de video, motion graphics y storytelling. Mira mis trabajos más recientes abajo.",
+                hero_cta: "Ver Portafolio",
+                projects_header: "Proyectos",
+                projects_subheader: "Navegue por las categorías abajo.",
+                btn_back: "Volver a Categorías",
+                video_count: "Videos",
+                btn_open_folder: "Abrir Carpeta",
+                btn_open_compare: "Abrir Comparación",
+                more_topics_title: "Más temas pronto",
+                more_topics_desc: "Nuevas categorías serán añadidas a medida que se finalicen nuevos proyectos.",
+                btn_quote: "Solicitar Presupuesto",
+                footer_rights: "© 2024 Felipe Canneli. Todos los derechos reservados.",
+                modal_error: "¿El video no cargó?",
+                modal_open_original: "Abrir original",
+                watch_now: "Ver ahora",
+                compare_title: "✨ Comparación de Tecnología:",
+                compare_desc: "Vea la diferencia de calidad entre el clip original y la remasterización procesada por Inteligencia Artificial.",
+                compare_orig_label: "Original",
+                compare_orig_sub: "Resolución original del clip oficial.",
+                compare_remaster_label: "Remasterizado con IA",
+                compare_remaster_sub: "Mejora de nitidez, colores y resolución."
+            },
+            fr: {
+                nav_home: "Accueil",
+                nav_projects: "Projets",
+                nav_contact: "Contact",
+                hero_badge: "Disponible pour nouveaux projets",
+                hero_title_1: "Création d'expériences visuelles",
+                hero_title_2: "percutantes et modernes",
+                hero_subtitle: "Spécialiste en montage vidéo, motion graphics et storytelling. Découvrez mes travaux récents ci-dessous.",
+                hero_cta: "Voir Portfolio",
+                projects_header: "Projets",
+                projects_subheader: "Parcourir les catégories ci-dessous.",
+                btn_back: "Retour aux Catégories",
+                video_count: "Vidéos",
+                btn_open_folder: "Ouvrir Dossier",
+                btn_open_compare: "Ouvrir Comparaison",
+                more_topics_title: "Plus de sujets bientôt",
+                more_topics_desc: "De nouvelles catégories seront ajoutées au fur et à mesure des nouveaux projets.",
+                btn_quote: "Demander Devis",
+                footer_rights: "© 2024 Felipe Canneli. Tous droits réservés.",
+                modal_error: "La vidéo n'a pas chargé ?",
+                modal_open_original: "Ouvrir l'original",
+                watch_now: "Regarder maintenant",
+                compare_title: "✨ Comparaison Technologique :",
+                compare_desc: "Voyez la différence de qualité entre le clip original et le remaster traité par Intelligence Artificielle.",
+                compare_orig_label: "Original",
+                compare_orig_sub: "Résolution originale du clip officiel.",
+                compare_remaster_label: "Remasterisé par IA",
+                compare_remaster_sub: "Amélioration de la netteté, des couleurs et de la résolution."
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('siteLang', lang);
+            
+            // Update active state on buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById(`btn-${lang}`);
+            if(activeBtn) activeBtn.classList.add('active');
+
+            // Update static Text
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Re-render grid if we are on the main categories view
+            // Note: If inside a category, we might want to stay there but translate text.
+            // For simplicity, we'll refresh the current view.
+            
+            // If the back button is hidden, we are in category view
+            if (document.getElementById('back-btn').classList.contains('hidden')) {
+                showCategories();
+            } else {
+                // If we are inside a category, we need to know which one.
+                // Since I didn't save currentCat ID in global state, I'll just go back to categories for safety,
+                // OR simpler: just re-render categories to ensure translations apply.
+                showCategories(); 
+            }
+        }
+
 
         // ---------------------------------------------------------
         // DATA STRUCTURES
@@ -321,12 +511,17 @@
             { title: "Felipe Ferreira: Bastidores que Ninguém Conta!", id: "9deIRMk93jA", type: "youtube" }
         ];
 
-        // Categories Configuration
+        // Categories Configuration with Multilingual Descriptions
         const categories = [
             {
                 id: 'unianchieta',
                 title: 'UNIANCHIETA',
-                description: 'Projetos audiovisuais acadêmicos e institucionais.',
+                descriptions: {
+                    pt: 'Projetos audiovisuais acadêmicos e institucionais.',
+                    en: 'Academic and institutional audiovisual projects.',
+                    es: 'Proyectos audiovisuales académicos e institucionales.',
+                    fr: 'Projets audiovisuels académiques et institutionnels.'
+                },
                 count: unianchietaVideos.length,
                 icon: 'library',
                 coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U',
@@ -335,7 +530,12 @@
             {
                 id: 'nexhub',
                 title: 'NexHub',
-                description: 'Estratégias, lançamentos e conteúdo high-end para redes sociais.',
+                descriptions: {
+                    pt: 'Estratégias, lançamentos e conteúdo high-end para redes sociais.',
+                    en: 'Strategies, launches, and high-end content for social media.',
+                    es: 'Estrategias, lanzamientos y contenido de alta gama para redes sociales.',
+                    fr: 'Stratégies, lancements et contenu haut de gamme pour les réseaux sociaux.'
+                },
                 count: marketingVideos.length,
                 icon: 'trending-up',
                 coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', 
@@ -344,7 +544,12 @@
             {
                 id: 'ory_clinica',
                 title: 'Ory Clínica',
-                description: 'Conteúdos focados em saúde, bem-estar e estética clínica.',
+                descriptions: {
+                    pt: 'Conteúdos focados em saúde, bem-estar e estética clínica.',
+                    en: 'Content focused on health, wellness, and clinical aesthetics.',
+                    es: 'Contenidos enfocados en salud, bienestar y estética clínica.',
+                    fr: 'Contenu axé sur la santé, le bien-être et l\'esthétique clinique.'
+                },
                 count: oryVideos.length,
                 icon: 'heart-pulse',
                 coverId: '1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly',
@@ -353,7 +558,12 @@
             {
                 id: 'aec_estetica',
                 title: 'AeC Estética',
-                description: 'Produções exclusivas para estética e cuidados pessoais.',
+                descriptions: {
+                    pt: 'Produções exclusivas para estética e cuidados pessoais.',
+                    en: 'Exclusive productions for aesthetics and personal care.',
+                    es: 'Producciones exclusivas para estética y cuidado personal.',
+                    fr: 'Productions exclusives pour l\'esthétique et les soins personnels.'
+                },
                 count: aecVideos.length,
                 icon: 'sparkles',
                 coverId: '1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G',
@@ -362,7 +572,12 @@
             {
                 id: 'unigrande',
                 title: 'UNIGRANDE',
-                description: 'Conteúdo institucional e educacional.',
+                descriptions: {
+                    pt: 'Conteúdo institucional e educacional.',
+                    en: 'Institutional and educational content.',
+                    es: 'Contenido institucional y educativo.',
+                    fr: 'Contenu institutionnel et éducatif.'
+                },
                 count: unigrandeVideos.length,
                 icon: 'graduation-cap',
                 coverId: '1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B',
@@ -371,7 +586,12 @@
             {
                 id: 'vanessa_nutri',
                 title: 'Vanessa - Nutricionista',
-                description: 'Conteúdos sobre alimentação saudável e nutrição.',
+                descriptions: {
+                    pt: 'Conteúdos sobre alimentação saudável e nutrição.',
+                    en: 'Content about healthy eating and nutrition.',
+                    es: 'Contenido sobre alimentación saludable y nutrición.',
+                    fr: 'Contenu sur une alimentation saine et la nutrition.'
+                },
                 count: vanessaVideos.length,
                 icon: 'apple',
                 coverId: '10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN',
@@ -380,7 +600,12 @@
             {
                 id: 'caesb',
                 title: 'CAESB',
-                description: 'Comunicação corporativa e gestão de recursos hídricos.',
+                descriptions: {
+                    pt: 'Comunicação corporativa e gestão de recursos hídricos.',
+                    en: 'Corporate communication and water resource management.',
+                    es: 'Comunicación corporativa y gestión de recursos hídricos.',
+                    fr: 'Communication d\'entreprise et gestion des ressources en eau.'
+                },
                 count: caesbVideos.length,
                 icon: 'droplets',
                 coverType: 'image',
@@ -390,7 +615,12 @@
             {
                 id: 'segue_o_baile',
                 title: 'Segue o Baile TV',
-                description: 'Cobertura de eventos e entrevistas exclusivas.',
+                descriptions: {
+                    pt: 'Cobertura de eventos e entrevistas exclusivas.',
+                    en: 'Event coverage and exclusive interviews.',
+                    es: 'Cobertura de eventos y entrevistas exclusivas.',
+                    fr: 'Couverture d\'événements et interviews exclusives.'
+                },
                 count: segueOBaileVideos.length,
                 icon: 'tv',
                 coverId: '2r_2mpd4uUA', 
@@ -400,14 +630,19 @@
             {
                 id: 'remaster_ia',
                 title: 'Remaster com IA (Clipe)',
-                description: 'Comparação de remasterização com Inteligência Artificial.',
+                descriptions: {
+                    pt: 'Comparação de remasterização com Inteligência Artificial.',
+                    en: 'Remastering comparison using Artificial Intelligence.',
+                    es: 'Comparación de remasterización con Inteligencia Artificial.',
+                    fr: 'Comparaison de remasterisation utilisant l\'Intelligence Artificielle.'
+                },
                 count: 2, 
                 icon: 'wand-2', 
                 coverId: '1ClQPFQYwystqP6hIWSeZeANDeel1hjpk', 
                 items: [],
                 specialType: 'comparison',
                 videoOriginal: '070jjUxiiaY',
-                videoRemaster: '1ClQPFQYwystqP6hIWSeZeANDeel1hjpk'
+                videoRemaster: 'IKeYemyRtqU'
             }
         ];
 
@@ -434,8 +669,8 @@
             
             setTimeout(() => {
                 // Update Header
-                headerTitle.textContent = "Projetos";
-                headerDesc.textContent = "Selecione uma categoria para explorar os vídeos.";
+                headerTitle.textContent = translations[currentLang].projects_header;
+                headerDesc.textContent = translations[currentLang].projects_subheader;
                 backBtn.classList.add('hidden');
 
                 // Clear Grid
@@ -460,6 +695,11 @@
                     card.className = 'folder-card group relative bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 cursor-pointer h-full min-h-[280px] flex flex-col';
                     card.onclick = () => openCategory(cat.id);
                     
+                    // Multi-lingual text for this card
+                    const cardDesc = cat.descriptions[currentLang] || cat.descriptions['pt'];
+                    const cardCountText = cat.specialType === 'comparison' ? 'Comparação' : `${cat.count} ${translations[currentLang].video_count}`;
+                    const btnText = cat.specialType === 'comparison' ? translations[currentLang].btn_open_compare : translations[currentLang].btn_open_folder;
+
                     card.innerHTML = `
                         <!-- Cover Image with Dark Overlay -->
                         <div class="h-40 w-full relative overflow-hidden bg-zinc-800">
@@ -475,14 +715,14 @@
                         <!-- Content -->
                         <div class="p-6 flex-1 flex flex-col relative">
                             <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors mb-2">${cat.title}</h3>
-                            <p class="text-zinc-400 text-sm mb-4 line-clamp-2">${cat.description}</p>
+                            <p class="text-zinc-400 text-sm mb-4 line-clamp-2">${cardDesc}</p>
                             
                             <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
                                 <span class="text-xs font-medium px-2 py-1 rounded bg-white/5 text-zinc-300 border border-white/10">
-                                    ${cat.specialType === 'comparison' ? 'Comparação' : cat.count + ' Vídeos'}
+                                    ${cardCountText}
                                 </span>
                                 <span class="text-brand-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                                    Abrir ${cat.specialType === 'comparison' ? 'Comparação' : 'Pasta'} <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                    ${btnText} <i data-lucide="arrow-right" class="w-4 h-4"></i>
                                 </span>
                             </div>
                         </div>
@@ -506,7 +746,7 @@
             setTimeout(() => {
                 // Update Header
                 headerTitle.textContent = category.title;
-                headerDesc.textContent = category.description;
+                headerDesc.textContent = category.descriptions[currentLang] || category.descriptions['pt'];
                 backBtn.classList.remove('hidden');
 
                 // Clear Grid
@@ -518,13 +758,15 @@
                     gridContainer.classList.remove('grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3');
                     gridContainer.classList.add('!flex', '!flex-col', 'gap-8'); // Use flex column for the stacked responsive layout
 
+                    const t = translations[currentLang];
+
                     const comparisonHTML = `
                         <div class="w-full animate-fade-in space-y-8">
                             
                             <!-- Introduction Text -->
                             <div class="bg-brand-900/20 border border-brand-500/20 rounded-lg p-4 text-center">
                                 <p class="text-brand-200">
-                                    <span class="font-bold">✨ Comparação de Tecnologia:</span> Veja a diferença de qualidade entre o clipe original e a remasterização processada por Inteligência Artificial.
+                                    <span class="font-bold">${t.compare_title}</span> ${t.compare_desc}
                                 </p>
                             </div>
 
@@ -533,7 +775,7 @@
                                 <div class="flex flex-col gap-3">
                                     <div class="flex items-center justify-between px-1">
                                         <h3 class="text-lg font-bold text-zinc-400 flex items-center gap-2">
-                                            <i data-lucide="history" class="w-5 h-5"></i> Original
+                                            <i data-lucide="history" class="w-5 h-5"></i> ${t.compare_orig_label}
                                         </h3>
                                         <span class="text-xs uppercase font-bold text-zinc-600 bg-zinc-900 border border-zinc-800 px-2 py-1 rounded">YouTube</span>
                                     </div>
@@ -548,14 +790,14 @@
                                             allowfullscreen>
                                         </iframe>
                                     </div>
-                                    <p class="text-sm text-zinc-500 text-center">Resolução original do clipe oficial.</p>
+                                    <p class="text-sm text-zinc-500 text-center">${t.compare_orig_sub}</p>
                                 </div>
 
-                                <!-- REMASTER (Drive) -->
+                                <!-- REMASTER (YouTube) -->
                                 <div class="flex flex-col gap-3">
                                     <div class="flex items-center justify-between px-1">
                                         <h3 class="text-lg font-bold text-brand-400 flex items-center gap-2">
-                                            <i data-lucide="sparkles" class="w-5 h-5 text-brand-500"></i> Remasterizado com IA
+                                            <i data-lucide="sparkles" class="w-5 h-5 text-brand-500"></i> ${t.compare_remaster_label}
                                         </h3>
                                         <span class="text-xs uppercase font-bold text-brand-300 bg-brand-900/40 border border-brand-500/30 px-2 py-1 rounded animate-pulse">Upscale 4K</span>
                                     </div>
@@ -565,14 +807,14 @@
                                          <iframe 
                                             width="100%" 
                                             height="100%" 
-                                            src="https://drive.google.com/file/d/${category.videoRemaster}/preview" 
+                                            src="https://www.youtube.com/embed/${category.videoRemaster}?vq=hd2160" 
                                             title="Video Remasterizado" 
                                             frameborder="0" 
-                                            allow="autoplay; fullscreen" 
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                             allowfullscreen>
                                         </iframe>
                                     </div>
-                                    <p class="text-sm text-brand-400/70 text-center">Melhoria de nitidez, cores e resolução.</p>
+                                    <p class="text-sm text-brand-400/70 text-center">${t.compare_remaster_sub}</p>
                                 </div>
                             </div>
 
@@ -620,7 +862,7 @@
                                 </h3>
                                 <div class="mt-2 flex items-center justify-between text-xs text-zinc-500">
                                     <span class="flex items-center gap-1">
-                                        <i data-lucide="clock" class="w-3 h-3"></i> Assista agora
+                                        <i data-lucide="clock" class="w-3 h-3"></i> ${translations[currentLang].watch_now}
                                     </span>
                                     ${isYoutube ? '<span class="text-[10px] uppercase font-bold text-zinc-500 border border-zinc-700 px-1.5 rounded">YT</span>' : ''}
                                 </div>
@@ -680,8 +922,8 @@
         // ---------------------------------------------------------
         // INIT
         // ---------------------------------------------------------
-        // Start by showing categories
-        showCategories();
+        // Initialize Language and Show Categories
+        changeLanguage(currentLang);
 
     </script>
 </body>
