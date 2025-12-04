@@ -109,17 +109,30 @@
             100% { background-position: -200% 0; }
         }
 
-        /* Language Buttons */
+        /* Language Buttons - Updated for Images */
         .lang-btn {
-            font-size: 1.2rem;
             filter: grayscale(100%);
             transition: all 0.2s;
             opacity: 0.7;
+            width: 30px;
+            height: 22px;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .lang-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .lang-btn:hover, .lang-btn.active {
             filter: grayscale(0%);
-            transform: scale(1.2);
+            transform: scale(1.1);
             opacity: 1;
+            border-color: rgba(99, 102, 241, 0.5); /* Brand color border */
         }
     </style>
 </head>
@@ -143,20 +156,30 @@
                     
                     <!-- Language Switcher Desktop -->
                     <div class="flex items-center gap-3 border-l border-white/10 pl-6">
-                        <button onclick="changeLanguage('pt')" class="lang-btn" id="btn-pt" title="Português">🇧🇷</button>
-                        <button onclick="changeLanguage('en')" class="lang-btn" id="btn-en" title="English">🇺🇸</button>
-                        <button onclick="changeLanguage('es')" class="lang-btn" id="btn-es" title="Español">🇪🇸</button>
-                        <button onclick="changeLanguage('fr')" class="lang-btn" id="btn-fr" title="Français">🇫🇷</button>
+                        <button onclick="changeLanguage('pt')" class="lang-btn" id="btn-pt" title="Português (BR)">
+                            <img src="https://flagcdn.com/w40/br.png" alt="BR">
+                        </button>
+                        <button onclick="changeLanguage('pt-PT')" class="lang-btn" id="btn-pt-PT" title="Português (PT)">
+                            <img src="https://flagcdn.com/w40/pt.png" alt="PT">
+                        </button>
+                        <button onclick="changeLanguage('en')" class="lang-btn" id="btn-en" title="English">
+                            <img src="https://flagcdn.com/w40/us.png" alt="US">
+                        </button>
+                        <button onclick="changeLanguage('es')" class="lang-btn" id="btn-es" title="Español">
+                            <img src="https://flagcdn.com/w40/es.png" alt="ES">
+                        </button>
+                        <button onclick="changeLanguage('fr')" class="lang-btn" id="btn-fr" title="Français">
+                            <img src="https://flagcdn.com/w40/fr.png" alt="FR">
+                        </button>
                     </div>
                 </div>
 
                 <!-- Mobile Menu Button & Lang -->
                 <div class="md:hidden flex items-center gap-4">
                     <div class="flex items-center gap-2">
-                        <button onclick="changeLanguage('pt')" class="text-lg hover:scale-110 transition-transform">🇧🇷</button>
-                        <button onclick="changeLanguage('en')" class="text-lg hover:scale-110 transition-transform">🇺🇸</button>
-                        <button onclick="changeLanguage('es')" class="text-lg hover:scale-110 transition-transform">🇪🇸</button>
-                        <button onclick="changeLanguage('fr')" class="text-lg hover:scale-110 transition-transform">🇫🇷</button>
+                        <button onclick="changeLanguage('pt')" class="lang-btn" title="Português (BR)"><img src="https://flagcdn.com/w40/br.png" alt="BR"></button>
+                        <button onclick="changeLanguage('pt-PT')" class="lang-btn" title="Português (PT)"><img src="https://flagcdn.com/w40/pt.png" alt="PT"></button>
+                        <button onclick="changeLanguage('en')" class="lang-btn" title="English"><img src="https://flagcdn.com/w40/us.png" alt="US"></button>
                     </div>
                     <button class="text-zinc-400 hover:text-white">
                         <i data-lucide="menu" class="w-6 h-6"></i>
@@ -314,7 +337,36 @@
                 compare_orig_label: "Original",
                 compare_orig_sub: "Resolução original do clipe oficial.",
                 compare_remaster_label: "Remasterizado com IA",
-                compare_remaster_sub: "Melhoria de nitidez, colores e resolução."
+                compare_remaster_sub: "Melhoria de nitidez, cores e resolução."
+            },
+            'pt-PT': {
+                nav_home: "Início",
+                nav_projects: "Projetos",
+                nav_contact: "Contacto",
+                hero_badge: "Disponível para novos projetos",
+                hero_title_1: "A criar experiências visuais",
+                hero_title_2: "impactantes e modernas",
+                hero_subtitle: "Especialista em edição de vídeo, motion graphics e storytelling. Confira os meus trabalhos mais recentes abaixo.",
+                hero_cta: "Ver Portfólio",
+                projects_header: "Projetos",
+                projects_subheader: "Navegue pelas categorias abaixo.",
+                btn_back: "Voltar para Categorias",
+                video_count: "Vídeos",
+                btn_open_folder: "Abrir Pasta",
+                btn_open_compare: "Abrir Comparação",
+                more_topics_title: "Mais tópicos em breve",
+                more_topics_desc: "Novas categorias serão adicionadas conforme novos projetos forem finalizados.",
+                btn_quote: "Solicitar Orçamento",
+                footer_rights: "© 2024 Felipe Canneli. Todos os direitos reservados.",
+                modal_error: "O vídeo não carregou?",
+                modal_open_original: "Abrir original",
+                watch_now: "Veja agora",
+                compare_title: "✨ Comparação de Tecnologia:",
+                compare_desc: "Veja a diferença de qualidade entre o clipe original e a remasterização processada por Inteligência Artificial.",
+                compare_orig_label: "Original",
+                compare_orig_sub: "Resolução original do clipe oficial.",
+                compare_remaster_label: "Remasterizado com IA",
+                compare_remaster_sub: "Melhoria de nitidez, cores e resolução."
             },
             en: {
                 nav_home: "Home",
@@ -522,6 +574,7 @@
                 title: 'UNIANCHIETA',
                 descriptions: {
                     pt: 'Projetos audiovisuais acadêmicos e institucionais.',
+                    'pt-PT': 'Projetos audiovisuais académicos e institucionais.',
                     en: 'Academic and institutional audiovisual projects.',
                     es: 'Proyectos audiovisuales académicos e institucionales.',
                     fr: 'Projets audiovisuels académiques et institutionnels.'
@@ -536,6 +589,7 @@
                 title: 'NexHub',
                 descriptions: {
                     pt: 'Estratégias, lançamentos e conteúdo high-end para redes sociais.',
+                    'pt-PT': 'Estratégias, lançamentos e conteúdo high-end para redes sociais.',
                     en: 'Strategies, launches, and high-end content for social media.',
                     es: 'Estrategias, lanzamientos y contenido de alta gama para redes sociales.',
                     fr: 'Stratégies, lancements et contenu haut de gamme pour les réseaux sociaux.'
@@ -550,6 +604,7 @@
                 title: 'Ory Clínica',
                 descriptions: {
                     pt: 'Conteúdos focados em saúde, bem-estar e estética clínica.',
+                    'pt-PT': 'Conteúdos focados em saúde, bem-estar e estética clínica.',
                     en: 'Content focused on health, wellness, and clinical aesthetics.',
                     es: 'Contenidos enfocados en salud, bienestar y estética clínica.',
                     fr: 'Contenu axé sur la santé, le bien-être et l\'esthétique clinique.'
@@ -564,6 +619,7 @@
                 title: 'AeC Estética',
                 descriptions: {
                     pt: 'Produções exclusivas para estética e cuidados pessoais.',
+                    'pt-PT': 'Produções exclusivas para estética e cuidados pessoais.',
                     en: 'Exclusive productions for aesthetics and personal care.',
                     es: 'Producciones exclusivas para estética y cuidado personal.',
                     fr: 'Productions exclusives pour l\'esthétique et les soins personnels.'
@@ -578,6 +634,7 @@
                 title: 'UNIGRANDE',
                 descriptions: {
                     pt: 'Conteúdo institucional e educacional.',
+                    'pt-PT': 'Conteúdo institucional e educacional.',
                     en: 'Institutional and educational content.',
                     es: 'Contenido institucional y educativo.',
                     fr: 'Contenu institutionnel et éducatif.'
@@ -592,6 +649,7 @@
                 title: 'Vanessa - Nutricionista',
                 descriptions: {
                     pt: 'Conteúdos sobre alimentação saudável e nutrição.',
+                    'pt-PT': 'Conteúdos sobre alimentação saudável e nutrição.',
                     en: 'Content about healthy eating and nutrition.',
                     es: 'Contenido sobre alimentación saludable y nutrición.',
                     fr: 'Contenu sur une alimentation saine et la nutrition.'
@@ -606,6 +664,7 @@
                 title: 'CAESB',
                 descriptions: {
                     pt: 'Comunicação corporativa e gestão de recursos hídricos.',
+                    'pt-PT': 'Comunicação corporativa e gestão de recursos hídricos.',
                     en: 'Corporate communication and water resource management.',
                     es: 'Comunicación corporativa y gestión de recursos hídricos.',
                     fr: 'Communication d\'entreprise et gestion des ressources en eau.'
@@ -621,6 +680,7 @@
                 title: 'Segue o Baile TV',
                 descriptions: {
                     pt: 'Cobertura de eventos e entrevistas exclusivas.',
+                    'pt-PT': 'Cobertura de eventos e entrevistas exclusivas.',
                     en: 'Event coverage and exclusive interviews.',
                     es: 'Cobertura de eventos y entrevistas exclusivas.',
                     fr: 'Couverture d\'événements et interviews exclusives.'
@@ -636,6 +696,7 @@
                 title: 'Remaster com IA (Clipe)',
                 descriptions: {
                     pt: 'Comparação de remasterização com Inteligência Artificial.',
+                    'pt-PT': 'Comparação de remasterização com Inteligência Artificial.',
                     en: 'Remastering comparison using Artificial Intelligence.',
                     es: 'Comparación de remasterización con Inteligencia Artificial.',
                     fr: 'Comparaison de remasterisation utilisant l\'Intelligence Artificielle.'
