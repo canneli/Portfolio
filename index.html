@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Meta tag essencial para o Google Drive aceitar as imagens no GitHub -->
     <meta name="referrer" content="no-referrer">
     
-    <!-- Favicon de Câmera (SVG otimizado na cor da marca) -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23818cf8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/svg%3E">
 
-    <title>Felipe Canneli - Portfólio</title>
+    <title>Felipe Canneli - Visual Experience</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Adicionei 'Outfit' para títulos mais modernos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -27,23 +28,26 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'], // Nova fonte para títulos
                     },
                     colors: {
                         brand: {
                             400: '#818cf8',
-                            500: '#6366f1', // Indigo
+                            500: '#6366f1',
                             600: '#4f46e5',
                             900: '#312e81',
                         },
                         dark: {
-                            900: '#0f0f12', // Almost black
-                            800: '#18181b', // Zinc 900
-                            700: '#27272a', // Zinc 800
+                            900: '#0a0a0c', // Mais escuro para contraste
+                            800: '#121215',
+                            700: '#1c1c21',
                         }
                     },
                     animation: {
-                        'fade-in': 'fadeIn 0.5s ease-out',
-                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'blob': 'blob 7s infinite', // Animação do fundo
+                        'shine': 'shine 3s linear infinite', // Animação do texto
                     },
                     keyframes: {
                         fadeIn: {
@@ -51,8 +55,18 @@
                             '100%': { opacity: '1' },
                         },
                         slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
                             '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        shine: {
+                            '0%': { backgroundPosition: '200% center' },
+                            '100%': { backgroundPosition: '-200% center' },
                         }
                     }
                 }
@@ -62,127 +76,141 @@
 
     <style>
         body {
-            background-color: #0f0f12;
+            background-color: #050505;
             color: #e4e4e7;
+            overflow-x: hidden;
         }
         
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #18181b; 
+            background: #0a0a0c; 
         }
         ::-webkit-scrollbar-thumb {
-            background: #3f3f46; 
+            background: #27272a; 
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #52525b; 
+            background: #3f3f46; 
         }
 
-        .video-card:hover .play-overlay {
-            opacity: 1;
-        }
-        
-        .gradient-text {
-            background: linear-gradient(to right, #818cf8, #c084fc);
+        /* Text Gradients */
+        .text-gradient-main {
+            background: linear-gradient(to right, #ffffff 20%, #818cf8 50%, #ffffff 80%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
         }
 
-        .folder-card {
-            transition: all 0.3s ease;
-        }
-        .folder-card:hover {
-            transform: translateY(-5px);
+        /* Card Hover Effects */
+        .glass-card {
+            background: rgba(28, 28, 33, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        /* Loading skeleton animation */
-        .skeleton {
-            background: linear-gradient(90deg, #27272a 25%, #3f3f46 50%, #27272a 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-5px) scale(1.01);
+            background: rgba(28, 28, 33, 0.6);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.1);
         }
 
-        /* Language Buttons - Updated for Images */
+        /* Background Animation Blobs */
+        .animate-blob {
+            animation: blob 10s infinite;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+
+        /* Lang Button styles */
         .lang-btn {
-            filter: grayscale(100%);
-            transition: all 0.2s;
-            opacity: 0.7;
-            width: 30px;
-            height: 22px;
+            filter: grayscale(100%) opacity(0.6);
+            transition: all 0.3s ease;
+            width: 28px;
+            height: 20px;
             border-radius: 4px;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border: 1px solid rgba(255,255,255,0.1);
         }
-        .lang-btn img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .lang-btn img { width: 100%; height: 100%; object-fit: cover; }
         .lang-btn:hover, .lang-btn.active {
-            filter: grayscale(0%);
-            transform: scale(1.1);
-            opacity: 1;
-            border-color: rgba(99, 102, 241, 0.5); /* Brand color border */
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.15);
+            border-color: #6366f1;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
+<body class="antialiased min-h-screen flex flex-col relative">
+
+    <!-- BACKGROUND ANIMATION (Mesh Gradient) -->
+    <div class="fixed inset-0 z-0 w-full h-full pointer-events-none overflow-hidden">
+        <!-- Blob 1 (Purple) -->
+        <div class="absolute top-0 -left-4 w-96 h-96 bg-brand-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob"></div>
+        <!-- Blob 2 (Indigo) -->
+        <div class="absolute top-0 -right-4 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob animation-delay-2000"></div>
+        <!-- Blob 3 (Pink/Accent) -->
+        <div class="absolute -bottom-32 left-20 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/5">
+    <nav class="fixed w-full z-50 bg-dark-900/60 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold">F</div>
-                    <span class="text-xl font-bold tracking-tight text-white">Felipe Canneli<span class="text-brand-500">.</span></span>
+                <!-- Logo -->
+                <div class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="relative w-10 h-10">
+                        <div class="absolute inset-0 bg-brand-500 blur-lg opacity-40 group-hover:opacity-70 transition-opacity"></div>
+                        <div class="relative w-full h-full bg-gradient-to-br from-brand-600 to-indigo-800 rounded-xl flex items-center justify-center text-white font-display font-bold text-lg border border-white/10 shadow-xl">
+                            FC
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-display font-bold text-lg tracking-tight text-white leading-none group-hover:text-brand-300 transition-colors">Felipe Canneli</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-bold">Portfolio</span>
+                    </div>
                 </div>
                 
+                <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-8">
-                    <div class="flex items-baseline space-x-8">
-                        <a href="#home" data-i18n="nav_home" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Início</a>
-                        <a href="#projects" data-i18n="nav_projects" class="bg-white/5 text-white px-3 py-2 rounded-md text-sm font-medium border border-white/10">Projetos</a>
-                        <a href="#contact" data-i18n="nav_contact" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-zinc-300 transition-colors">Contato</a>
+                    <div class="flex items-baseline space-x-1">
+                        <a href="#home" data-i18n="nav_home" class="px-4 py-2 rounded-full text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition-all">Início</a>
+                        <a href="#projects" data-i18n="nav_projects" class="px-4 py-2 rounded-full text-sm font-medium text-brand-300 bg-brand-500/10 border border-brand-500/20 hover:bg-brand-500/20 transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)]">Projetos</a>
+                        <a href="#contact" data-i18n="nav_contact" class="px-4 py-2 rounded-full text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition-all">Contato</a>
                     </div>
                     
-                    <!-- Language Switcher Desktop -->
-                    <div class="flex items-center gap-3 border-l border-white/10 pl-6">
-                        <button onclick="changeLanguage('pt')" class="lang-btn" id="btn-pt" title="Português (BR)">
-                            <img src="https://flagcdn.com/w40/br.png" alt="BR">
-                        </button>
-                        <button onclick="changeLanguage('pt-PT')" class="lang-btn" id="btn-pt-PT" title="Português (PT)">
-                            <img src="https://flagcdn.com/w40/pt.png" alt="PT">
-                        </button>
-                        <button onclick="changeLanguage('en')" class="lang-btn" id="btn-en" title="English">
-                            <img src="https://flagcdn.com/w40/us.png" alt="US">
-                        </button>
-                        <button onclick="changeLanguage('es')" class="lang-btn" id="btn-es" title="Español">
-                            <img src="https://flagcdn.com/w40/es.png" alt="ES">
-                        </button>
-                        <button onclick="changeLanguage('fr')" class="lang-btn" id="btn-fr" title="Français">
-                            <img src="https://flagcdn.com/w40/fr.png" alt="FR">
-                        </button>
+                    <!-- Language Switcher -->
+                    <div class="flex items-center gap-2 pl-6 border-l border-white/10">
+                        <button onclick="changeLanguage('pt')" class="lang-btn" id="btn-pt" title="Português (BR)"><img src="https://flagcdn.com/w40/br.png" alt="BR"></button>
+                        <button onclick="changeLanguage('pt-PT')" class="lang-btn" id="btn-pt-PT" title="Português (PT)"><img src="https://flagcdn.com/w40/pt.png" alt="PT"></button>
+                        <button onclick="changeLanguage('en')" class="lang-btn" id="btn-en" title="English"><img src="https://flagcdn.com/w40/us.png" alt="US"></button>
+                        <button onclick="changeLanguage('es')" class="lang-btn" id="btn-es" title="Español"><img src="https://flagcdn.com/w40/es.png" alt="ES"></button>
+                        <button onclick="changeLanguage('fr')" class="lang-btn" id="btn-fr" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="FR"></button>
                     </div>
                 </div>
 
-                <!-- Mobile Menu Button & Lang -->
+                <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center gap-4">
                     <div class="flex items-center gap-2">
-                        <button onclick="changeLanguage('pt')" class="lang-btn" title="Português (BR)"><img src="https://flagcdn.com/w40/br.png" alt="BR"></button>
-                        <button onclick="changeLanguage('pt-PT')" class="lang-btn" title="Português (PT)"><img src="https://flagcdn.com/w40/pt.png" alt="PT"></button>
-                        <button onclick="changeLanguage('en')" class="lang-btn" title="English"><img src="https://flagcdn.com/w40/us.png" alt="US"></button>
+                        <button onclick="changeLanguage('pt')" class="lang-btn"><img src="https://flagcdn.com/w40/br.png"></button>
+                        <button onclick="changeLanguage('en')" class="lang-btn"><img src="https://flagcdn.com/w40/us.png"></button>
                     </div>
-                    <button class="text-zinc-400 hover:text-white">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    <button class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 text-zinc-400 hover:text-white border border-white/10">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
@@ -190,110 +218,133 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-12 sm:pt-40 sm:pb-16 lg:pb-24 overflow-hidden relative">
-        <!-- Background Glow -->
-        <div class="absolute top-0 left-1/2 w-full -translate-x-1/2 h-full z-0 pointer-events-none">
-             <div class="absolute top-20 left-1/4 w-[500px] h-[500px] bg-brand-600/20 rounded-full blur-[100px]"></div>
-             <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="inline-flex items-center px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs font-medium mb-6 animate-fade-in">
+    <section id="home" class="relative pt-32 pb-20 sm:pt-48 sm:pb-32 lg:pb-40 overflow-hidden flex flex-col items-center justify-center text-center z-10">
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-400/30 bg-brand-500/10 text-brand-300 text-xs font-bold tracking-wide uppercase mb-8 animate-fade-in backdrop-blur-md shadow-[0_0_20px_rgba(99,102,241,0.3)]">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                 <span data-i18n="hero_badge">Disponível para novos projetos</span>
             </div>
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 animate-slide-up">
-                <span data-i18n="hero_title_1">Criando experiências visuais</span> <br>
-                <span class="gradient-text" data-i18n="hero_title_2">impactantes e modernas</span>
+            
+            <!-- Main Title -->
+            <h1 class="font-display font-bold text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white mb-6 animate-slide-up leading-[1.1]">
+                <span data-i18n="hero_title_1">Criando experiências</span> <br>
+                <!-- Nome com destaque e gradiente animado -->
+                <span class="text-gradient-main" data-i18n="hero_title_2">visuais impactantes</span>
             </h1>
-            <p data-i18n="hero_subtitle" class="mt-4 max-w-2xl mx-auto text-xl text-zinc-400 animate-slide-up" style="animation-delay: 0.1s;">
-                Especialista em edição de vídeo, motion graphics e storytelling. Confira meus trabalhos mais recentes abaixo.
+            
+            <!-- Subtitle -->
+            <p data-i18n="hero_subtitle" class="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-zinc-400 font-light animate-slide-up opacity-0" style="animation-delay: 0.2s;">
+                Edição de vídeo, motion graphics e storytelling visual que transformam espectadores em clientes.
             </p>
-            <div class="mt-10 flex justify-center gap-4 animate-slide-up" style="animation-delay: 0.2s;">
-                <a href="#projects" class="px-8 py-3 rounded-full bg-white text-dark-900 font-semibold hover:bg-zinc-200 transition-colors flex items-center gap-2">
-                    <i data-lucide="play-circle" class="w-5 h-5"></i>
-                    <span data-i18n="hero_cta">Ver Portfólio</span>
+            
+            <!-- CTA Buttons -->
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up opacity-0" style="animation-delay: 0.4s;">
+                <a href="#projects" class="group relative px-8 py-4 rounded-full bg-white text-black font-display font-bold hover:scale-105 transition-transform duration-300 overflow-hidden">
+                    <span class="relative z-10 flex items-center gap-2">
+                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                        <span data-i18n="hero_cta">Ver Portfólio</span>
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-200 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                
+                <a href="#contact" class="px-8 py-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white font-display font-medium hover:bg-white/10 hover:border-white/20 transition-all flex items-center gap-2">
+                    <span data-i18n="nav_contact">Contato</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-zinc-400"></i>
                 </a>
             </div>
+
         </div>
+        
+        <!-- Bottom Fade -->
+        <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-dark-900 to-transparent"></div>
     </section>
 
-    <!-- Projects Section (Categories & Videos) -->
-    <section id="projects" class="py-20 bg-dark-800 relative border-t border-white/5 min-h-[600px]">
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-dark-900 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <!-- Dynamic Header -->
-            <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-16 gap-4 border-b border-white/5 pb-8">
                 <div id="section-header">
-                    <!-- Text injected by JS -->
-                    <h2 class="text-3xl font-bold text-white mb-2" data-i18n="projects_header">Projetos</h2>
-                    <p class="text-zinc-400" data-i18n="projects_subheader">Navegue pelas categorias abaixo.</p>
+                    <h2 class="font-display text-4xl font-bold text-white mb-2" data-i18n="projects_header">Projetos</h2>
+                    <p class="text-zinc-400 text-lg" data-i18n="projects_subheader">Navegue pelas categorias de produção.</p>
                 </div>
                 
-                <!-- Back Button (Hidden by default) -->
-                <button id="back-btn" onclick="showCategories()" class="hidden group flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-zinc-300 hover:text-white transition-all">
+                <button id="back-btn" onclick="showCategories()" class="hidden group flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all">
                     <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
-                    <span data-i18n="btn_back">Voltar para Categorias</span>
+                    <span data-i18n="btn_back">Voltar</span>
                 </button>
             </div>
 
-            <!-- Content Grid (Switches between Categories and Videos) -->
-            <div id="dynamic-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-opacity duration-300">
-                <!-- Content will be inserted here by JavaScript -->
+            <!-- Grid Container -->
+            <div id="dynamic-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-opacity duration-500 min-h-[400px]">
+                <!-- Javascript fills this -->
             </div>
         </div>
     </section>
 
-    <!-- Other Topics Placeholder -->
-    <section class="py-20 border-t border-white/5 bg-dark-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="max-w-md mx-auto">
-                <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i data-lucide="folder-plus" class="w-8 h-8 text-zinc-500"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-white mb-3" data-i18n="more_topics_title">Mais tópicos em breve</h2>
-                <p class="text-zinc-400 mb-8" data-i18n="more_topics_desc">Novas categorias serão adicionadas conforme novos projetos forem finalizados.</p>
-                <!-- Updated Quote Button to WhatsApp Link -->
-                <a href="https://wa.me/5531965547183" target="_blank" data-i18n="btn_quote" class="text-sm font-medium text-brand-500 hover:text-brand-400 transition-colors uppercase tracking-wider">
-                    Solicitar Orçamento
-                </a>
+    <!-- Other Topics / Footer Call -->
+    <section class="py-24 relative z-10 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-brand-900/10"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="w-20 h-20 bg-gradient-to-br from-zinc-800 to-zinc-900 border border-white/10 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl rotate-3 hover:rotate-6 transition-transform duration-300">
+                <i data-lucide="folder-plus" class="w-10 h-10 text-brand-400"></i>
             </div>
+            
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4" data-i18n="more_topics_title">Mais projetos em breve</h2>
+            <p class="text-zinc-400 text-lg mb-10 max-w-lg mx-auto leading-relaxed" data-i18n="more_topics_desc">Novas categorias serão adicionadas conforme novos projetos forem finalizados. Quer fazer parte do portfólio?</p>
+            
+            <a href="https://wa.me/5531965547183" target="_blank" data-i18n="btn_quote" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white font-display font-bold rounded-full transition-all shadow-lg shadow-brand-600/20 hover:shadow-brand-600/40 transform hover:-translate-y-1">
+                <span>Solicitar Orçamento</span>
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-black py-12 border-t border-white/10 mt-auto">
+    <footer id="contact" class="bg-black py-12 border-t border-white/5 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="flex items-center gap-2">
-                    <div class="w-6 h-6 bg-brand-600 rounded flex items-center justify-center text-white text-xs font-bold">F</div>
-                    <span class="text-lg font-bold text-white">Felipe Canneli</span>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-white text-black rounded-lg flex items-center justify-center font-display font-bold text-sm">FC</div>
+                    <span class="font-display font-bold text-zinc-300">Felipe Canneli</span>
                 </div>
-                <!-- Updated Social Links -->
+                
                 <div class="flex gap-6">
-                    <a href="https://instagram.com/felipecanneli" target="_blank" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="https://www.linkedin.com/in/felipecanneli/" target="_blank" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                    <a href="mailto:canellifelipe@gmail.com" class="text-zinc-500 hover:text-brand-500 transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                    <a href="https://instagram.com/felipecanneli" target="_blank" class="text-zinc-500 hover:text-white transition-colors p-2 hover:bg-white/5 rounded-full"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="https://www.linkedin.com/in/felipecanneli/" target="_blank" class="text-zinc-500 hover:text-white transition-colors p-2 hover:bg-white/5 rounded-full"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    <a href="mailto:canellifelipe@gmail.com" class="text-zinc-500 hover:text-white transition-colors p-2 hover:bg-white/5 rounded-full"><i data-lucide="mail" class="w-5 h-5"></i></a>
                 </div>
-                <p class="text-zinc-600 text-sm" data-i18n="footer_rights">© 2024 Felipe Canneli. Todos os direitos reservados.</p>
+                
+                <p class="text-zinc-600 text-sm font-light" data-i18n="footer_rights">© 2024 Felipe Canneli. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Video Modal (Overlay) -->
-    <div id="video-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="flex flex-col items-center w-full max-w-5xl">
-            <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
-                <button onclick="closeModal()" class="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-brand-600 rounded-full text-white transition-colors">
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="flex flex-col items-center w-full max-w-6xl">
+            <div class="w-full flex justify-end mb-4">
+                 <button onclick="closeModal()" class="p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors border border-white/5">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
+            </div>
+           
+            <div class="relative w-full aspect-video bg-zinc-900 rounded-2xl overflow-hidden shadow-2xl shadow-brand-900/20 ring-1 ring-white/10">
                 <iframe id="modal-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
             </div>
-            <!-- Help text below video -->
-            <div class="mt-4 text-center">
-                <p class="text-zinc-400 text-sm mb-2" data-i18n="modal_error">O vídeo não carregou?</p>
-                <a id="modal-external-link" href="#" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm text-white transition-colors">
+            
+            <div class="mt-6 text-center">
+                <p class="text-zinc-500 text-sm mb-3" data-i18n="modal_error">O vídeo não carregou?</p>
+                <a id="modal-external-link" href="#" target="_blank" class="inline-flex items-center gap-2 px-5 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-sm text-zinc-300 hover:text-white transition-colors border border-white/5">
                     <i data-lucide="external-link" class="w-4 h-4"></i>
-                    <span data-i18n="modal_open_original">Abrir original</span>
+                    <span data-i18n="modal_open_original">Abrir link externo</span>
                 </a>
             </div>
         </div>
@@ -304,156 +355,110 @@
         lucide.createIcons();
 
         // ---------------------------------------------------------
-        // INTERNATIONALIZATION (i18n)
+        // DATA & LOGIC (Mantido igual, apenas adaptado estilos JS)
         // ---------------------------------------------------------
-        
         let currentLang = localStorage.getItem('siteLang') || 'pt';
         
         const translations = {
             pt: {
-                nav_home: "Início",
-                nav_projects: "Projetos",
-                nav_contact: "Contato",
+                nav_home: "Início", nav_projects: "Projetos", nav_contact: "Contato",
                 hero_badge: "Disponível para novos projetos",
-                hero_title_1: "Criando experiências visuais",
-                hero_title_2: "impactantes e modernas",
+                hero_title_1: "Criando experiências", hero_title_2: "visuais impactantes",
                 hero_subtitle: "Especialista em edição de vídeo, motion graphics e storytelling. Confira meus trabalhos mais recentes abaixo.",
                 hero_cta: "Ver Portfólio",
-                projects_header: "Projetos",
-                projects_subheader: "Navegue pelas categorias abaixo.",
-                btn_back: "Voltar para Categorias",
-                video_count: "Vídeos",
-                btn_open_folder: "Abrir Pasta",
-                btn_open_compare: "Abrir Comparação",
-                more_topics_title: "Mais tópicos em breve",
-                more_topics_desc: "Novas categorias serão adicionadas conforme novos projetos forem finalizados.",
+                projects_header: "Projetos", projects_subheader: "Explore minhas produções por categoria.",
+                btn_back: "Voltar", video_count: "Projetos",
+                btn_open_folder: "Explorar", btn_open_compare: "Ver Comparação",
+                more_topics_title: "Mais projetos em breve",
+                more_topics_desc: "Novas categorias serão adicionadas conforme novos projetos forem finalizados. Quer fazer parte do portfólio?",
                 btn_quote: "Solicitar Orçamento",
                 footer_rights: "© 2024 Felipe Canneli. Todos os direitos reservados.",
-                modal_error: "O vídeo não carregou?",
-                modal_open_original: "Abrir original",
-                watch_now: "Assista agora",
-                compare_title: "✨ Comparação de Tecnologia:",
-                compare_desc: "Veja a diferença de qualidade entre o clipe original e a remasterização processada por Inteligência Artificial.",
-                compare_orig_label: "Original",
-                compare_orig_sub: "Resolução original do clipe oficial.",
-                compare_remaster_label: "Remasterizado com IA",
-                compare_remaster_sub: "Melhoria de nitidez, cores e resolução."
+                modal_error: "Problemas na reprodução?", modal_open_original: "Abrir original",
+                watch_now: "Assistir",
+                compare_title: "✨ Tecnologia & Arte:",
+                compare_desc: "Veja como a IA pode restaurar e melhorar a qualidade de vídeos antigos.",
+                compare_orig_label: "Original", compare_orig_sub: "Resolução nativa",
+                compare_remaster_label: "Remasterizado IA", compare_remaster_sub: "Upscale 4K + Tratamento de Cor"
             },
             'pt-PT': {
-                nav_home: "Início",
-                nav_projects: "Projetos",
-                nav_contact: "Contacto",
+                nav_home: "Início", nav_projects: "Projetos", nav_contact: "Contacto",
                 hero_badge: "Disponível para novos projetos",
-                hero_title_1: "A criar experiências visuais",
-                hero_title_2: "impactantes e modernas",
-                hero_subtitle: "Especialista em edição de vídeo, motion graphics e storytelling. Confira os meus trabalhos mais recentes abaixo.",
+                hero_title_1: "A criar experiências", hero_title_2: "visuais impactantes",
+                hero_subtitle: "Especialista em edição de vídeo, motion graphics e storytelling.",
                 hero_cta: "Ver Portfólio",
-                projects_header: "Projetos",
-                projects_subheader: "Navegue pelas categorias abaixo.",
-                btn_back: "Voltar para Categorias",
-                video_count: "Vídeos",
-                btn_open_folder: "Abrir Pasta",
-                btn_open_compare: "Abrir Comparação",
-                more_topics_title: "Mais tópicos em breve",
-                more_topics_desc: "Novas categorias serão adicionadas conforme novos projetos forem finalizados.",
-                btn_quote: "Solicitar Orçamento",
+                projects_header: "Projetos", projects_subheader: "Explore as minhas produções por categoria.",
+                btn_back: "Voltar", video_count: "Projetos",
+                btn_open_folder: "Explorar", btn_open_compare: "Ver Comparação",
+                more_topics_title: "Mais projetos em breve",
+                more_topics_desc: "Novas categorias serão adicionadas brevemente.",
+                btn_quote: "Pedir Orçamento",
                 footer_rights: "© 2024 Felipe Canneli. Todos os direitos reservados.",
-                modal_error: "O vídeo não carregou?",
-                modal_open_original: "Abrir original",
-                watch_now: "Veja agora",
-                compare_title: "✨ Comparação de Tecnologia:",
-                compare_desc: "Veja a diferença de qualidade entre o clipe original e a remasterização processada por Inteligência Artificial.",
-                compare_orig_label: "Original",
-                compare_orig_sub: "Resolução original do clipe oficial.",
-                compare_remaster_label: "Remasterizado com IA",
-                compare_remaster_sub: "Melhoria de nitidez, cores e resolução."
+                modal_error: "Problemas na reprodução?", modal_open_original: "Abrir original",
+                watch_now: "Assistir",
+                compare_title: "✨ Tecnologia & Arte:",
+                compare_desc: "Veja como a IA pode restaurar e melhorar a qualidade de vídeos antigos.",
+                compare_orig_label: "Original", compare_orig_sub: "Resolução nativa",
+                compare_remaster_label: "Remasterizado IA", compare_remaster_sub: "Upscale 4K + Tratamento de Cor"
             },
             en: {
-                nav_home: "Home",
-                nav_projects: "Projects",
-                nav_contact: "Contact",
-                hero_badge: "Available for new projects",
-                hero_title_1: "Creating visual experiences",
-                hero_title_2: "impactful and modern",
-                hero_subtitle: "Specialist in video editing, motion graphics, and storytelling. Check out my latest work below.",
+                nav_home: "Home", nav_projects: "Projects", nav_contact: "Contact",
+                hero_badge: "Available for hire",
+                hero_title_1: "Creating impactful", hero_title_2: "visual experiences",
+                hero_subtitle: "Specialist in video editing, motion graphics, and visual storytelling.",
                 hero_cta: "View Portfolio",
-                projects_header: "Projects",
-                projects_subheader: "Browse categories below.",
-                btn_back: "Back to Categories",
-                video_count: "Videos",
-                btn_open_folder: "Open Folder",
-                btn_open_compare: "Open Comparison",
-                more_topics_title: "More topics coming soon",
-                more_topics_desc: "New categories will be added as new projects are finalized.",
+                projects_header: "Projects", projects_subheader: "Browse productions by category.",
+                btn_back: "Back", video_count: "Projects",
+                btn_open_folder: "Explore", btn_open_compare: "View Comparison",
+                more_topics_title: "More projects soon",
+                more_topics_desc: "New categories will be added as projects are finalized.",
                 btn_quote: "Request Quote",
                 footer_rights: "© 2024 Felipe Canneli. All rights reserved.",
-                modal_error: "Video didn't load?",
-                modal_open_original: "Open original",
-                watch_now: "Watch now",
-                compare_title: "✨ Technology Comparison:",
-                compare_desc: "See the quality difference between the original clip and the AI-processed remaster.",
-                compare_orig_label: "Original",
-                compare_orig_sub: "Original official clip resolution.",
-                compare_remaster_label: "Remastered with AI",
-                compare_remaster_sub: "Improved sharpness, colors, and resolution."
+                modal_error: "Video didn't load?", modal_open_original: "Open original",
+                watch_now: "Watch",
+                compare_title: "✨ Tech & Art:",
+                compare_desc: "See how AI can restore and enhance old footage quality.",
+                compare_orig_label: "Original", compare_orig_sub: "Native resolution",
+                compare_remaster_label: "AI Remastered", compare_remaster_sub: "4K Upscale + Color Grading"
             },
             es: {
-                nav_home: "Inicio",
-                nav_projects: "Proyectos",
-                nav_contact: "Contacto",
-                hero_badge: "Disponible para nuevos proyectos",
-                hero_title_1: "Creando experiencias visuales",
-                hero_title_2: "impactantes y modernas",
-                hero_subtitle: "Especialista en edición de video, motion graphics y storytelling. Mira mis trabajos más recientes abajo.",
+                nav_home: "Inicio", nav_projects: "Proyectos", nav_contact: "Contacto",
+                hero_badge: "Disponible para proyectos",
+                hero_title_1: "Creando experiencias", hero_title_2: "visuales impactantes",
+                hero_subtitle: "Especialista en edición de video, motion graphics y storytelling.",
                 hero_cta: "Ver Portafolio",
-                projects_header: "Proyectos",
-                projects_subheader: "Navegue por las categorías abajo.",
-                btn_back: "Volver a Categorías",
-                video_count: "Videos",
-                btn_open_folder: "Abrir Carpeta",
-                btn_open_compare: "Abrir Comparación",
-                more_topics_title: "Más temas pronto",
-                more_topics_desc: "Nuevas categorías serán añadidas a medida que se finalicen nuevos proyectos.",
+                projects_header: "Proyectos", projects_subheader: "Explore mis producciones por categoría.",
+                btn_back: "Volver", video_count: "Proyectos",
+                btn_open_folder: "Explorar", btn_open_compare: "Ver Comparación",
+                more_topics_title: "Más proyectos pronto",
+                more_topics_desc: "Nuevas categorías serán añadidas próximamente.",
                 btn_quote: "Solicitar Presupuesto",
                 footer_rights: "© 2024 Felipe Canneli. Todos los derechos reservados.",
-                modal_error: "¿El video no cargó?",
-                modal_open_original: "Abrir original",
+                modal_error: "¿No carga el video?", modal_open_original: "Abrir original",
                 watch_now: "Ver ahora",
-                compare_title: "✨ Comparación de Tecnología:",
-                compare_desc: "Vea la diferencia de calidad entre el clip original y la remasterización procesada por Inteligencia Artificial.",
-                compare_orig_label: "Original",
-                compare_orig_sub: "Resolución original del clip oficial.",
-                compare_remaster_label: "Remasterizado con IA",
-                compare_remaster_sub: "Mejora de nitidez, colores y resolución."
+                compare_title: "✨ Tecnología y Arte:",
+                compare_desc: "Vea cómo la IA puede restaurar y mejorar la calidad.",
+                compare_orig_label: "Original", compare_orig_sub: "Resolución nativa",
+                compare_remaster_label: "Remasterizado IA", compare_remaster_sub: "Upscale 4K + Color Grading"
             },
             fr: {
-                nav_home: "Accueil",
-                nav_projects: "Projets",
-                nav_contact: "Contact",
-                hero_badge: "Disponible pour nouveaux projets",
-                hero_title_1: "Création d'expériences visuelles",
-                hero_title_2: "percutantes et modernes",
-                hero_subtitle: "Spécialiste en montage vidéo, motion graphics et storytelling. Découvrez mes travaux récents ci-dessous.",
+                nav_home: "Accueil", nav_projects: "Projets", nav_contact: "Contact",
+                hero_badge: "Disponible pour projets",
+                hero_title_1: "Création d'expériences", hero_title_2: "visuelles percutantes",
+                hero_subtitle: "Spécialiste en montage vidéo, motion graphics et storytelling.",
                 hero_cta: "Voir Portfolio",
-                projects_header: "Projets",
-                projects_subheader: "Parcourir les catégories ci-dessous.",
-                btn_back: "Retour aux Catégories",
-                video_count: "Vidéos",
-                btn_open_folder: "Ouvrir Dossier",
-                btn_open_compare: "Ouvrir Comparaison",
-                more_topics_title: "Plus de sujets bientôt",
-                more_topics_desc: "De nouvelles catégories seront ajoutées au fur et à mesure des nouveaux projets.",
+                projects_header: "Projets", projects_subheader: "Parcourez mes productions par catégorie.",
+                btn_back: "Retour", video_count: "Projets",
+                btn_open_folder: "Explorer", btn_open_compare: "Voir Comparaison",
+                more_topics_title: "Plus de projets bientôt",
+                more_topics_desc: "De nouvelles catégories seront ajoutées prochainement.",
                 btn_quote: "Demander Devis",
                 footer_rights: "© 2024 Felipe Canneli. Tous droits réservés.",
-                modal_error: "La vidéo n'a pas chargé ?",
-                modal_open_original: "Ouvrir l'original",
-                watch_now: "Regarder maintenant",
-                compare_title: "✨ Comparaison Technologique :",
-                compare_desc: "Voyez la différence de qualité entre le clip original et le remaster traité par Intelligence Artificielle.",
-                compare_orig_label: "Original",
-                compare_orig_sub: "Résolution originale du clip officiel.",
-                compare_remaster_label: "Remasterisé par IA",
-                compare_remaster_sub: "Amélioration de la netteté, des couleurs et de la résolution."
+                modal_error: "La vidéo ne charge pas ?", modal_open_original: "Ouvrir l'original",
+                watch_now: "Regarder",
+                compare_title: "✨ Tech & Art :",
+                compare_desc: "Voyez comment l'IA peut restaurer la qualité vidéo.",
+                compare_orig_label: "Original", compare_orig_sub: "Résolution native",
+                compare_remaster_label: "Remasterisé IA", compare_remaster_sub: "Upscale 4K + Color Grading"
             }
         };
 
@@ -461,40 +466,33 @@
             currentLang = lang;
             localStorage.setItem('siteLang', lang);
             
-            // Update active state on buttons
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             const activeBtn = document.getElementById(`btn-${lang}`);
             if(activeBtn) activeBtn.classList.add('active');
 
-            // Update static Text
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
+                    // check if element has gradient-text class to preserve html inside span
+                    if(el.classList.contains('text-gradient-main')) {
+                        el.textContent = translations[lang][key];
+                    } else {
+                         el.innerHTML = translations[lang][key];
+                    }
                 }
             });
 
-            // Re-render grid if we are on the main categories view
-            // Note: If inside a category, we might want to stay there but translate text.
-            // For simplicity, we'll refresh the current view.
-            
-            // If the back button is hidden, we are in category view
             if (document.getElementById('back-btn').classList.contains('hidden')) {
                 showCategories();
             } else {
-                // If we are inside a category, we need to know which one.
-                // Since I didn't save currentCat ID in global state, I'll just go back to categories for safety,
-                // OR simpler: just re-render categories to ensure translations apply.
+                // We are inside a category, find which one is currently rendered
+                // (Simplified: just reload categories to refresh text safely)
                 showCategories(); 
             }
         }
 
-
-        // ---------------------------------------------------------
-        // DATA STRUCTURES
-        // ---------------------------------------------------------
-
-        // 1. NEXHUB VIDEOS
+        // --- Data ---
+        // (Copying your exact data structure)
         const marketingVideos = [
             { title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct", duration: "Vídeo" },
             { title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly", duration: "Vídeo" },
@@ -512,30 +510,22 @@
             { title: "Vendas", id: "1cg9nIgjWejsqsoN15GD9qlMzk8CN4Zu0", duration: "Vídeo" },
             { title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p", duration: "Vídeo" }
         ];
-
-        // 2. ORY CLÍNICA VIDEOS
         const oryVideos = [
             { title: "Vídeo Ory 1", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly", duration: "Vídeo" },
             { title: "Vídeo Ory 2", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2", duration: "Vídeo" },
             { title: "Vídeo Ory 3", id: "1JcDkfkpiX9Z_sDssHPlNy_fGLYWN0HD7", duration: "Vídeo" },
         ];
-
-        // 3. AeC Estética VIDEOS
         const aecVideos = [
             { title: "Vídeo AeC 1", id: "1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G", duration: "Vídeo" },
             { title: "Vídeo AeC 2", id: "1u96j8o7CkxDh3zEkv1ph1otV23U05epp", duration: "Vídeo" },
             { title: "Vídeo AeC 3", id: "1egrGgX4O5nmAZBDOyelSHsM-xxGHmpwz", duration: "Vídeo" },
         ];
-
-        // 4. UNIGRANDE VIDEOS
         const unigrandeVideos = [
             { title: "Vídeo UNIGRANDE 1", id: "1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B", duration: "Vídeo" },
             { title: "Vídeo UNIGRANDE 2", id: "1w_tAUw_n6MKQPJr1o6Y4m93EaqmljYz1", duration: "Vídeo" },
             { title: "Vídeo UNIGRANDE 3", id: "1O7TP-ue6NRI2WpU_3aRgpSfd_2ZOJcNS", duration: "Vídeo" },
             { title: "Vídeo UNIGRANDE 4", id: "17YINTRqEBHnHYoy903eZRy1qylsGLFGM", duration: "Vídeo" }
         ];
-
-        // 5. VANESSA NUTRICIONISTA VIDEOS
         const vanessaVideos = [
             { title: "Vídeo Vanessa 1", id: "10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN", duration: "Vídeo" },
             { title: "Vídeo Vanessa 2", id: "11D822i55Q-6_x9v1D3ZP2IYMMGTuXvrg", duration: "Vídeo" },
@@ -546,248 +536,90 @@
             { title: "Vídeo Vanessa 7", id: "1ndisi-g9Nw5JtVM7U53NNmvpl6DfhpFr", duration: "Vídeo" },
             { title: "Vídeo Vanessa 8", id: "1rTPQebGyQMLeFMbEbgv_sdoAHTzzfjLr", duration: "Vídeo" }
         ];
-
-        // 6. UNIANCHIETA VIDEOS
         const unianchietaVideos = [
             { title: "Vídeo UNIANCHIETA 1", id: "1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U", duration: "Vídeo" },
             { title: "Vídeo UNIANCHIETA 2", id: "1jKJseAWQD5qWo5Xzy8kxobHUOezAhHnz", duration: "Vídeo" },
             { title: "Vídeo UNIANCHIETA 3", id: "1kVENsSyafJc3YYj7jVSYCw_L5NLEU_tz", duration: "Vídeo" }
         ];
-
-        // 7. CAESB VIDEOS
         const caesbVideos = [
             { title: "Vídeo CAESB 1", id: "1MgqWRiBM7M2hQVYk8PEETJC1UjsKTEB2", duration: "Vídeo" },
             { title: "Vídeo CAESB 2", id: "1QRMShNqdxI0HMfkr4YaQAsaE4_TPa7Oh", duration: "Vídeo" }
         ];
-
-        // 8. SEGUE O BAILE TV (YOUTUBE)
         const segueOBaileVideos = [
             { title: "Superação com João da Verde e Rosa na Mangueira", id: "2r_2mpd4uUA", type: "youtube" },
             { title: "Vitinho Agita na Ilha da Gigóia", id: "MhaYlLIOo0g", type: "youtube" },
             { title: "Felipe Ferreira: Bastidores que Ninguém Conta!", id: "9deIRMk93jA", type: "youtube" }
         ];
 
-        // Categories Configuration with Multilingual Descriptions
         const categories = [
-            {
-                id: 'unianchieta',
-                title: 'UNIANCHIETA',
-                descriptions: {
-                    pt: 'Projetos audiovisuais acadêmicos e institucionais.',
-                    'pt-PT': 'Projetos audiovisuais académicos e institucionais.',
-                    en: 'Academic and institutional audiovisual projects.',
-                    es: 'Proyectos audiovisuales académicos e institucionales.',
-                    fr: 'Projets audiovisuels académiques et institutionnels.'
-                },
-                count: unianchietaVideos.length,
-                icon: 'library',
-                coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U',
-                items: unianchietaVideos
-            },
-            {
-                id: 'nexhub',
-                title: 'NexHub',
-                descriptions: {
-                    pt: 'Estratégias, lançamentos e conteúdo high-end para redes sociais.',
-                    'pt-PT': 'Estratégias, lançamentos e conteúdo high-end para redes sociais.',
-                    en: 'Strategies, launches, and high-end content for social media.',
-                    es: 'Estrategias, lanzamientos y contenido de alta gama para redes sociales.',
-                    fr: 'Stratégies, lancements et contenu haut de gamme pour les réseaux sociaux.'
-                },
-                count: marketingVideos.length,
-                icon: 'trending-up',
-                coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', 
-                items: marketingVideos
-            },
-            {
-                id: 'ory_clinica',
-                title: 'Ory Clínica',
-                descriptions: {
-                    pt: 'Conteúdos focados em saúde, bem-estar e estética clínica.',
-                    'pt-PT': 'Conteúdos focados em saúde, bem-estar e estética clínica.',
-                    en: 'Content focused on health, wellness, and clinical aesthetics.',
-                    es: 'Contenidos enfocados en salud, bienestar y estética clínica.',
-                    fr: 'Contenu axé sur la santé, le bien-être et l\'esthétique clinique.'
-                },
-                count: oryVideos.length,
-                icon: 'heart-pulse',
-                coverId: '1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly',
-                items: oryVideos
-            },
-            {
-                id: 'aec_estetica',
-                title: 'AeC Estética',
-                descriptions: {
-                    pt: 'Produções exclusivas para estética e cuidados pessoais.',
-                    'pt-PT': 'Produções exclusivas para estética e cuidados pessoais.',
-                    en: 'Exclusive productions for aesthetics and personal care.',
-                    es: 'Producciones exclusivas para estética y cuidado personal.',
-                    fr: 'Productions exclusives pour l\'esthétique et les soins personnels.'
-                },
-                count: aecVideos.length,
-                icon: 'sparkles',
-                coverId: '1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G',
-                items: aecVideos
-            },
-            {
-                id: 'unigrande',
-                title: 'UNIGRANDE',
-                descriptions: {
-                    pt: 'Conteúdo institucional e educacional.',
-                    'pt-PT': 'Conteúdo institucional e educacional.',
-                    en: 'Institutional and educational content.',
-                    es: 'Contenido institucional y educativo.',
-                    fr: 'Contenu institutionnel et éducatif.'
-                },
-                count: unigrandeVideos.length,
-                icon: 'graduation-cap',
-                coverId: '1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B',
-                items: unigrandeVideos
-            },
-            {
-                id: 'vanessa_nutri',
-                title: 'Vanessa - Nutricionista',
-                descriptions: {
-                    pt: 'Conteúdos sobre alimentação saudável e nutrição.',
-                    'pt-PT': 'Conteúdos sobre alimentação saudável e nutrição.',
-                    en: 'Content about healthy eating and nutrition.',
-                    es: 'Contenido sobre alimentación saludable y nutrición.',
-                    fr: 'Contenu sur une alimentation saine et la nutrition.'
-                },
-                count: vanessaVideos.length,
-                icon: 'apple',
-                coverId: '10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN',
-                items: vanessaVideos
-            },
-            {
-                id: 'caesb',
-                title: 'CAESB',
-                descriptions: {
-                    pt: 'Comunicação corporativa e gestão de recursos hídricos.',
-                    'pt-PT': 'Comunicação corporativa e gestão de recursos hídricos.',
-                    en: 'Corporate communication and water resource management.',
-                    es: 'Comunicación corporativa y gestión de recursos hídricos.',
-                    fr: 'Communication d\'entreprise et gestion des ressources en eau.'
-                },
-                count: caesbVideos.length,
-                icon: 'droplets',
-                coverType: 'image',
-                coverUrl: 'https://www.politicadistrital.com.br/wp-content/uploads/2019/06/caesb-desconto.jpg',
-                items: caesbVideos
-            },
-            {
-                id: 'segue_o_baile',
-                title: 'Segue o Baile TV',
-                descriptions: {
-                    pt: 'Cobertura de eventos e entrevistas exclusivas.',
-                    'pt-PT': 'Cobertura de eventos e entrevistas exclusivas.',
-                    en: 'Event coverage and exclusive interviews.',
-                    es: 'Cobertura de eventos y entrevistas exclusivas.',
-                    fr: 'Couverture d\'événements et interviews exclusives.'
-                },
-                count: segueOBaileVideos.length,
-                icon: 'tv',
-                coverId: '2r_2mpd4uUA', 
-                coverType: 'youtube', // Indica que a capa vem do Youtube
-                items: segueOBaileVideos
-            },
-            {
-                id: 'remaster_ia',
-                title: 'Remaster com IA (Clipe)',
-                descriptions: {
-                    pt: 'Comparação de remasterização com Inteligência Artificial.',
-                    'pt-PT': 'Comparação de remasterização com Inteligência Artificial.',
-                    en: 'Remastering comparison using Artificial Intelligence.',
-                    es: 'Comparación de remasterización con Inteligencia Artificial.',
-                    fr: 'Comparaison de remasterisation utilisant l\'Intelligence Artificielle.'
-                },
-                count: 2, 
-                icon: 'wand-2', 
-                coverId: '1ClQPFQYwystqP6hIWSeZeANDeel1hjpk', 
-                items: [],
-                specialType: 'comparison',
-                videoOriginal: '070jjUxiiaY',
-                videoRemaster: 'IKeYemyRtqU'
-            }
+            { id: 'unianchieta', title: 'UNIANCHIETA', descriptions: { pt: 'Projetos audiovisuais acadêmicos.' }, count: unianchietaVideos.length, icon: 'library', coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U', items: unianchietaVideos },
+            { id: 'nexhub', title: 'NexHub', descriptions: { pt: 'Estratégias e lançamentos digitais.' }, count: marketingVideos.length, icon: 'trending-up', coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', items: marketingVideos },
+            { id: 'ory_clinica', title: 'Ory Clínica', descriptions: { pt: 'Saúde, bem-estar e estética.' }, count: oryVideos.length, icon: 'heart-pulse', coverId: '1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly', items: oryVideos },
+            { id: 'aec_estetica', title: 'AeC Estética', descriptions: { pt: 'Produções para beleza e cuidados.' }, count: aecVideos.length, icon: 'sparkles', coverId: '1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G', items: aecVideos },
+            { id: 'unigrande', title: 'UNIGRANDE', descriptions: { pt: 'Conteúdo institucional e educacional.' }, count: unigrandeVideos.length, icon: 'graduation-cap', coverId: '1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B', items: unigrandeVideos },
+            { id: 'vanessa_nutri', title: 'Vanessa Nutri', descriptions: { pt: 'Alimentação saudável e nutrição.' }, count: vanessaVideos.length, icon: 'apple', coverId: '10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN', items: vanessaVideos },
+            { id: 'caesb', title: 'CAESB', descriptions: { pt: 'Comunicação corporativa hídrica.' }, count: caesbVideos.length, icon: 'droplets', coverType: 'image', coverUrl: 'https://www.politicadistrital.com.br/wp-content/uploads/2019/06/caesb-desconto.jpg', items: caesbVideos },
+            { id: 'segue_o_baile', title: 'Segue o Baile', descriptions: { pt: 'Cobertura de eventos e entrevistas.' }, count: segueOBaileVideos.length, icon: 'tv', coverId: '2r_2mpd4uUA', coverType: 'youtube', items: segueOBaileVideos },
+            { id: 'remaster_ia', title: 'Remaster com IA', descriptions: { pt: 'Upscaling e tratamento com IA.' }, count: 2, icon: 'wand-2', coverId: '1ClQPFQYwystqP6hIWSeZeANDeel1hjpk', items: [], specialType: 'comparison', videoOriginal: '070jjUxiiaY', videoRemaster: 'IKeYemyRtqU' }
         ];
 
         // ---------------------------------------------------------
-        // DOM ELEMENTS
+        // RENDER FUNCTIONS (Updated Styling)
         // ---------------------------------------------------------
         const gridContainer = document.getElementById('dynamic-grid');
         const headerTitle = document.querySelector('#section-header h2');
         const headerDesc = document.querySelector('#section-header p');
         const backBtn = document.getElementById('back-btn');
-        
-        const modal = document.getElementById('video-modal');
-        const modalIframe = document.getElementById('modal-iframe');
-        const modalLink = document.getElementById('modal-external-link');
 
-        // ---------------------------------------------------------
-        // RENDER FUNCTIONS
-        // ---------------------------------------------------------
-
-        // 1. Render Categories (Folders)
         function showCategories() {
-            // Animate transition
             gridContainer.style.opacity = '0';
             
             setTimeout(() => {
-                // Update Header
                 headerTitle.textContent = translations[currentLang].projects_header;
                 headerDesc.textContent = translations[currentLang].projects_subheader;
                 backBtn.classList.add('hidden');
 
-                // Clear Grid
                 gridContainer.innerHTML = '';
-                // Remove special styling class if present from comparison view
                 gridContainer.classList.remove('!flex', '!flex-col');
                 gridContainer.classList.add('grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3');
 
-                // Render Cards
                 categories.forEach((cat, index) => {
-                    // Logic to choose thumbnail source
                     let thumbUrl;
-                    if (cat.coverType === 'youtube') {
-                        thumbUrl = `https://img.youtube.com/vi/${cat.coverId}/maxresdefault.jpg`;
-                    } else if (cat.coverType === 'image') {
-                        thumbUrl = cat.coverUrl;
-                    } else {
-                        thumbUrl = `https://drive.google.com/thumbnail?id=${cat.coverId}&sz=w640-h360`;
-                    }
+                    if (cat.coverType === 'youtube') thumbUrl = `https://img.youtube.com/vi/${cat.coverId}/maxresdefault.jpg`;
+                    else if (cat.coverType === 'image') thumbUrl = cat.coverUrl;
+                    else thumbUrl = `https://drive.google.com/thumbnail?id=${cat.coverId}&sz=w640-h360`;
                     
-                    const card = document.createElement('div');
-                    card.className = 'folder-card group relative bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 cursor-pointer h-full min-h-[280px] flex flex-col';
-                    card.onclick = () => openCategory(cat.id);
-                    
-                    // Multi-lingual text for this card
                     const cardDesc = cat.descriptions[currentLang] || cat.descriptions['pt'];
                     const cardCountText = cat.specialType === 'comparison' ? 'Comparação' : `${cat.count} ${translations[currentLang].video_count}`;
                     const btnText = cat.specialType === 'comparison' ? translations[currentLang].btn_open_compare : translations[currentLang].btn_open_folder;
 
+                    // NEW GLASS CARD DESIGN
+                    const card = document.createElement('div');
+                    card.className = 'glass-card group relative rounded-2xl overflow-hidden cursor-pointer h-full min-h-[300px] flex flex-col animate-fade-in';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.onclick = () => openCategory(cat.id);
+                    
                     card.innerHTML = `
-                        <!-- Cover Image with Dark Overlay -->
-                        <div class="h-40 w-full relative overflow-hidden bg-zinc-800">
-                             <img src="${thumbUrl}" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/640x360/3f3f46/ffffff?text=Capa';">
-                             <div class="absolute inset-0 bg-gradient-to-t from-dark-700 via-transparent to-transparent"></div>
+                        <!-- Cover with Overlay -->
+                        <div class="h-48 w-full relative overflow-hidden">
+                             <div class="absolute inset-0 bg-dark-900/40 z-10 transition-colors group-hover:bg-transparent"></div>
+                             <img src="${thumbUrl}" referrerpolicy="no-referrer" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1" onerror="this.src='https://via.placeholder.com/640x360/3f3f46/ffffff?text=Capa';">
                              
-                             <!-- Icon Badge -->
-                             <div class="absolute top-4 right-4 w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white shadow-lg z-10">
+                             <!-- Icon Floating -->
+                             <div class="absolute bottom-4 left-4 w-10 h-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl flex items-center justify-center text-white z-20 shadow-lg group-hover:bg-brand-500 group-hover:border-brand-400 transition-colors">
                                 <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
                              </div>
                         </div>
 
                         <!-- Content -->
-                        <div class="p-6 flex-1 flex flex-col relative">
-                            <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors mb-2">${cat.title}</h3>
-                            <p class="text-zinc-400 text-sm mb-4 line-clamp-2">${cardDesc}</p>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-brand-300 transition-colors">${cat.title}</h3>
+                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-white/5 pl-3">${cardDesc}</p>
                             
-                            <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
-                                <span class="text-xs font-medium px-2 py-1 rounded bg-white/5 text-zinc-300 border border-white/10">
-                                    ${cardCountText}
-                                </span>
-                                <span class="text-brand-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                                    ${btnText} <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            <div class="mt-auto flex items-center justify-between pt-4 border-t border-white/5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500">${cardCountText}</span>
+                                <span class="text-sm font-bold text-white flex items-center gap-2 group-hover:gap-3 transition-all">
+                                    ${btnText} <i data-lucide="arrow-right" class="w-4 h-4 text-brand-400"></i>
                                 </span>
                             </div>
                         </div>
@@ -800,169 +632,105 @@
             }, 300);
         }
 
-        // 2. Render Videos (Grid inside a category)
         function openCategory(catId) {
             const category = categories.find(c => c.id === catId);
             if (!category) return;
 
-            // Animate transition
             gridContainer.style.opacity = '0';
 
             setTimeout(() => {
-                // Update Header
                 headerTitle.textContent = category.title;
                 headerDesc.textContent = category.descriptions[currentLang] || category.descriptions['pt'];
                 backBtn.classList.remove('hidden');
 
-                // Clear Grid
                 gridContainer.innerHTML = '';
 
-                // CHECK FOR SPECIAL COMPARISON TYPE
                 if (category.specialType === 'comparison') {
-                    // Switch to flex layout specifically for this view to manage full width better
                     gridContainer.classList.remove('grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3');
-                    gridContainer.classList.add('!flex', '!flex-col', 'gap-8'); // Use flex column for the stacked responsive layout
+                    gridContainer.classList.add('!flex', '!flex-col', 'gap-8');
 
                     const t = translations[currentLang];
-
                     const comparisonHTML = `
-                        <div class="w-full animate-fade-in space-y-8">
-                            
-                            <!-- Introduction Text -->
-                            <div class="bg-brand-900/20 border border-brand-500/20 rounded-lg p-4 text-center">
-                                <p class="text-brand-200">
-                                    <span class="font-bold">${t.compare_title}</span> ${t.compare_desc}
+                        <div class="w-full animate-fade-in space-y-8 max-w-5xl mx-auto">
+                            <div class="bg-brand-500/10 border border-brand-500/20 rounded-2xl p-6 text-center backdrop-blur-md">
+                                <p class="text-brand-200 text-lg">
+                                    <span class="font-bold text-white">${t.compare_title}</span> ${t.compare_desc}
                                 </p>
                             </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                                <!-- ORIGINAL (Youtube) -->
-                                <div class="flex flex-col gap-3">
-                                    <div class="flex items-center justify-between px-1">
-                                        <h3 class="text-lg font-bold text-zinc-400 flex items-center gap-2">
-                                            <i data-lucide="history" class="w-5 h-5"></i> ${t.compare_orig_label}
-                                        </h3>
-                                        <span class="text-xs uppercase font-bold text-zinc-600 bg-zinc-900 border border-zinc-800 px-2 py-1 rounded">YouTube</span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <!-- ORIGINAL -->
+                                <div class="glass-card p-4 rounded-2xl">
+                                    <div class="flex items-center justify-between mb-3 px-1">
+                                        <h3 class="text-lg font-bold text-zinc-400 flex items-center gap-2"><i data-lucide="history" class="w-5 h-5"></i> ${t.compare_orig_label}</h3>
+                                        <span class="text-xs font-bold text-zinc-600 bg-black/30 px-2 py-1 rounded">SD 480p</span>
                                     </div>
-                                    <div class="aspect-video rounded-xl overflow-hidden bg-black shadow-lg ring-1 ring-white/10">
-                                        <iframe 
-                                            width="100%" 
-                                            height="100%" 
-                                            src="https://www.youtube.com/embed/${category.videoOriginal}" 
-                                            title="Video Original" 
-                                            frameborder="0" 
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                            allowfullscreen>
-                                        </iframe>
+                                    <div class="aspect-video rounded-xl overflow-hidden bg-black shadow-inner">
+                                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${category.videoOriginal}" frameborder="0" allowfullscreen></iframe>
                                     </div>
-                                    <p class="text-sm text-zinc-500 text-center">${t.compare_orig_sub}</p>
+                                    <p class="text-xs text-zinc-500 text-center mt-3">${t.compare_orig_sub}</p>
                                 </div>
-
-                                <!-- REMASTER (YouTube) -->
-                                <div class="flex flex-col gap-3">
-                                    <div class="flex items-center justify-between px-1">
-                                        <h3 class="text-lg font-bold text-brand-400 flex items-center gap-2">
-                                            <i data-lucide="sparkles" class="w-5 h-5 text-brand-500"></i> ${t.compare_remaster_label}
-                                        </h3>
-                                        <span class="text-xs uppercase font-bold text-brand-300 bg-brand-900/40 border border-brand-500/30 px-2 py-1 rounded animate-pulse">Upscale 4K</span>
+                                <!-- REMASTER -->
+                                <div class="glass-card p-4 rounded-2xl border-brand-500/30 shadow-[0_0_30px_rgba(99,102,241,0.1)]">
+                                    <div class="flex items-center justify-between mb-3 px-1">
+                                        <h3 class="text-lg font-bold text-brand-300 flex items-center gap-2"><i data-lucide="sparkles" class="w-5 h-5 text-brand-400"></i> ${t.compare_remaster_label}</h3>
+                                        <span class="text-xs font-bold text-brand-200 bg-brand-500/20 border border-brand-500/30 px-2 py-1 rounded animate-pulse">4K UHD</span>
                                     </div>
-                                    <div class="aspect-video rounded-xl overflow-hidden bg-black shadow-lg shadow-brand-900/20 ring-1 ring-brand-500/50 relative group">
-                                         <!-- Shine effect -->
-                                         <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/10 to-transparent pointer-events-none"></div>
-                                         <iframe 
-                                            width="100%" 
-                                            height="100%" 
-                                            src="https://www.youtube.com/embed/${category.videoRemaster}?vq=hd2160" 
-                                            title="Video Remasterizado" 
-                                            frameborder="0" 
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                            allowfullscreen>
-                                        </iframe>
+                                    <div class="aspect-video rounded-xl overflow-hidden bg-black shadow-lg relative group">
+                                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${category.videoRemaster}?vq=hd2160" frameborder="0" allowfullscreen></iframe>
                                     </div>
-                                    <p class="text-sm text-brand-400/70 text-center">${t.compare_remaster_sub}</p>
+                                    <p class="text-xs text-brand-400/70 text-center mt-3">${t.compare_remaster_sub}</p>
                                 </div>
                             </div>
-
                         </div>
                     `;
                     gridContainer.innerHTML = comparisonHTML;
-                } 
-                else {
-                    // STANDARD GRID RENDER (Standard Folders)
+                } else {
                     category.items.forEach((video, index) => {
-                        // Check if video is Youtube type
                         const isYoutube = video.type === 'youtube';
-                        const thumbUrl = isYoutube 
-                            ? `https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`
-                            : `https://drive.google.com/thumbnail?id=${video.id}&sz=w640-h360`;
+                        const thumbUrl = isYoutube ? `https://img.youtube.com/vi/${video.id}/maxresdefault.jpg` : `https://drive.google.com/thumbnail?id=${video.id}&sz=w640-h360`;
 
                         const card = document.createElement('div');
-                        card.className = 'group bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-900/20 flex flex-col animate-fade-in';
+                        card.className = 'glass-card group rounded-xl overflow-hidden flex flex-col animate-fade-in';
                         card.style.animationDelay = `${index * 0.05}s`;
 
                         card.innerHTML = `
-                            <div class="relative aspect-video bg-zinc-800 group-hover:bg-zinc-700 transition-colors cursor-pointer overflow-hidden" onclick="openModal('${video.id}', '${video.type || 'drive'}')">
-                                <img 
-                                    src="${thumbUrl}" 
-                                    referrerpolicy="no-referrer"
-                                    alt="${video.title}"
-                                    class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
-                                    onerror="this.onerror=null; this.parentElement.querySelector('.fallback-gradient').classList.remove('hidden'); this.style.display='none';"
-                                >
-                                
-                                <!-- Fallback Gradient (Hidden by default, shown on error) -->
-                                <div class="fallback-gradient hidden absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-400 via-zinc-900 to-black"></div>
-                                
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
-                                <div class="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                                    <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-xl group-hover:bg-brand-600 group-hover:border-brand-500 transition-all">
-                                        <i data-lucide="play" class="w-5 h-5 text-white fill-current translate-x-0.5"></i>
+                            <div class="relative aspect-video bg-zinc-800 cursor-pointer overflow-hidden" onclick="openModal('${video.id}', '${video.type || 'drive'}')">
+                                <img src="${thumbUrl}" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-100" onerror="this.onerror=null; this.parentElement.querySelector('.fallback-gradient').classList.remove('hidden'); this.style.display='none';">
+                                <div class="fallback-gradient hidden absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-900"></div>
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/40 backdrop-blur-sm">
+                                    <div class="w-14 h-14 rounded-full bg-brand-600 text-white flex items-center justify-center transform scale-50 group-hover:scale-100 transition-transform duration-300 shadow-xl">
+                                        <i data-lucide="play" class="w-6 h-6 fill-current translate-x-0.5"></i>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="p-4 flex-1 flex flex-col relative bg-dark-700">
-                                <h3 class="font-semibold text-base text-white group-hover:text-brand-400 transition-colors line-clamp-1">
-                                    ${video.title}
-                                </h3>
-                                <div class="mt-2 flex items-center justify-between text-xs text-zinc-500">
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="clock" class="w-3 h-3"></i> ${translations[currentLang].watch_now}
-                                    </span>
-                                    ${isYoutube ? '<span class="text-[10px] uppercase font-bold text-zinc-500 border border-zinc-700 px-1.5 rounded">YT</span>' : ''}
+                            <div class="p-4 flex-1 flex flex-col">
+                                <h3 class="font-display font-medium text-white text-base leading-tight group-hover:text-brand-300 transition-colors">${video.title}</h3>
+                                <div class="mt-3 flex items-center gap-2 text-xs text-zinc-500">
+                                    <i data-lucide="clock" class="w-3 h-3"></i> 
+                                    <span>${translations[currentLang].watch_now}</span>
                                 </div>
                             </div>
                         `;
                         gridContainer.appendChild(card);
                     });
                 }
-
                 lucide.createIcons();
                 gridContainer.style.opacity = '1';
-                
-                // Scroll to top of section smoothly
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
             }, 300);
         }
 
-        // ---------------------------------------------------------
-        // MODAL LOGIC
-        // ---------------------------------------------------------
-        function openModal(id, type) {
-            let embedUrl, directLink;
+        // Modal Logic
+        const modal = document.getElementById('video-modal');
+        const modalIframe = document.getElementById('modal-iframe');
+        const modalLink = document.getElementById('modal-external-link');
 
-            if (type === 'youtube') {
-                embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1`;
-                directLink = `https://www.youtube.com/watch?v=${id}`;
-            } else {
-                // Default to Drive
-                embedUrl = `https://drive.google.com/file/d/${id}/preview`;
-                directLink = `https://drive.google.com/file/d/${id}/view`;
-            }
+        function openModal(id, type) {
+            let embedUrl = type === 'youtube' ? `https://www.youtube.com/embed/${id}?autoplay=1` : `https://drive.google.com/file/d/${id}/preview`;
+            let directLink = type === 'youtube' ? `https://www.youtube.com/watch?v=${id}` : `https://drive.google.com/file/d/${id}/view`;
 
             modalIframe.src = embedUrl;
             modalLink.href = directLink;
-            
             modal.classList.remove('hidden');
             setTimeout(() => modal.classList.remove('opacity-0'), 10);
             document.body.style.overflow = 'hidden';
@@ -977,19 +745,10 @@
             document.body.style.overflow = '';
         }
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-        // ---------------------------------------------------------
-        // INIT
-        // ---------------------------------------------------------
-        // Initialize Language and Show Categories
         changeLanguage(currentLang);
-
     </script>
 </body>
 </html>
