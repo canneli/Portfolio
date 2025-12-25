@@ -234,11 +234,14 @@
         .half-br { clip-path: polygon(0 0, 100% 0, 0 100%); background-image: url('https://flagcdn.com/w160/br.png'); z-index: 2; }
         .half-pt { clip-path: polygon(100% 0, 100% 100%, 0 100%); background-image: url('https://flagcdn.com/w160/pt.png'); z-index: 1; }
         .split-indicator { position: absolute; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 14px; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.9); z-index: 20; opacity: 0.6; transition: all 0.3s ease; pointer-events: none; }
-        .ind-br { top: 22%; left: 18%; } .ind-pt { bottom: 22%; right: 18%; }
+        .ind-br { top: 22%; left: 18%; } 
+        .ind-pt { bottom: 22%; right: 18%; }
         
+        /* Highlight indicator on hover (using general card hover) */
+        .lang-card:hover .split-indicator { opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,0.8); }
+
         .lang-card:hover .split-flag-container { transform: scale(1.15) rotateZ(5deg); border-color: rgba(255,255,255,0.8); box-shadow: 0 0 50px rgba(99,102,241,0.6); }
         .half-br:hover, .half-pt:hover { filter: brightness(1.3) contrast(1.2); z-index: 5; cursor: pointer; }
-        .lang-card:hover .split-indicator { opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,0.8); }
 
         /* --- Initial Hint Animation (The Beacon) --- */
         @keyframes floatHint {
@@ -524,7 +527,7 @@
                 more_topics_title: "Em breve: Mais Projetos", more_topics_desc: "Novas categorias serão adicionadas conforme novos projetos forem finalizados.",
                 btn_quote: "Solicitar Orçamento", footer_rights: "© 2024 Todos os direitos reservados.",
                 modal_error: "Problemas na reprodução?", modal_open_original: "Abrir link original", watch_now: "Assistir",
-                planet_title: "Selecionar Idioma", lang_hint: "Selecionar Idioma"
+                planet_title: "Selecionar Idioma", lang_hint: "Selecione seu idioma"
             },
             'pt-PT': {
                 nav_home: "Início", nav_projects: "Projetos", nav_contact: "Contacto",
@@ -694,9 +697,8 @@
             { title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p" }
         ];
         const oryVideos = [
-            { title: "Vídeo Ory 1", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly" },
-            { title: "Vídeo Ory 2", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2" },
-            { title: "Vídeo Ory 3", id: "1JcDkfkpiX9Z_sDssHPlNy_fGLYWN0HD7" }
+            { title: "Vídeo Ory 1", id: "1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC" },
+            { title: "Vídeo Ory 2", id: "1TIpRumKxHaH_U6c6ZuV25Eom0IV3KC6P" }
         ];
         const aecVideos = [
             { title: "Vídeo AeC 1", id: "1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G" },
@@ -737,7 +739,7 @@
         const categories = [
             { id: 'unianchieta', title: 'UNIANCHIETA', descriptions: { pt: 'Projetos audiovisuais acadêmicos.' }, count: unianchietaVideos.length, icon: 'library', coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U', items: unianchietaVideos },
             { id: 'nexhub', title: 'NexHub', descriptions: { pt: 'Estratégias e lançamentos digitais.' }, count: marketingVideos.length, icon: 'trending-up', coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', items: marketingVideos },
-            { id: 'ory_clinica', title: 'Ory Clínica', descriptions: { pt: 'Saúde, bem-estar e estética.' }, count: oryVideos.length, icon: 'heart-pulse', coverId: '1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly', items: oryVideos },
+            { id: 'ory_clinica', title: 'Ory Clínica', descriptions: { pt: 'Saúde, bem-estar e estética.' }, count: oryVideos.length, icon: 'heart-pulse', coverId: '1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC', items: oryVideos },
             { id: 'aec_estetica', title: 'AeC Estética', descriptions: { pt: 'Produções para beleza e cuidados.' }, count: aecVideos.length, icon: 'sparkles', coverId: '1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G', items: aecVideos },
             { id: 'unigrande', title: 'UNIGRANDE', descriptions: { pt: 'Conteúdo institucional e educacional.' }, count: unigrandeVideos.length, icon: 'graduation-cap', coverId: '1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B', items: unigrandeVideos },
             { id: 'vanessa_nutri', title: 'Vanessa Nutri', descriptions: { pt: 'Alimentação saudável e nutrição.' }, count: vanessaVideos.length, icon: 'apple', coverId: '10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN', items: vanessaVideos },
