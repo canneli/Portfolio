@@ -106,14 +106,14 @@
         .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.8); transition: width 0.1s, height 0.1s, background-color 0.2s; }
         body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(255, 255, 255, 0.1); border-color: transparent; backdrop-filter: blur(4px); }
 
-        /* --- Noise Overlay (Performance optimized) --- */
+        /* --- Noise Overlay --- */
         .noise-overlay {
             position: fixed; inset: 0; pointer-events: none; z-index: 9000; opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             mix-blend-mode: overlay;
         }
 
-        /* --- Liquid Chrome Text (Simplified for stability) --- */
+        /* --- Liquid Chrome Text --- */
         @keyframes textFlow {
             0% { background-position: 0% center; }
             100% { background-position: 200% center; }
@@ -130,11 +130,11 @@
             display: inline-block; /* Helps with rendering */
         }
 
-        /* --- ULTRA LIQUID GLASS CARD (Optimized) --- */
+        /* --- ULTRA LIQUID GLASS CARD --- */
         .liquid-glass {
             position: relative;
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px); /* Reduced for performance */
+            backdrop-filter: blur(12px); 
             -webkit-backdrop-filter: blur(12px);
             
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -147,10 +147,9 @@
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             transform: translateZ(0);
-            content-visibility: auto; /* Browser optimization */
+            content-visibility: auto;
         }
 
-        /* Desktop specific enhancements */
         @media (min-width: 768px) {
             .liquid-glass {
                 background: rgba(255, 255, 255, 0.015);
@@ -261,9 +260,28 @@
 
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* LOADING BAR STYLES */
+        #loader-bar { transition: width 0.1s linear; }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col relative selection:bg-brand-500/30 selection:text-brand-300">
+
+    <!-- MOBILE LOADER OVERLAY -->
+    <div id="mobile-loader" class="fixed inset-0 z-[9999] bg-[#030304] flex flex-col items-center justify-center hidden">
+        <!-- Logo Icon similar to main logo -->
+        <div class="mb-8 relative w-16 h-16 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.3)] animate-pulse-glow">
+            <span class="font-display font-bold text-white text-2xl">FC</span>
+        </div>
+        
+        <div class="w-64 h-1 bg-white/10 rounded-full overflow-hidden relative mb-4">
+            <div id="loader-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-600 to-brand-400 w-0 shadow-[0_0_10px_rgba(99,102,241,0.8)]"></div>
+        </div>
+        
+        <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500 animate-pulse">
+            Inicializando Sistema...
+        </p>
+    </div>
 
     <!-- CURSOR (Desktop Only via JS) -->
     <div class="cursor-dot"></div>
@@ -278,7 +296,6 @@
         <div class="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[70px] md:blur-[120px] animate-blob" style="animation-delay: 5s"></div>
         <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[90px] md:blur-[140px] animate-blob" style="animation-delay: 8s"></div>
         
-        <!-- Center glow optimized -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[80px] animate-pulse-glow"></div>
     </div>
 
@@ -638,22 +655,7 @@
 
         // --- 3. INITIAL HINT ---
         function showInitialHint() {
-            const hint = document.getElementById('lang-hint');
-            setTimeout(() => {
-                hint.classList.remove('opacity-0');
-                // Use new bounce-up animation
-                const arrow = hint.querySelector('.hint-arrow');
-                if(arrow) arrow.style.animation = 'bounce-up 1s infinite';
-            }, 1000);
-
-            const hideHint = () => {
-                hint.classList.add('opacity-0');
-                setTimeout(() => hint.remove(), 1000);
-                // Also stop button beacon
-                langBtn.classList.remove('beacon-active');
-                document.removeEventListener('click', hideHint);
-            };
-            document.addEventListener('click', hideHint);
+            // Logic handled by mobile loader or delayed here
         }
 
         // --- 4. CORE LOGIC (Content) ---
@@ -935,7 +937,9 @@
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // --- APP START LOGIC ---
+        
+        function startApp() {
             lucide.createIcons();
             
             // Initialize Lang
@@ -943,10 +947,77 @@
             if(label) label.innerText = currentLang.split('-')[0].toUpperCase();
 
             initLangGrid();
-            showInitialHint();
+            
+            // Initial content
             showCategories();
             addHoverEvents();
             initScrollReveal();
+            
+            // Show hint after delay
+            const hint = document.getElementById('lang-hint');
+            if (hint) {
+                setTimeout(() => {
+                    hint.classList.remove('opacity-0');
+                    const arrow = hint.querySelector('.hint-arrow');
+                    if(arrow) arrow.style.animation = 'bounce-up 1s infinite';
+                    
+                    // Stop beacon after hint shows? Or keep until click. 
+                    // Let's keep beacon until hint is dismissed.
+                }, 1500);
+                
+                const hideHint = () => {
+                    hint.classList.add('opacity-0');
+                    setTimeout(() => hint.remove(), 1000);
+                    const langBtn = document.getElementById('lang-btn');
+                    if(langBtn) langBtn.classList.remove('beacon-active');
+                    document.removeEventListener('click', hideHint);
+                };
+                document.addEventListener('click', hideHint);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const isMobile = window.innerWidth < 768;
+            const loader = document.getElementById('mobile-loader');
+            const loaderBar = document.getElementById('loader-bar');
+
+            // Force scroll top initially
+            window.scrollTo(0, 0);
+
+            if (isMobile && loader) {
+                loader.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+
+                let progress = 0;
+                // 30 seconds = 30000ms
+                const duration = 30000; 
+                const interval = 100; // Update every 100ms
+                const step = 100 / (duration / interval); 
+
+                const timer = setInterval(() => {
+                    progress += step;
+                    // Ease out at the end visually by capping
+                    if (loaderBar) loaderBar.style.width = `${Math.min(progress, 100)}%`;
+
+                    if (progress >= 100) {
+                        clearInterval(timer);
+                        
+                        // Fade out loader
+                        loader.style.transition = 'opacity 0.6s ease';
+                        loader.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            loader.classList.add('hidden');
+                            document.body.style.overflow = '';
+                            startApp(); // Start animations
+                        }, 600);
+                    }
+                }, interval);
+
+            } else {
+                // Desktop: Start immediately
+                startApp();
+            }
         });
     </script>
 </body>
