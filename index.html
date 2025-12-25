@@ -37,10 +37,11 @@
                             600: '#4f46e5',
                             900: '#312e81',
                         },
-                        glass: {
-                            100: 'rgba(255, 255, 255, 0.03)',
-                            200: 'rgba(255, 255, 255, 0.05)',
-                            300: 'rgba(255, 255, 255, 0.1)',
+                        dark: {
+                            950: '#050505',
+                            900: '#0a0a0c',
+                            800: '#121215',
+                            700: '#1c1c21',
                         }
                     },
                     animation: {
@@ -83,20 +84,22 @@
 
     <style>
         body {
-            background-color: #030304; /* Darker background for contrast */
+            background-color: #030304;
             color: #e4e4e7;
             cursor: default;
             overflow-x: hidden;
+            /* Improved scrolling performance */
+            -webkit-overflow-scrolling: touch; 
         }
 
+        /* --- Custom Cursor (Desktop Only) --- */
         body.custom-cursor { cursor: none; }
-
-        /* --- Custom Cursor --- */
         .cursor-dot, .cursor-outline {
             position: fixed; top: 0; left: 0;
             transform: translate(-50%, -50%); border-radius: 50%;
             z-index: 9999; pointer-events: none; mix-blend-mode: difference;
             display: none;
+            will-change: transform; /* Optimize compositing */
         }
         body.custom-cursor .cursor-dot, body.custom-cursor .cursor-outline { display: block; }
         .cursor-dot { width: 8px; height: 8px; background-color: white; box-shadow: 0 0 10px white; }
@@ -105,10 +108,13 @@
 
         /* --- Noise Overlay --- */
         .noise-overlay {
-            position: fixed; inset: 0; pointer-events: none; z-index: 9000; opacity: 0.05;
+            position: fixed; inset: 0; pointer-events: none; z-index: 9000; opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             mix-blend-mode: overlay;
+            /* Disable pointer events completely */
+            pointer-events: none;
         }
+        /* Disable noise on very small screens or weak devices if needed, keeping it for now but low opacity */
 
         /* --- Liquid Chrome Text --- */
         @keyframes textFlow {
@@ -121,26 +127,41 @@
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
             animation: textFlow 3s linear infinite;
             filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.6));
+            will-change: background-position;
         }
 
-        /* --- ULTRA LIQUID GLASS CARD --- */
+        /* --- ULTRA LIQUID GLASS CARD (Optimized) --- */
         .liquid-glass {
             position: relative;
-            background: rgba(255, 255, 255, 0.015);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            /* Complex border for depth */
+            background: rgba(255, 255, 255, 0.03); /* Slightly more opaque for mobile fallback */
+            /* Mobile: Lower blur radius for performance */
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-top: 1px solid rgba(255, 255, 255, 0.3);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             border-left: 1px solid rgba(255, 255, 255, 0.05);
             
             box-shadow: 
-                0 20px 40px -10px rgba(0, 0, 0, 0.5), /* Deep shadow */
-                inset 0 0 20px rgba(255, 255, 255, 0.02); /* Inner glass reflection */
+                0 10px 20px -5px rgba(0, 0, 0, 0.5), 
+                inset 0 0 10px rgba(255, 255, 255, 0.02);
             
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateZ(0); /* Hardware acceleration trigger */
+        }
+
+        /* Desktop specific enhancements */
+        @media (min-width: 768px) {
+            .liquid-glass {
+                background: rgba(255, 255, 255, 0.015);
+                backdrop-filter: blur(25px) saturate(180%);
+                -webkit-backdrop-filter: blur(25px) saturate(180%);
+                box-shadow: 
+                    0 20px 40px -10px rgba(0, 0, 0, 0.5),
+                    inset 0 0 20px rgba(255, 255, 255, 0.02);
+            }
         }
 
         /* The Shimmer Reflection */
@@ -158,17 +179,15 @@
         /* Hover State for Liquid Glass */
         .liquid-glass:hover {
             transform: translateY(-8px) scale(1.02);
-            border-color: rgba(165, 180, 252, 0.5); /* Bright indigo border */
-            background: rgba(99, 102, 241, 0.08); /* Tint */
+            border-color: rgba(165, 180, 252, 0.5);
+            background: rgba(99, 102, 241, 0.08);
             box-shadow: 
-                0 30px 60px -12px rgba(79, 70, 229, 0.3), /* Brand Glow Outer */
-                0 0 20px rgba(99, 102, 241, 0.2), /* Halo */
-                inset 0 0 30px rgba(99, 102, 241, 0.1); /* Inner Glow */
+                0 30px 60px -12px rgba(79, 70, 229, 0.3),
+                0 0 20px rgba(99, 102, 241, 0.2),
+                inset 0 0 30px rgba(99, 102, 241, 0.1);
         }
         
-        .liquid-glass:hover::after {
-            transform: translateX(150%);
-        }
+        .liquid-glass:hover::after { transform: translateX(150%); }
 
         /* --- LANGUAGE SELECTOR STYLES --- */
         #planet-modal {
@@ -179,19 +198,25 @@
         #lang-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 48px; max-width: 1400px; padding: 40px; z-index: 50; }
         .lang-card { position: relative; width: 180px; height: 260px; cursor: pointer; perspective: 1000px; }
         
-        /* Inner Glass Card for Lang */
         .lang-card .glass-surface {
             position: absolute; inset: 0; border-radius: 30px;
-            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-            backdrop-filter: blur(30px);
+            /* Mobile optimized gradients */
+            background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            backdrop-filter: blur(12px); /* Lower blur for mobile */
             border: 1px solid rgba(255,255,255,0.1);
             border-top: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 30px rgba(255,255,255,0.03);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
+        
+        @media (min-width: 768px) {
+            .lang-card .glass-surface {
+                background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+                backdrop-filter: blur(30px);
+            }
+        }
 
-        /* Flag Image Styling */
         .flag-img {
             width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
             border: 4px solid rgba(255,255,255,0.08); 
@@ -208,7 +233,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Hover Effects */
         .lang-card:hover .glass-surface {
             transform: translateY(-15px) rotateX(5deg);
             background: linear-gradient(145deg, rgba(99,102,241,0.15), rgba(99,102,241,0.05));
@@ -233,83 +257,51 @@
         .split-half { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; transition: filter 0.3s ease; }
         .half-br { clip-path: polygon(0 0, 100% 0, 0 100%); background-image: url('https://flagcdn.com/w160/br.png'); z-index: 2; }
         .half-pt { clip-path: polygon(100% 0, 100% 100%, 0 100%); background-image: url('https://flagcdn.com/w160/pt.png'); z-index: 1; }
-        .split-indicator { position: absolute; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 14px; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.9); z-index: 20; opacity: 0.6; transition: all 0.3s ease; pointer-events: none; }
-        .ind-br { top: 22%; left: 18%; } 
-        .ind-pt { bottom: 22%; right: 18%; }
-        
-        /* Highlight indicator on hover (using general card hover) */
-        .lang-card:hover .split-indicator { opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,0.8); }
-
+        .split-indicator { position: absolute; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 12px; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.9); z-index: 20; opacity: 0.6; transition: all 0.3s ease; pointer-events: none; }
+        .ind-br { top: 22%; left: 18%; } .ind-pt { bottom: 22%; right: 18%; }
         .lang-card:hover .split-flag-container { transform: scale(1.15) rotateZ(5deg); border-color: rgba(255,255,255,0.8); box-shadow: 0 0 50px rgba(99,102,241,0.6); }
         .half-br:hover, .half-pt:hover { filter: brightness(1.3) contrast(1.2); z-index: 5; cursor: pointer; }
+        .lang-card:hover .split-indicator { opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,0.8); }
 
-        /* --- Initial Hint Animation (The Beacon) --- */
-        @keyframes floatHint {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(5px); }
-        }
-        
-        .hint-arrow {
-            display: inline-block;
-            margin-left: 8px;
-            animation: bounce-up 1s infinite;
-        }
-        
-        @keyframes bounce-up {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
-        }
-
-        /* Beacon Effect for Button */
-        .beacon-btn {
-            position: relative;
-        }
-        .beacon-btn::before, .beacon-btn::after {
-            content: ''; position: absolute; inset: -2px; border-radius: 9999px;
-            border: 2px solid #818cf8; opacity: 0;
-            z-index: -1; pointer-events: none;
-        }
+        /* Beacon Effect */
+        .beacon-btn { position: relative; }
+        .beacon-btn::before, .beacon-btn::after { content: ''; position: absolute; inset: -2px; border-radius: 9999px; border: 2px solid #818cf8; opacity: 0; z-index: -1; pointer-events: none; }
         .beacon-active::before { animation: beacon-wave 2s infinite; }
         .beacon-active::after { animation: beacon-wave 2s infinite 0.6s; }
+        @keyframes beacon-wave { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
 
-        @keyframes beacon-wave {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.6); opacity: 0; }
-        }
+        .hint-arrow { display: inline-block; margin-left: 8px; animation: bounce-up 1s infinite; }
+        @keyframes bounce-up { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
-        
-        @media (max-width: 768px) { .cursor-dot, .cursor-outline { display: none; } body { cursor: auto; } }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col relative selection:bg-brand-500/30 selection:text-brand-300">
 
-    <!-- CURSOR -->
+    <!-- CURSOR (Desktop Only via JS) -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
     <!-- NOISE -->
     <div class="noise-overlay"></div>
 
-    <!-- BACKGROUND BLOBS (Intense & Fluid) -->
+    <!-- BACKGROUND BLOBS (Optimized for Mobile) -->
     <div class="fixed inset-0 z-0 w-full h-full pointer-events-none overflow-hidden">
-        <div class="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[130px] animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[60vw] h-[60vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[120px] animate-blob" style="animation-delay: 5s"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[80vw] h-[80vw] bg-violet-900/20 rounded-full mix-blend-screen filter blur-[140px] animate-blob" style="animation-delay: 8s"></div>
+        <!-- Reduced blur for mobile, adjusted opacity -->
+        <div class="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[60px] md:blur-[130px] animate-blob md:animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[60vw] h-[60vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[50px] md:blur-[120px] animate-blob md:animate-blob" style="animation-delay: 5s"></div>
+        <!-- Hide third blob on very small screens to save resources, or keep simple -->
+        <div class="absolute bottom-[-20%] left-[20%] w-[80vw] h-[80vw] bg-violet-900/20 rounded-full mix-blend-screen filter blur-[70px] md:blur-[140px] animate-blob md:animate-blob" style="animation-delay: 8s"></div>
         
-        <!-- Extra glow centers for depth -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-pulse-glow"></div>
+        <!-- Center glow optimized -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[60px] md:blur-[100px] animate-pulse-glow"></div>
     </div>
 
-    <!-- NAVIGATION (Glassier) -->
+    <!-- NAVIGATION -->
     <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
-        <div class="absolute inset-0 bg-black/10 backdrop-blur-xl border-b border-white/5"></div>
+        <!-- Reduced blur for navbar on mobile -->
+        <div class="absolute inset-0 bg-black/20 backdrop-blur-md md:backdrop-blur-xl border-b border-white/5"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
@@ -318,7 +310,6 @@
                         <div class="absolute inset-0 flex items-center justify-center font-display font-bold text-white group-hover:scale-110 transition-transform text-lg">FC</div>
                     </div>
                     <div class="flex flex-col group">
-                        <!-- Updated Name Animation -->
                         <span class="font-display font-bold text-xl tracking-tight text-liquid-glow" style="letter-spacing: -0.5px;">FELIPE CANNELI</span>
                         <span class="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold group-hover:text-white group-hover:tracking-[0.4em] transition-all duration-500 ease-out ml-0.5">Portfolio</span>
                     </div>
@@ -349,7 +340,7 @@
                     </div>
                 </div>
 
-                <!-- Mobile Menu Icon -->
+                <!-- Mobile Menu Icon (Still simplified) -->
                 <button class="md:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 rounded-full">
                     <i data-lucide="menu"></i>
                 </button>
@@ -357,7 +348,7 @@
         </div>
     </nav>
 
-    <!-- STATIC LANGUAGE MODAL (LIQUID GLASS GRID) -->
+    <!-- STATIC LANGUAGE MODAL -->
     <div id="planet-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-700 flex flex-col items-center justify-center backdrop-blur-md">
         <!-- Close Button -->
         <div class="absolute top-8 right-8 z-50">
@@ -382,7 +373,7 @@
     <!-- HERO SECTION -->
     <section id="home" class="relative pt-44 pb-24 lg:pt-60 lg:pb-40 overflow-hidden flex flex-col items-center justify-center text-center z-10">
         <div class="max-w-5xl mx-auto px-4 relative">
-            <div class="reveal inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand-500/30 bg-brand-900/30 text-brand-200 text-xs font-bold tracking-widest uppercase mb-10 backdrop-blur-xl shadow-[0_0_20px_rgba(99,102,241,0.2)] animate-float">
+            <div class="reveal inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand-500/30 bg-brand-900/30 text-brand-200 text-xs font-bold tracking-widest uppercase mb-10 backdrop-blur-md md:backdrop-blur-xl shadow-[0_0_20px_rgba(99,102,241,0.2)] animate-float">
                 <span class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
@@ -408,7 +399,7 @@
                     </span>
                 </a>
                 
-                <a href="#contact" class="hoverable px-8 py-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-lg text-white font-medium hover:bg-white/10 hover:border-white/40 transition-all flex items-center gap-2 group shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <a href="#contact" class="hoverable px-8 py-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-md md:backdrop-blur-lg text-white font-medium hover:bg-white/10 hover:border-white/40 transition-all flex items-center gap-2 group shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                     <span data-i18n="nav_contact">Entrar em Contato</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -749,19 +740,23 @@
         ];
 
         // --- INTERACTIVE EFFECTS ---
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
         
-        // Ensure custom cursor only shows if JS runs
-        document.body.classList.add('custom-cursor');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
-        });
+        // Detect Touch for performance
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            document.body.classList.add('custom-cursor');
+            
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+            });
+        }
 
         const addHoverEvents = () => {
             const hoverables = document.querySelectorAll('a, button, .hoverable, .liquid-glass, .lang-card');
