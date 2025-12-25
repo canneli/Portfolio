@@ -198,6 +198,13 @@
             transition: all 0.4s ease;
         }
         
+        @media (min-width: 768px) {
+            .lang-card .glass-surface {
+                background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+                backdrop-filter: blur(30px);
+            }
+        }
+
         .flag-img {
             width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
             border: 3px solid rgba(255,255,255,0.08); 
@@ -287,6 +294,7 @@
                     </div>
                     <div class="flex flex-col group">
                         <span class="font-display font-bold text-xl tracking-tight text-liquid-glow" style="letter-spacing: -0.5px;">FELIPE CANNELI</span>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold group-hover:text-white group-hover:tracking-[0.4em] transition-all duration-500 ease-out ml-0.5">Portfolio</span>
                     </div>
                 </div>
                 
@@ -356,7 +364,7 @@
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
                 </span>
-                <span data-i18n="hero_badge">System Online • Ready to Create</span>
+                <span data-i18n="hero_badge">Disponível para novos projetos</span>
             </div>
             
             <h1 class="font-display font-bold text-6xl sm:text-8xl lg:text-9xl tracking-tighter text-white mb-8 leading-[0.9] reveal" style="transition-delay: 0.1s;">
