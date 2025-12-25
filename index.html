@@ -45,8 +45,8 @@
                         }
                     },
                     animation: {
-                        'fade-in': 'fadeIn 0.8s ease-out forwards',
-                        'slide-up': 'slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'blob': 'blob 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1)',
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-glow': 'pulseGlow 3s infinite',
@@ -55,7 +55,7 @@
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-                        slideUp: { '0%': { transform: 'translateY(40px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        slideUp: { '0%': { transform: 'translateY(30px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
                         blob: {
                             '0%': { transform: 'translate(0px, 0px) scale(1)' },
                             '33%': { transform: 'translate(30px, -50px) scale(1.2)' },
@@ -88,35 +88,32 @@
             color: #e4e4e7;
             cursor: default;
             overflow-x: hidden;
-            /* Improved scrolling performance */
-            -webkit-overflow-scrolling: touch; 
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* --- Custom Cursor (Desktop Only) --- */
         body.custom-cursor { cursor: none; }
+
+        /* --- Custom Cursor --- */
         .cursor-dot, .cursor-outline {
             position: fixed; top: 0; left: 0;
             transform: translate(-50%, -50%); border-radius: 50%;
             z-index: 9999; pointer-events: none; mix-blend-mode: difference;
             display: none;
-            will-change: transform; /* Optimize compositing */
+            will-change: transform;
         }
         body.custom-cursor .cursor-dot, body.custom-cursor .cursor-outline { display: block; }
         .cursor-dot { width: 8px; height: 8px; background-color: white; box-shadow: 0 0 10px white; }
-        .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.8); transition: width 0.2s, height 0.2s, background-color 0.2s; }
+        .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.8); transition: width 0.1s, height 0.1s, background-color 0.2s; }
         body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(255, 255, 255, 0.1); border-color: transparent; backdrop-filter: blur(4px); }
 
-        /* --- Noise Overlay --- */
+        /* --- Noise Overlay (Performance optimized) --- */
         .noise-overlay {
             position: fixed; inset: 0; pointer-events: none; z-index: 9000; opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             mix-blend-mode: overlay;
-            /* Disable pointer events completely */
-            pointer-events: none;
         }
-        /* Disable noise on very small screens or weak devices if needed, keeping it for now but low opacity */
 
-        /* --- Liquid Chrome Text --- */
+        /* --- Liquid Chrome Text (Simplified for stability) --- */
         @keyframes textFlow {
             0% { background-position: 0% center; }
             100% { background-position: 200% center; }
@@ -124,32 +121,33 @@
         .text-liquid-glow {
             background: linear-gradient(90deg, #ffffff 0%, #a5b4fc 20%, #ffffff 40%, #818cf8 60%, #ffffff 80%, #a5b4fc 100%);
             background-size: 200% auto;
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             animation: textFlow 3s linear infinite;
-            filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.6));
-            will-change: background-position;
+            filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.5));
+            display: inline-block; /* Helps with rendering */
         }
 
         /* --- ULTRA LIQUID GLASS CARD (Optimized) --- */
         .liquid-glass {
             position: relative;
-            background: rgba(255, 255, 255, 0.03); /* Slightly more opaque for mobile fallback */
-            /* Mobile: Lower blur radius for performance */
-            backdrop-filter: blur(10px); 
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px); /* Reduced for performance */
+            -webkit-backdrop-filter: blur(12px);
             
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-top: 1px solid rgba(255, 255, 255, 0.3);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
             
             box-shadow: 
                 0 10px 20px -5px rgba(0, 0, 0, 0.5), 
                 inset 0 0 10px rgba(255, 255, 255, 0.02);
             
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            transform: translateZ(0); /* Hardware acceleration trigger */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateZ(0);
+            content-visibility: auto; /* Browser optimization */
         }
 
         /* Desktop specific enhancements */
@@ -164,27 +162,19 @@
             }
         }
 
-        /* The Shimmer Reflection */
         .liquid-glass::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.0) 50%);
-            transform: translateX(-150%);
-            transition: transform 0.6s ease;
-            pointer-events: none;
-            z-index: 10;
+            transform: translateX(-150%); transition: transform 0.6s ease; pointer-events: none; z-index: 10;
         }
 
-        /* Hover State for Liquid Glass */
         .liquid-glass:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-5px);
             border-color: rgba(165, 180, 252, 0.5);
             background: rgba(99, 102, 241, 0.08);
             box-shadow: 
-                0 30px 60px -12px rgba(79, 70, 229, 0.3),
-                0 0 20px rgba(99, 102, 241, 0.2),
-                inset 0 0 30px rgba(99, 102, 241, 0.1);
+                0 20px 50px -12px rgba(79, 70, 229, 0.25),
+                inset 0 0 20px rgba(99, 102, 241, 0.1);
         }
         
         .liquid-glass:hover::after { transform: translateX(150%); }
@@ -192,76 +182,65 @@
         /* --- LANGUAGE SELECTOR STYLES --- */
         #planet-modal {
             background: radial-gradient(circle at center, #0a0a12 0%, #020202 100%);
-            perspective: 1200px;
+            perspective: 1000px;
         }
 
-        #lang-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 48px; max-width: 1400px; padding: 40px; z-index: 50; }
-        .lang-card { position: relative; width: 180px; height: 260px; cursor: pointer; perspective: 1000px; }
+        #lang-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1400px; padding: 20px; z-index: 50; }
+        .lang-card { position: relative; width: 160px; height: 240px; cursor: pointer; perspective: 1000px; transform: translateZ(0); }
         
         .lang-card .glass-surface {
-            position: absolute; inset: 0; border-radius: 30px;
-            /* Mobile optimized gradients */
+            position: absolute; inset: 0; border-radius: 24px;
             background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-            backdrop-filter: blur(12px); /* Lower blur for mobile */
-            border: 1px solid rgba(255,255,255,0.1);
-            border-top: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.3);
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.4s ease;
         }
         
-        @media (min-width: 768px) {
-            .lang-card .glass-surface {
-                background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-                backdrop-filter: blur(30px);
-            }
-        }
-
         .flag-img {
-            width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
-            border: 4px solid rgba(255,255,255,0.08); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.5);
-            transition: all 0.5s ease; 
-            filter: grayscale(0.3) contrast(1.1);
+            width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.08); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: all 0.4s ease; 
+            filter: grayscale(0.2) contrast(1.1);
         }
 
         .lang-label {
-            margin-top: 30px;
+            margin-top: 25px;
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; font-size: 16px; letter-spacing: 3px;
+            font-weight: 700; font-size: 14px; letter-spacing: 2px;
             text-transform: uppercase; color: rgba(255,255,255,0.5);
             transition: all 0.3s ease;
         }
 
         .lang-card:hover .glass-surface {
-            transform: translateY(-15px) rotateX(5deg);
+            transform: translateY(-10px);
             background: linear-gradient(145deg, rgba(99,102,241,0.15), rgba(99,102,241,0.05));
             border-color: rgba(165,180,252,0.6);
-            box-shadow: 0 40px 80px -20px rgba(79,70,229,0.5), inset 0 0 40px rgba(99,102,241,0.2);
+            box-shadow: 0 30px 60px -20px rgba(79,70,229,0.4);
         }
         
         .lang-card:hover .flag-img {
-            transform: scale(1.15) rotateZ(5deg);
-            border-color: rgba(255,255,255,0.8);
+            transform: scale(1.1);
+            border-color: rgba(255,255,255,0.9);
             filter: grayscale(0) contrast(1.2);
-            box-shadow: 0 0 50px rgba(99,102,241,0.6);
+            box-shadow: 0 0 40px rgba(99,102,241,0.5);
         }
         
-        .lang-card:hover .lang-label {
-            color: white; text-shadow: 0 0 20px rgba(165,180,252,0.8);
-            transform: translateY(5px);
-        }
+        .lang-card:hover .lang-label { color: white; text-shadow: 0 0 15px rgba(165,180,252,0.8); }
 
         /* Split Flag */
-        .split-flag-container { width: 110px; height: 110px; border-radius: 50%; position: relative; overflow: hidden; border: 4px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.6); transition: all 0.5s ease; }
+        .split-flag-container { width: 100px; height: 100px; border-radius: 50%; position: relative; overflow: hidden; border: 3px solid rgba(255,255,255,0.08); box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: all 0.4s ease; }
         .split-half { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; transition: filter 0.3s ease; }
         .half-br { clip-path: polygon(0 0, 100% 0, 0 100%); background-image: url('https://flagcdn.com/w160/br.png'); z-index: 2; }
         .half-pt { clip-path: polygon(100% 0, 100% 100%, 0 100%); background-image: url('https://flagcdn.com/w160/pt.png'); z-index: 1; }
-        .split-indicator { position: absolute; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 12px; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.9); z-index: 20; opacity: 0.6; transition: all 0.3s ease; pointer-events: none; }
-        .ind-br { top: 22%; left: 18%; } .ind-pt { bottom: 22%; right: 18%; }
-        .lang-card:hover .split-flag-container { transform: scale(1.15) rotateZ(5deg); border-color: rgba(255,255,255,0.8); box-shadow: 0 0 50px rgba(99,102,241,0.6); }
+        .split-indicator { position: absolute; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 11px; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.9); z-index: 20; opacity: 0.8; transition: all 0.3s ease; pointer-events: none; }
+        .ind-br { top: 20%; left: 18%; } .ind-pt { bottom: 20%; right: 18%; }
+        
+        .lang-card:hover .split-flag-container { transform: scale(1.1); border-color: #fff; box-shadow: 0 0 40px rgba(99, 102, 241, 0.5); }
         .half-br:hover, .half-pt:hover { filter: brightness(1.3) contrast(1.2); z-index: 5; cursor: pointer; }
-        .lang-card:hover .split-indicator { opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,0.8); }
+        .lang-card:hover .split-indicator { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,0.9); }
 
         /* Beacon Effect */
         .beacon-btn { position: relative; }
@@ -273,7 +252,7 @@
         .hint-arrow { display: inline-block; margin-left: 8px; animation: bounce-up 1s infinite; }
         @keyframes bounce-up { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
@@ -286,22 +265,19 @@
     <!-- NOISE -->
     <div class="noise-overlay"></div>
 
-    <!-- BACKGROUND BLOBS (Optimized for Mobile) -->
+    <!-- BACKGROUND BLOBS (Optimized) -->
     <div class="fixed inset-0 z-0 w-full h-full pointer-events-none overflow-hidden">
-        <!-- Reduced blur for mobile, adjusted opacity -->
-        <div class="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[60px] md:blur-[130px] animate-blob md:animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[60vw] h-[60vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[50px] md:blur-[120px] animate-blob md:animate-blob" style="animation-delay: 5s"></div>
-        <!-- Hide third blob on very small screens to save resources, or keep simple -->
-        <div class="absolute bottom-[-20%] left-[20%] w-[80vw] h-[80vw] bg-violet-900/20 rounded-full mix-blend-screen filter blur-[70px] md:blur-[140px] animate-blob md:animate-blob" style="animation-delay: 8s"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[80px] md:blur-[130px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[70px] md:blur-[120px] animate-blob" style="animation-delay: 5s"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[90px] md:blur-[140px] animate-blob" style="animation-delay: 8s"></div>
         
         <!-- Center glow optimized -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[60px] md:blur-[100px] animate-pulse-glow"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[80px] animate-pulse-glow"></div>
     </div>
 
     <!-- NAVIGATION -->
     <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
-        <!-- Reduced blur for navbar on mobile -->
-        <div class="absolute inset-0 bg-black/20 backdrop-blur-md md:backdrop-blur-xl border-b border-white/5"></div>
+        <div class="absolute inset-0 bg-black/30 backdrop-blur-lg border-b border-white/5"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
@@ -311,7 +287,6 @@
                     </div>
                     <div class="flex flex-col group">
                         <span class="font-display font-bold text-xl tracking-tight text-liquid-glow" style="letter-spacing: -0.5px;">FELIPE CANNELI</span>
-                        <span class="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold group-hover:text-white group-hover:tracking-[0.4em] transition-all duration-500 ease-out ml-0.5">Portfolio</span>
                     </div>
                 </div>
                 
@@ -322,9 +297,12 @@
                         <a href="#projects" data-i18n="nav_projects" class="hoverable px-5 py-2 rounded-full text-sm font-medium text-brand-400 bg-brand-500/10 border border-brand-500/20 hover:bg-brand-500/20 transition-all shadow-[0_0_15px_rgba(99,102,241,0.2)] hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]">Projetos</a>
                         <a href="#contact" data-i18n="nav_contact" class="hoverable px-5 py-2 rounded-full text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/10 transition-all hover:shadow-[0_0_10px_rgba(255,255,255,0.1)]">Contato</a>
                     </div>
-                    
-                    <!-- LANGUAGE TAB (Beacon Effect) -->
-                    <div class="relative flex flex-col items-end group/lang">
+                </div>
+
+                <!-- RIGHT SIDE (Language + Mobile Menu) -->
+                <div class="flex items-center gap-4">
+                     <!-- LANGUAGE TAB (Beacon Effect) - Visible on Mobile too -->
+                     <div class="relative flex flex-col items-end group/lang">
                         <button id="lang-btn" onclick="toggleLang()" class="hoverable beacon-btn beacon-active flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-zinc-200 hover:text-white hover:bg-brand-500/20 hover:border-brand-400/50 transition-all group backdrop-blur-lg shadow-[0_0_15px_rgba(99,102,241,0.3)]">
                             <i data-lucide="globe" class="w-4 h-4 group-hover:rotate-180 transition-transform duration-700 text-brand-400"></i>
                             <span class="text-xs font-bold uppercase tracking-wider" id="current-lang-label">PT</span>
@@ -333,23 +311,23 @@
                         <!-- Hint Below Button -->
                         <div id="lang-hint" class="absolute top-full right-0 mt-3 opacity-0 transition-opacity duration-1000 pointer-events-none z-50 flex flex-col items-end">
                             <div class="h-3 w-[1px] bg-brand-400/50 mr-4 mb-1"></div>
-                            <span class="text-xs font-bold text-white bg-brand-600/90 px-3 py-1.5 rounded-lg shadow-[0_0_20px_rgba(99,102,241,0.6)] backdrop-blur-md border border-white/20 flex items-center">
+                            <span class="text-xs font-bold text-white bg-brand-600/90 px-3 py-1.5 rounded-lg shadow-[0_0_20px_rgba(99,102,241,0.6)] backdrop-blur-md border border-white/20 flex items-center whitespace-nowrap">
                                 <span data-i18n="lang_hint">Select Language</span> <span class="hint-arrow">↑</span>
                             </span>
                         </div>
                     </div>
-                </div>
 
-                <!-- Mobile Menu Icon (Still simplified) -->
-                <button class="md:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 rounded-full">
-                    <i data-lucide="menu"></i>
-                </button>
+                    <!-- Mobile Menu Icon -->
+                    <button class="md:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 rounded-full border border-white/10">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- STATIC LANGUAGE MODAL -->
-    <div id="planet-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-700 flex flex-col items-center justify-center backdrop-blur-md">
+    <div id="planet-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-500 flex flex-col items-center justify-center backdrop-blur-lg bg-black/60">
         <!-- Close Button -->
         <div class="absolute top-8 right-8 z-50">
             <button onclick="toggleLang()" class="hoverable p-4 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 hover:border-white/30 backdrop-blur-md">
@@ -373,7 +351,7 @@
     <!-- HERO SECTION -->
     <section id="home" class="relative pt-44 pb-24 lg:pt-60 lg:pb-40 overflow-hidden flex flex-col items-center justify-center text-center z-10">
         <div class="max-w-5xl mx-auto px-4 relative">
-            <div class="reveal inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand-500/30 bg-brand-900/30 text-brand-200 text-xs font-bold tracking-widest uppercase mb-10 backdrop-blur-md md:backdrop-blur-xl shadow-[0_0_20px_rgba(99,102,241,0.2)] animate-float">
+            <div class="reveal inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand-500/30 bg-brand-900/30 text-brand-200 text-xs font-bold tracking-widest uppercase mb-10 backdrop-blur-md shadow-[0_0_20px_rgba(99,102,241,0.2)] animate-float">
                 <span class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
@@ -399,7 +377,7 @@
                     </span>
                 </a>
                 
-                <a href="#contact" class="hoverable px-8 py-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-md md:backdrop-blur-lg text-white font-medium hover:bg-white/10 hover:border-white/40 transition-all flex items-center gap-2 group shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <a href="#contact" class="hoverable px-8 py-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-medium hover:bg-white/10 hover:border-white/40 transition-all flex items-center gap-2 group shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                     <span data-i18n="nav_contact">Entrar em Contato</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -817,7 +795,7 @@
                     const card = document.createElement('div');
                     // APPLYING LIQUID GLASS STYLE TO PROJECT CARDS HERE
                     card.className = 'liquid-glass group rounded-3xl cursor-pointer flex flex-col reveal';
-                    card.style.transitionDelay = `${index * 50}ms`;
+                    card.style.transitionDelay = `${index * 30}ms`; // Faster for mobile
                     card.onclick = () => openCategory(cat.id);
                     const btnText = cat.specialType === 'comparison' ? translations[currentLang].btn_open_compare : translations[currentLang].btn_open_folder;
 
