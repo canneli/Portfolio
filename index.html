@@ -269,8 +269,8 @@
 
     <!-- MOBILE LOADER OVERLAY -->
     <div id="mobile-loader" class="fixed inset-0 z-[9999] bg-[#030304] flex flex-col items-center justify-center hidden">
-        <!-- Logo Icon similar to main logo -->
-        <div class="mb-8 relative w-16 h-16 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.3)] animate-pulse-glow">
+        <!-- Logo Icon similar to main logo, but STATIC to save resources -->
+        <div class="mb-8 relative w-16 h-16 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.3)]">
             <span class="font-display font-bold text-white text-2xl">FC</span>
         </div>
         
@@ -655,7 +655,22 @@
 
         // --- 3. INITIAL HINT ---
         function showInitialHint() {
-            // Logic handled by mobile loader or delayed here
+            const hint = document.getElementById('lang-hint');
+            setTimeout(() => {
+                hint.classList.remove('opacity-0');
+                // Use new bounce-up animation
+                const arrow = hint.querySelector('.hint-arrow');
+                if(arrow) arrow.style.animation = 'bounce-up 1s infinite';
+            }, 1000);
+
+            const hideHint = () => {
+                hint.classList.add('opacity-0');
+                setTimeout(() => hint.remove(), 1000);
+                // Also stop button beacon
+                langBtn.classList.remove('beacon-active');
+                document.removeEventListener('click', hideHint);
+            };
+            document.addEventListener('click', hideHint);
         }
 
         // --- 4. CORE LOGIC (Content) ---
@@ -836,7 +851,7 @@
                 addHoverEvents();
                 initScrollReveal();
                 gridContainer.style.opacity = '1';
-                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                // REMOVED SCROLL TO PROJECTS HERE
             }, 300);
         }
 
@@ -989,8 +1004,8 @@
                 document.body.style.overflow = 'hidden';
 
                 let progress = 0;
-                // 30 seconds = 30000ms
-                const duration = 30000; 
+                // 10 seconds = 10000ms
+                const duration = 10000; 
                 const interval = 100; // Update every 100ms
                 const step = 100 / (duration / interval); 
 
