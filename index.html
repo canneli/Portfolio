@@ -113,20 +113,16 @@
             mix-blend-mode: overlay;
         }
 
-        /* --- Liquid Chrome Text --- */
-        @keyframes textFlow {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
+        /* --- Static Liquid Chrome Text (Optimized) --- */
         .text-liquid-glow {
-            background: linear-gradient(90deg, #ffffff 0%, #a5b4fc 20%, #ffffff 40%, #818cf8 60%, #ffffff 80%, #a5b4fc 100%);
-            background-size: 200% auto;
+            background: linear-gradient(90deg, #ffffff 0%, #a5b4fc 50%, #ffffff 100%);
+            background-size: 100% auto;
             color: transparent;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: textFlow 3s linear infinite;
-            filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.5));
+            /* Animation removed for performance */
+            filter: drop-shadow(0 0 5px rgba(129, 140, 248, 0.5));
             display: inline-block;
         }
 
@@ -310,6 +306,7 @@
                         <div class="absolute inset-0 flex items-center justify-center font-display font-bold text-white group-hover:scale-110 transition-transform text-lg">FC</div>
                     </div>
                     <div class="flex flex-col group">
+                        <!-- Static name with glow effect -->
                         <span class="font-display font-bold text-xl tracking-tight text-liquid-glow" style="letter-spacing: -0.5px;">FELIPE CANNELI</span>
                         <span class="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold group-hover:text-white group-hover:tracking-[0.4em] transition-all duration-500 ease-out ml-0.5">Portfolio</span>
                     </div>
@@ -937,6 +934,9 @@
                     hint.classList.remove('opacity-0');
                     const arrow = hint.querySelector('.hint-arrow');
                     if(arrow) arrow.style.animation = 'bounce-up 1s infinite';
+                    
+                    // Stop beacon after hint shows? Or keep until click. 
+                    // Let's keep beacon until hint is dismissed.
                 }, 1500);
                 
                 const hideHint = () => {
@@ -983,28 +983,33 @@
                 document.body.style.overflow = 'hidden';
 
                 let progress = 0;
+                // 2.5 seconds = 2500ms
                 const duration = 2500; 
-                const interval = 100;
+                const interval = 100; // Update every 100ms
                 const step = 100 / (duration / interval); 
 
                 const timer = setInterval(() => {
                     progress += step;
+                    // Ease out at the end visually by capping
                     if (loaderBar) loaderBar.style.width = `${Math.min(progress, 100)}%`;
 
                     if (progress >= 100) {
                         clearInterval(timer);
+                        
+                        // Fade out loader
                         loader.style.transition = 'opacity 0.6s ease';
                         loader.style.opacity = '0';
                         
                         setTimeout(() => {
                             loader.classList.add('hidden');
                             document.body.style.overflow = '';
-                            startApp();
+                            startApp(); // Start animations
                         }, 600);
                     }
                 }, interval);
 
             } else {
+                // Desktop: Start immediately
                 startApp();
             }
         });
