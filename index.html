@@ -32,7 +32,7 @@
                     },
                     colors: {
                         brand: {
-                            400: '#a5b4fc', /* Lighter for glow */
+                            400: '#a5b4fc',
                             500: '#6366f1',
                             600: '#4f46e5',
                             900: '#312e81',
@@ -91,9 +91,14 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        body.custom-cursor { cursor: none; }
+        /* Disable custom cursor on touch devices to save resources */
+        @media (hover: none) and (pointer: coarse) {
+            .cursor-dot, .cursor-outline { display: none !important; }
+            body.custom-cursor { cursor: auto; }
+        }
 
-        /* --- Custom Cursor --- */
+        body.custom-cursor { cursor: none; }
+        
         .cursor-dot, .cursor-outline {
             position: fixed; top: 0; left: 0;
             transform: translate(-50%, -50%); border-radius: 50%;
@@ -106,39 +111,49 @@
         .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.8); transition: width 0.1s, height 0.1s, background-color 0.2s; }
         body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(255, 255, 255, 0.1); border-color: transparent; backdrop-filter: blur(4px); }
 
-        /* --- Noise Overlay --- */
+        /* --- Noise Overlay (Desktop Only) --- */
         .noise-overlay {
             position: fixed; inset: 0; pointer-events: none; z-index: 9000; opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             mix-blend-mode: overlay;
         }
+        
+        /* Hide noise on mobile for performance */
+        @media (max-width: 768px) {
+            .noise-overlay { display: none; }
+        }
 
-        /* --- Static Liquid Chrome Text (Optimized) --- */
+        /* --- Liquid Chrome Text --- */
+        @keyframes textFlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
         .text-liquid-glow {
-            background: linear-gradient(90deg, #ffffff 0%, #a5b4fc 50%, #ffffff 100%);
-            background-size: 100% auto;
+            background: linear-gradient(90deg, #ffffff 0%, #a5b4fc 20%, #ffffff 40%, #818cf8 60%, #ffffff 80%, #a5b4fc 100%);
+            background-size: 200% auto;
             color: transparent;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* Animation removed for performance */
-            filter: drop-shadow(0 0 5px rgba(129, 140, 248, 0.5));
+            /* Animation only on desktop */
+            animation: none;
+            filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.5));
             display: inline-block;
         }
+        
+        @media (min-width: 768px) {
+            .text-liquid-glow { animation: textFlow 3s linear infinite; }
+        }
 
-        /* --- ULTRA LIQUID GLASS CARD --- */
+        /* --- ULTRA LIQUID GLASS CARD (Mobile Optimized) --- */
         .liquid-glass {
             position: relative;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
+            /* Mobile Fallback: No blur, simple transparency */
+            background: rgba(20, 20, 25, 0.85); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-            
-            box-shadow: 
-                0 10px 20px -5px rgba(0, 0, 0, 0.5), 
-                inset 0 0 10px rgba(255, 255, 255, 0.02);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -146,6 +161,7 @@
             content-visibility: auto;
         }
 
+        /* Desktop: Full Glass Effect */
         @media (min-width: 768px) {
             .liquid-glass {
                 background: rgba(255, 255, 255, 0.015);
@@ -176,19 +192,24 @@
 
         /* --- LANGUAGE SELECTOR STYLES --- */
         #planet-modal {
-            background: radial-gradient(circle at center, #0a0a12 0%, #020202 100%);
+            /* Simpler background for mobile */
+            background: rgba(0,0,0,0.9);
             perspective: 1000px;
         }
+        
+        @media (min-width: 768px) {
+            #planet-modal { background: radial-gradient(circle at center, #0a0a12 0%, #020202 100%); }
+        }
 
-        #lang-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1400px; padding: 20px; z-index: 50; }
-        .lang-card { position: relative; width: 160px; height: 240px; cursor: pointer; perspective: 1000px; transform: translateZ(0); }
+        #lang-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1400px; padding: 20px; z-index: 50; }
+        .lang-card { position: relative; width: 150px; height: 220px; cursor: pointer; perspective: 1000px; transform: translateZ(0); }
         
         .lang-card .glass-surface {
             position: absolute; inset: 0; border-radius: 24px;
-            background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-            backdrop-filter: blur(12px);
+            /* Mobile: Solid semi-transparent */
+            background: rgba(30, 30, 35, 0.9);
             border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: all 0.4s ease;
         }
@@ -197,52 +218,51 @@
             .lang-card .glass-surface {
                 background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
                 backdrop-filter: blur(30px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             }
         }
 
         .flag-img {
-            width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
-            border: 3px solid rgba(255,255,255,0.08); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.1); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             transition: all 0.4s ease; 
-            filter: grayscale(0.3) contrast(1.1);
+            filter: grayscale(0.2);
         }
 
         .lang-label {
-            margin-top: 25px;
+            margin-top: 20px;
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; font-size: 14px; letter-spacing: 2px;
-            text-transform: uppercase; color: rgba(255,255,255,0.5);
+            font-weight: 700; font-size: 13px; letter-spacing: 2px;
+            text-transform: uppercase; color: rgba(255,255,255,0.7);
             transition: all 0.3s ease;
         }
 
         .lang-card:hover .glass-surface {
-            transform: translateY(-10px);
-            background: linear-gradient(145deg, rgba(99,102,241,0.15), rgba(99,102,241,0.05));
-            border-color: rgba(165,180,252,0.6);
-            box-shadow: 0 30px 60px -20px rgba(79,70,229,0.4);
+            transform: translateY(-8px);
+            background: linear-gradient(145deg, rgba(99,102,241,0.2), rgba(99,102,241,0.05));
+            border-color: rgba(165,180,252,0.8);
         }
         
         .lang-card:hover .flag-img {
             transform: scale(1.1);
-            border-color: rgba(255,255,255,0.9);
-            filter: grayscale(0) contrast(1.2);
-            box-shadow: 0 0 40px rgba(99,102,241,0.5);
+            border-color: #fff;
+            filter: grayscale(0);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
         }
         
-        .lang-card:hover .lang-label { color: white; text-shadow: 0 0 15px rgba(165,180,252,0.8); }
+        .lang-card:hover .lang-label { color: white; text-shadow: 0 0 10px rgba(165,180,252,0.8); }
 
         /* Split Flag */
-        .split-flag-container { width: 100px; height: 100px; border-radius: 50%; position: relative; overflow: hidden; border: 3px solid rgba(255,255,255,0.08); box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: all 0.4s ease; }
+        .split-flag-container { width: 90px; height: 90px; border-radius: 50%; position: relative; overflow: hidden; border: 3px solid rgba(255,255,255,0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.4s ease; }
         .split-half { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; transition: filter 0.3s ease; }
         .half-br { clip-path: polygon(0 0, 100% 0, 0 100%); background-image: url('https://flagcdn.com/w160/br.png'); z-index: 2; }
         .half-pt { clip-path: polygon(100% 0, 100% 100%, 0 100%); background-image: url('https://flagcdn.com/w160/pt.png'); z-index: 1; }
-        .split-indicator { position: absolute; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 11px; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.9); z-index: 20; opacity: 0.8; transition: all 0.3s ease; pointer-events: none; }
-        .ind-br { top: 20%; left: 18%; } .ind-pt { bottom: 20%; right: 18%; }
+        .split-indicator { position: absolute; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 10px; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.9); z-index: 20; opacity: 0.9; pointer-events: none; }
+        .ind-br { top: 22%; left: 18%; } .ind-pt { bottom: 22%; right: 18%; }
         
-        .lang-card:hover .split-flag-container { transform: scale(1.1); border-color: #fff; box-shadow: 0 0 40px rgba(99, 102, 241, 0.5); }
-        .half-br:hover, .half-pt:hover { filter: brightness(1.3) contrast(1.2); z-index: 5; cursor: pointer; }
-        .lang-card:hover .split-indicator { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,0.9); }
+        .lang-card:hover .split-flag-container { transform: scale(1.1); border-color: #fff; box-shadow: 0 0 30px rgba(99, 102, 241, 0.6); }
+        .half-br:hover, .half-pt:hover { filter: brightness(1.2); z-index: 5; cursor: pointer; }
 
         /* Beacon Effect */
         .beacon-btn { position: relative; }
@@ -283,21 +303,22 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- NOISE -->
-    <div class="noise-overlay"></div>
+    <!-- BACKGROUND (Static on Mobile, Animated on Desktop) -->
+    <!-- Mobile: Simple Gradient -->
+    <div class="fixed inset-0 z-0 bg-gradient-to-br from-[#0a0a0c] via-[#050505] to-[#121215] md:hidden"></div>
 
-    <!-- BACKGROUND BLOBS (Optimized) -->
-    <div class="fixed inset-0 z-0 w-full h-full pointer-events-none overflow-hidden">
-        <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[50px] md:blur-[130px] animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[40px] md:blur-[120px] animate-blob" style="animation-delay: 5s"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[60px] md:blur-[140px] animate-blob" style="animation-delay: 8s"></div>
+    <!-- Desktop: Blobs -->
+    <div class="fixed inset-0 z-0 w-full h-full pointer-events-none overflow-hidden hidden md:block">
+        <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[130px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[120px] animate-blob" style="animation-delay: 5s"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[140px] animate-blob" style="animation-delay: 8s"></div>
         
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[50px] md:blur-[80px] animate-pulse-glow"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[80px] animate-pulse-glow"></div>
     </div>
 
     <!-- NAVIGATION -->
     <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
-        <div class="absolute inset-0 bg-black/30 backdrop-blur-lg border-b border-white/5"></div>
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-md md:backdrop-blur-xl border-b border-white/5"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
@@ -306,7 +327,6 @@
                         <div class="absolute inset-0 flex items-center justify-center font-display font-bold text-white group-hover:scale-110 transition-transform text-lg">FC</div>
                     </div>
                     <div class="flex flex-col group">
-                        <!-- Static name with glow effect -->
                         <span class="font-display font-bold text-xl tracking-tight text-liquid-glow" style="letter-spacing: -0.5px;">FELIPE CANNELI</span>
                         <span class="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold group-hover:text-white group-hover:tracking-[0.4em] transition-all duration-500 ease-out ml-0.5">Portfolio</span>
                     </div>
@@ -325,7 +345,7 @@
                 <div class="flex items-center gap-4">
                      <!-- LANGUAGE TAB -->
                      <div class="relative flex flex-col items-end group/lang">
-                        <button id="lang-btn" onclick="toggleLang()" class="hoverable beacon-btn beacon-active flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-zinc-200 hover:text-white hover:bg-brand-500/20 hover:border-brand-400/50 transition-all group backdrop-blur-lg shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                        <button id="lang-btn" onclick="toggleLang()" class="hoverable beacon-btn beacon-active flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-zinc-200 hover:text-white hover:bg-brand-500/20 hover:border-brand-400/50 transition-all group backdrop-blur-md shadow-[0_0_15px_rgba(99,102,241,0.3)]">
                             <i data-lucide="globe" class="w-4 h-4 group-hover:rotate-180 transition-transform duration-700 text-brand-400"></i>
                             <span class="text-xs font-bold uppercase tracking-wider" id="current-lang-label">PT</span>
                         </button>
@@ -349,19 +369,22 @@
     </nav>
 
     <!-- STATIC LANGUAGE MODAL -->
-    <div id="planet-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-500 flex flex-col items-center justify-center backdrop-blur-lg bg-black/60">
+    <div id="planet-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-500 flex flex-col items-center justify-center backdrop-blur-md bg-black/80">
+        <!-- Close Button -->
         <div class="absolute top-8 right-8 z-50">
-            <button onclick="toggleLang()" class="hoverable p-4 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 hover:border-white/30 backdrop-blur-md">
+            <button onclick="toggleLang()" class="hoverable p-4 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 hover:border-white/30">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
         </div>
 
+        <!-- Header -->
         <div class="text-center mb-12 relative z-20 transition-all duration-500 transform translate-y-[-20px]" id="planet-text">
-            <h2 class="font-display text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight" data-i18n="planet_title" style="text-shadow: 0 0 40px rgba(255,255,255,0.4);">Select Language</h2>
+            <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight" data-i18n="planet_title" style="text-shadow: 0 0 20px rgba(255,255,255,0.3);">Select Language</h2>
             <div class="h-1 w-24 bg-gradient-to-r from-transparent via-brand-500 to-transparent mx-auto mb-4"></div>
             <p class="text-brand-300 text-sm uppercase tracking-[0.4em] font-bold opacity-80">Global Access</p>
         </div>
 
+        <!-- Static Grid Container -->
         <div id="lang-grid">
             <!-- Items injected by JS -->
         </div>
@@ -432,8 +455,6 @@
 
     <!-- MORE TOPICS -->
     <section class="py-32 relative z-10 overflow-hidden border-t border-white/5 bg-black/40 backdrop-blur-sm">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-900/20 via-transparent to-transparent"></div>
-        
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10 reveal">
             <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-zinc-900/80 border border-zinc-700 mb-8 shadow-[0_0_50px_rgba(99,102,241,0.2)] rotate-6 hover:rotate-12 transition-transform duration-500 group backdrop-blur-xl">
                 <i data-lucide="plus" class="w-10 h-10 text-brand-400 group-hover:scale-125 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.8)]"></i>
@@ -934,9 +955,6 @@
                     hint.classList.remove('opacity-0');
                     const arrow = hint.querySelector('.hint-arrow');
                     if(arrow) arrow.style.animation = 'bounce-up 1s infinite';
-                    
-                    // Stop beacon after hint shows? Or keep until click. 
-                    // Let's keep beacon until hint is dismissed.
                 }, 1500);
                 
                 const hideHint = () => {
