@@ -32,17 +32,11 @@
                     },
                     colors: {
                         brand: {
-                            400: '#a5b4fc', /* Lighter for glow */
+                            400: '#a5b4fc',
                             500: '#6366f1',
                             600: '#4f46e5',
                             900: '#312e81',
                         },
-                        dark: {
-                            950: '#050505',
-                            900: '#0a0a0c',
-                            800: '#121215',
-                            700: '#1c1c21',
-                        }
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.6s ease-out forwards',
@@ -51,16 +45,13 @@
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-glow': 'pulseGlow 3s infinite',
                         'beacon': 'beacon 2s infinite',
-                        'shimmer': 'shimmer 2.5s infinite linear',
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
                         slideUp: { '0%': { transform: 'translateY(30px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
                         blob: {
                             '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.2)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.8)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1.1)' },
                         },
                         float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
                         pulseGlow: {
@@ -71,10 +62,6 @@
                             '0%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(99, 102, 241, 0.7)' },
                             '70%': { transform: 'scale(1)', boxShadow: '0 0 0 15px rgba(99, 102, 241, 0)' },
                             '100%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(99, 102, 241, 0)' },
-                        },
-                        shimmer: {
-                            '0%': { transform: 'translateX(-150%) skewX(-25deg)' },
-                            '100%': { transform: 'translateX(150%) skewX(-25deg)' },
                         }
                     }
                 }
@@ -90,21 +77,6 @@
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
         }
-
-        body.custom-cursor { cursor: none; }
-
-        /* --- Custom Cursor --- */
-        .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0;
-            transform: translate(-50%, -50%); border-radius: 50%;
-            z-index: 9999; pointer-events: none; mix-blend-mode: difference;
-            display: none;
-            will-change: transform;
-        }
-        body.custom-cursor .cursor-dot, body.custom-cursor .cursor-outline { display: block; }
-        .cursor-dot { width: 8px; height: 8px; background-color: white; box-shadow: 0 0 10px white; }
-        .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.8); transition: width 0.1s, height 0.1s, background-color 0.2s; }
-        body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(255, 255, 255, 0.1); border-color: transparent; backdrop-filter: blur(4px); }
 
         /* --- Noise Overlay --- */
         .noise-overlay {
@@ -127,23 +99,18 @@
             -webkit-text-fill-color: transparent;
             animation: textFlow 3s linear infinite;
             filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.5));
-            display: inline-block; /* Helps with rendering */
+            display: inline-block;
         }
 
         /* --- ULTRA LIQUID GLASS CARD --- */
         .liquid-glass {
             position: relative;
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px); 
+            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-top: 1px solid rgba(255, 255, 255, 0.3);
-            
-            box-shadow: 
-                0 10px 20px -5px rgba(0, 0, 0, 0.5), 
-                inset 0 0 10px rgba(255, 255, 255, 0.02);
-            
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.02);
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             transform: translateZ(0);
@@ -155,9 +122,7 @@
                 background: rgba(255, 255, 255, 0.015);
                 backdrop-filter: blur(25px) saturate(180%);
                 -webkit-backdrop-filter: blur(25px) saturate(180%);
-                box-shadow: 
-                    0 20px 40px -10px rgba(0, 0, 0, 0.5),
-                    inset 0 0 20px rgba(255, 255, 255, 0.02);
+                box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
             }
         }
 
@@ -171,9 +136,7 @@
             transform: translateY(-5px);
             border-color: rgba(165, 180, 252, 0.5);
             background: rgba(99, 102, 241, 0.08);
-            box-shadow: 
-                0 20px 50px -12px rgba(79, 70, 229, 0.25),
-                inset 0 0 20px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 20px 50px -12px rgba(79, 70, 229, 0.25), inset 0 0 20px rgba(99, 102, 241, 0.1);
         }
         
         .liquid-glass:hover::after { transform: translateX(150%); }
@@ -196,20 +159,13 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: all 0.4s ease;
         }
-        
-        @media (min-width: 768px) {
-            .lang-card .glass-surface {
-                background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-                backdrop-filter: blur(30px);
-            }
-        }
 
         .flag-img {
             width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
             border: 3px solid rgba(255,255,255,0.08); 
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             transition: all 0.4s ease; 
-            filter: grayscale(0.2) contrast(1.1);
+            filter: grayscale(0.3) contrast(1.1);
         }
 
         .lang-label {
@@ -269,7 +225,6 @@
 
     <!-- MOBILE LOADER OVERLAY -->
     <div id="mobile-loader" class="fixed inset-0 z-[9999] bg-[#030304] flex flex-col items-center justify-center hidden">
-        <!-- Logo Icon similar to main logo, but STATIC to save resources -->
         <div class="mb-8 relative w-16 h-16 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.3)]">
             <span class="font-display font-bold text-white text-2xl">FC</span>
         </div>
@@ -283,20 +238,15 @@
         </p>
     </div>
 
-    <!-- CURSOR (Desktop Only via JS) -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
-
     <!-- NOISE -->
     <div class="noise-overlay"></div>
 
     <!-- BACKGROUND BLOBS (Optimized) -->
     <div class="fixed inset-0 z-0 w-full h-full pointer-events-none overflow-hidden">
-        <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[80px] md:blur-[130px] animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[70px] md:blur-[120px] animate-blob" style="animation-delay: 5s"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[90px] md:blur-[140px] animate-blob" style="animation-delay: 8s"></div>
-        
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[80px] animate-pulse-glow"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[50px] md:blur-[130px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[40px] md:blur-[120px] animate-blob" style="animation-delay: 5s"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[60px] md:blur-[140px] animate-blob" style="animation-delay: 8s"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[50px] md:blur-[80px] animate-pulse-glow"></div>
     </div>
 
     <!-- NAVIGATION -->
@@ -326,7 +276,7 @@
 
                 <!-- RIGHT SIDE (Language + Mobile Menu) -->
                 <div class="flex items-center gap-4">
-                     <!-- LANGUAGE TAB (Beacon Effect) - Visible on Mobile too -->
+                     <!-- LANGUAGE TAB -->
                      <div class="relative flex flex-col items-end group/lang">
                         <button id="lang-btn" onclick="toggleLang()" class="hoverable beacon-btn beacon-active flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-zinc-200 hover:text-white hover:bg-brand-500/20 hover:border-brand-400/50 transition-all group backdrop-blur-lg shadow-[0_0_15px_rgba(99,102,241,0.3)]">
                             <i data-lucide="globe" class="w-4 h-4 group-hover:rotate-180 transition-transform duration-700 text-brand-400"></i>
@@ -353,21 +303,18 @@
 
     <!-- STATIC LANGUAGE MODAL -->
     <div id="planet-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-500 flex flex-col items-center justify-center backdrop-blur-lg bg-black/60">
-        <!-- Close Button -->
         <div class="absolute top-8 right-8 z-50">
             <button onclick="toggleLang()" class="hoverable p-4 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 hover:border-white/30 backdrop-blur-md">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
         </div>
 
-        <!-- Header -->
         <div class="text-center mb-12 relative z-20 transition-all duration-500 transform translate-y-[-20px]" id="planet-text">
             <h2 class="font-display text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight" data-i18n="planet_title" style="text-shadow: 0 0 40px rgba(255,255,255,0.4);">Select Language</h2>
             <div class="h-1 w-24 bg-gradient-to-r from-transparent via-brand-500 to-transparent mx-auto mb-4"></div>
             <p class="text-brand-300 text-sm uppercase tracking-[0.4em] font-bold opacity-80">Global Access</p>
         </div>
 
-        <!-- Static Grid Container -->
         <div id="lang-grid">
             <!-- Items injected by JS -->
         </div>
@@ -585,95 +532,6 @@
             }
         };
 
-        // --- 2. STATIC LANGUAGE GRID LOGIC ---
-        let isLangOpen = false;
-        const planetModal = document.getElementById('planet-modal');
-        const langGrid = document.getElementById('lang-grid');
-        const langBtn = document.getElementById('lang-btn');
-
-        // Create Static Cards
-        function initLangGrid() {
-            langGrid.innerHTML = ''; // Clear existing
-
-            langs.forEach(lang => {
-                const card = document.createElement('div');
-                card.className = 'lang-card';
-                
-                if (lang.isSplit) {
-                    card.innerHTML = `
-                        <div class="glass-surface">
-                            <div class="split-flag-container">
-                                <div class="split-half half-br" title="Português Brasil"></div>
-                                <div class="split-indicator ind-br">BR</div>
-                                <div class="split-half half-pt" title="Português Portugal"></div>
-                                <div class="split-indicator ind-pt">PT</div>
-                            </div>
-                            <div class="lang-label">${lang.label}</div>
-                        </div>
-                    `;
-                    // Setup listeners for split parts
-                    setTimeout(() => {
-                        const brPart = card.querySelector('.half-br');
-                        const ptPart = card.querySelector('.half-pt');
-                        
-                        brPart.onclick = (e) => { e.stopPropagation(); selectLanguage('pt'); };
-                        ptPart.onclick = (e) => { e.stopPropagation(); selectLanguage('pt-PT'); };
-                    }, 0);
-                } else {
-                    card.innerHTML = `
-                        <div class="glass-surface">
-                            <img src="https://flagcdn.com/w160/${lang.flag}.png" class="flag-img">
-                            <div class="lang-label">${lang.label}</div>
-                        </div>
-                    `;
-                    card.onclick = () => selectLanguage(lang.code);
-                }
-                
-                langGrid.appendChild(card);
-            });
-        }
-
-        // Toggle Modal Visibility
-        function toggleLang() {
-            isLangOpen = !isLangOpen;
-            if (isLangOpen) {
-                planetModal.classList.remove('pointer-events-none', 'opacity-0');
-                document.body.style.overflow = 'hidden';
-                // Remove beacon from button when opened
-                langBtn.classList.remove('beacon-active');
-            } else {
-                planetModal.classList.add('pointer-events-none', 'opacity-0');
-                document.body.style.overflow = '';
-            }
-        }
-
-        // Handle Selection
-        function selectLanguage(code) {
-            changeLanguage(code);
-            setTimeout(() => toggleLang(), 300); // Small delay for visual feedback
-        }
-
-        // --- 3. INITIAL HINT ---
-        function showInitialHint() {
-            const hint = document.getElementById('lang-hint');
-            setTimeout(() => {
-                hint.classList.remove('opacity-0');
-                // Use new bounce-up animation
-                const arrow = hint.querySelector('.hint-arrow');
-                if(arrow) arrow.style.animation = 'bounce-up 1s infinite';
-            }, 1000);
-
-            const hideHint = () => {
-                hint.classList.add('opacity-0');
-                setTimeout(() => hint.remove(), 1000);
-                // Also stop button beacon
-                langBtn.classList.remove('beacon-active');
-                document.removeEventListener('click', hideHint);
-            };
-            document.addEventListener('click', hideHint);
-        }
-
-        // --- 4. CORE LOGIC (Content) ---
         const marketingVideos = [
             { title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct" },
             { title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly" },
@@ -801,60 +659,6 @@
             else showCategories(); // Simple refresh
         }
 
-        function showCategories() {
-            gridContainer.style.opacity = '0';
-            setTimeout(() => {
-                headerTitle.textContent = translations[currentLang].projects_header;
-                headerDesc.textContent = translations[currentLang].projects_subheader;
-                backBtn.classList.add('hidden');
-                gridContainer.innerHTML = '';
-                gridContainer.classList.remove('!flex', '!flex-col');
-                gridContainer.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
-
-                categories.forEach((cat, index) => {
-                    let thumbUrl;
-                    if (cat.coverType === 'youtube') thumbUrl = `https://img.youtube.com/vi/${cat.coverId}/maxresdefault.jpg`;
-                    else if (cat.coverType === 'image') thumbUrl = cat.coverUrl;
-                    else thumbUrl = `https://drive.google.com/thumbnail?id=${cat.coverId}&sz=w640-h360`;
-
-                    const card = document.createElement('div');
-                    // APPLYING LIQUID GLASS STYLE TO PROJECT CARDS HERE
-                    card.className = 'liquid-glass group rounded-3xl cursor-pointer flex flex-col reveal';
-                    card.style.transitionDelay = `${index * 30}ms`; // Faster for mobile
-                    card.onclick = () => openCategory(cat.id);
-                    const btnText = cat.specialType === 'comparison' ? translations[currentLang].btn_open_compare : translations[currentLang].btn_open_folder;
-
-                    card.innerHTML = `
-                        <div class="h-56 w-full relative overflow-hidden bg-zinc-900/50">
-                             <div class="absolute inset-0 bg-dark-900/20 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
-                             <img src="${thumbUrl}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1 opacity-80 group-hover:opacity-100" onerror="this.src='https://via.placeholder.com/640x360/121215/333?text=Cover'">
-                             
-                             <div class="absolute top-4 right-4 w-10 h-10 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white z-20 shadow-lg group-hover:bg-brand-600 group-hover:border-brand-500 transition-all duration-300">
-                                <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
-                             </div>
-                        </div>
-                        <div class="p-8 flex-1 flex flex-col relative z-20">
-                            <h3 class="font-display text-2xl font-bold text-white mb-2 group-hover:text-brand-400 transition-colors">${cat.title}</h3>
-                            <p class="text-zinc-500 text-sm mb-6 leading-relaxed flex-1">${cat.descriptions[currentLang] || cat.descriptions['pt']}</p>
-                            <div class="flex items-center justify-between pt-4 border-t border-white/5">
-                                <span class="text-xs font-bold uppercase tracking-widest text-zinc-600">${cat.count} Itens</span>
-                                <span class="text-sm font-bold text-white flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                                    ${btnText} <i data-lucide="arrow-right" class="w-4 h-4 text-brand-500"></i>
-                                </span>
-                            </div>
-                        </div>
-                    `;
-                    gridContainer.appendChild(card);
-                });
-                lucide.createIcons();
-                // initCardEffects(); 
-                addHoverEvents();
-                initScrollReveal();
-                gridContainer.style.opacity = '1';
-                // REMOVED SCROLL TO PROJECTS HERE
-            }, 300);
-        }
-
         function openCategory(catId) {
             const category = categories.find(c => c.id === catId);
             if (!category) return;
@@ -921,13 +725,155 @@
                     });
                 }
                 lucide.createIcons();
-                // initCardEffects(); 
                 addHoverEvents();
                 initScrollReveal();
                 gridContainer.style.opacity = '1';
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
             }, 300);
         }
+
+        function showCategories() {
+            gridContainer.style.opacity = '0';
+            setTimeout(() => {
+                headerTitle.textContent = translations[currentLang].projects_header;
+                headerDesc.textContent = translations[currentLang].projects_subheader;
+                backBtn.classList.add('hidden');
+                gridContainer.innerHTML = '';
+                gridContainer.classList.remove('!flex', '!flex-col');
+                gridContainer.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+
+                categories.forEach((cat, index) => {
+                    let thumbUrl;
+                    if (cat.coverType === 'youtube') thumbUrl = `https://img.youtube.com/vi/${cat.coverId}/maxresdefault.jpg`;
+                    else if (cat.coverType === 'image') thumbUrl = cat.coverUrl;
+                    else thumbUrl = `https://drive.google.com/thumbnail?id=${cat.coverId}&sz=w640-h360`;
+
+                    const card = document.createElement('div');
+                    // APPLYING LIQUID GLASS STYLE TO PROJECT CARDS HERE
+                    card.className = 'liquid-glass group rounded-3xl cursor-pointer flex flex-col reveal';
+                    card.style.transitionDelay = `${index * 30}ms`; // Faster for mobile
+                    card.onclick = () => openCategory(cat.id);
+                    const btnText = cat.specialType === 'comparison' ? translations[currentLang].btn_open_compare : translations[currentLang].btn_open_folder;
+
+                    card.innerHTML = `
+                        <div class="h-56 w-full relative overflow-hidden bg-zinc-900/50">
+                             <div class="absolute inset-0 bg-dark-900/20 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                             <img src="${thumbUrl}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1 opacity-80 group-hover:opacity-100" onerror="this.src='https://via.placeholder.com/640x360/121215/333?text=Cover'">
+                             
+                             <div class="absolute top-4 right-4 w-10 h-10 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white z-20 shadow-lg group-hover:bg-brand-600 group-hover:border-brand-500 transition-all duration-300">
+                                <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
+                             </div>
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col relative z-20">
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 group-hover:text-brand-400 transition-colors">${cat.title}</h3>
+                            <p class="text-zinc-500 text-sm mb-6 leading-relaxed flex-1">${cat.descriptions[currentLang] || cat.descriptions['pt']}</p>
+                            <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                                <span class="text-xs font-bold uppercase tracking-widest text-zinc-600">${cat.count} Itens</span>
+                                <span class="text-sm font-bold text-white flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                                    ${btnText} <i data-lucide="arrow-right" class="w-4 h-4 text-brand-500"></i>
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                    gridContainer.appendChild(card);
+                });
+                lucide.createIcons();
+                // initCardEffects(); 
+                addHoverEvents();
+                initScrollReveal();
+                gridContainer.style.opacity = '1';
+                // REMOVED SCROLL TO PROJECTS HERE
+            }, 300);
+        }
+
+        // --- 2. STATIC LANGUAGE GRID LOGIC ---
+        let isLangOpen = false;
+        const planetModal = document.getElementById('planet-modal');
+        const langGrid = document.getElementById('lang-grid');
+        const langBtn = document.getElementById('lang-btn');
+
+        // Create Static Cards
+        function initLangGrid() {
+            langGrid.innerHTML = ''; // Clear existing
+
+            langs.forEach(lang => {
+                const card = document.createElement('div');
+                card.className = 'lang-card';
+                
+                if (lang.isSplit) {
+                    card.innerHTML = `
+                        <div class="glass-surface">
+                            <div class="split-flag-container">
+                                <div class="split-half half-br" title="Português Brasil"></div>
+                                <div class="split-indicator ind-br">BR</div>
+                                <div class="split-half half-pt" title="Português Portugal"></div>
+                                <div class="split-indicator ind-pt">PT</div>
+                            </div>
+                            <div class="lang-label">${lang.label}</div>
+                        </div>
+                    `;
+                    // Setup listeners for split parts
+                    setTimeout(() => {
+                        const brPart = card.querySelector('.half-br');
+                        const ptPart = card.querySelector('.half-pt');
+                        
+                        brPart.onclick = (e) => { e.stopPropagation(); selectLanguage('pt'); };
+                        ptPart.onclick = (e) => { e.stopPropagation(); selectLanguage('pt-PT'); };
+                    }, 0);
+                } else {
+                    card.innerHTML = `
+                        <div class="glass-surface">
+                            <img src="https://flagcdn.com/w160/${lang.flag}.png" class="flag-img">
+                            <div class="lang-label">${lang.label}</div>
+                        </div>
+                    `;
+                    card.onclick = () => selectLanguage(lang.code);
+                }
+                
+                langGrid.appendChild(card);
+            });
+        }
+
+        // Toggle Modal Visibility
+        function toggleLang() {
+            isLangOpen = !isLangOpen;
+            if (isLangOpen) {
+                planetModal.classList.remove('pointer-events-none', 'opacity-0');
+                document.body.style.overflow = 'hidden';
+                // Remove beacon from button when opened
+                langBtn.classList.remove('beacon-active');
+            } else {
+                planetModal.classList.add('pointer-events-none', 'opacity-0');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Handle Selection
+        function selectLanguage(code) {
+            changeLanguage(code);
+            setTimeout(() => toggleLang(), 300); // Small delay for visual feedback
+        }
+
+        // --- 3. INITIAL HINT ---
+        function showInitialHint() {
+            const hint = document.getElementById('lang-hint');
+            setTimeout(() => {
+                hint.classList.remove('opacity-0');
+                // Use new bounce-up animation
+                const arrow = hint.querySelector('.hint-arrow');
+                if(arrow) arrow.style.animation = 'bounce-up 1s infinite';
+            }, 1000);
+
+            const hideHint = () => {
+                hint.classList.add('opacity-0');
+                setTimeout(() => hint.remove(), 1000);
+                // Also stop button beacon
+                langBtn.classList.remove('beacon-active');
+                document.removeEventListener('click', hideHint);
+            };
+            document.addEventListener('click', hideHint);
+        }
+
 
         const modal = document.getElementById('video-modal');
         const modalContent = document.getElementById('modal-content');
@@ -953,7 +899,6 @@
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
         // --- APP START LOGIC ---
-        
         function startApp() {
             lucide.createIcons();
             
@@ -975,9 +920,6 @@
                     hint.classList.remove('opacity-0');
                     const arrow = hint.querySelector('.hint-arrow');
                     if(arrow) arrow.style.animation = 'bounce-up 1s infinite';
-                    
-                    // Stop beacon after hint shows? Or keep until click. 
-                    // Let's keep beacon until hint is dismissed.
                 }, 1500);
                 
                 const hideHint = () => {
@@ -1004,8 +946,8 @@
                 document.body.style.overflow = 'hidden';
 
                 let progress = 0;
-                // 10 seconds = 10000ms
-                const duration = 10000; 
+                // 2.5 seconds = 2500ms
+                const duration = 2500; 
                 const interval = 100; // Update every 100ms
                 const step = 100 / (duration / interval); 
 
