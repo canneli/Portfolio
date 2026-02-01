@@ -16,7 +16,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -29,6 +29,8 @@
                     fontFamily: {
                         sans: ['Space Grotesk', 'sans-serif'],
                         display: ['Outfit', 'sans-serif'],
+                        matheus_serif: ['Playfair Display', 'serif'],
+                        matheus_sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
                         brand: {
@@ -37,11 +39,12 @@
                             600: '#4f46e5',
                             900: '#312e81',
                         },
-                        dark: {
-                            950: '#050505',
-                            900: '#0a0a0c',
-                            800: '#121215',
-                            700: '#1c1c21',
+                        chef: {
+                            gold: '#d4af37',
+                            accent: '#ea580c',
+                            dark: '#1c1917',
+                            light: '#e7e5e4',
+                            bg: '#0c0a09'
                         }
                     },
                     animation: {
@@ -50,8 +53,6 @@
                         'blob': 'blob 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1)',
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-glow': 'pulseGlow 3s infinite',
-                        'beacon': 'beacon 2s infinite',
-                        'shimmer': 'shimmer 2.5s infinite linear',
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
@@ -67,15 +68,6 @@
                             '0%, 100%': { boxShadow: '0 0 20px rgba(99, 102, 241, 0.2), inset 0 0 10px rgba(99, 102, 241, 0.1)' },
                             '50%': { boxShadow: '0 0 40px rgba(99, 102, 241, 0.5), inset 0 0 20px rgba(99, 102, 241, 0.2)' },
                         },
-                        beacon: {
-                            '0%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(99, 102, 241, 0.7)' },
-                            '70%': { transform: 'scale(1)', boxShadow: '0 0 0 15px rgba(99, 102, 241, 0)' },
-                            '100%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(99, 102, 241, 0)' },
-                        },
-                        shimmer: {
-                            '0%': { transform: 'translateX(-150%) skewX(-25deg)' },
-                            '100%': { transform: 'translateX(150%) skewX(-25deg)' },
-                        }
                     }
                 }
             }
@@ -91,7 +83,6 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Disable custom cursor on touch devices to save resources */
         @media (hover: none) and (pointer: coarse) {
             .cursor-dot, .cursor-outline { display: none !important; }
             body.custom-cursor { cursor: auto; }
@@ -111,23 +102,6 @@
         .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.8); transition: width 0.1s, height 0.1s, background-color 0.2s; }
         body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(255, 255, 255, 0.1); border-color: transparent; backdrop-filter: blur(4px); }
 
-        /* --- Noise Overlay (Desktop Only) --- */
-        .noise-overlay {
-            position: fixed; inset: 0; pointer-events: none; z-index: 9000; opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
-        }
-        
-        /* Hide noise on mobile for performance */
-        @media (max-width: 768px) {
-            .noise-overlay { display: none; }
-        }
-
-        /* --- Liquid Chrome Text --- */
-        @keyframes textFlow {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
         .text-liquid-glow {
             background: linear-gradient(90deg, #ffffff 0%, #a5b4fc 20%, #ffffff 40%, #818cf8 60%, #ffffff 80%, #a5b4fc 100%);
             background-size: 200% auto;
@@ -135,7 +109,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* Animation only on desktop */
             animation: none;
             filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.5));
             display: inline-block;
@@ -144,256 +117,95 @@
         @media (min-width: 768px) {
             .text-liquid-glow { animation: textFlow 3s linear infinite; }
         }
+        @keyframes textFlow { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
 
-        /* --- ULTRA LIQUID GLASS CARD (Mobile Optimized) --- */
         .liquid-glass {
             position: relative;
-            /* Mobile Fallback: No blur, simple transparency */
             background: rgba(20, 20, 25, 0.85); 
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             transform: translateZ(0);
-            content-visibility: auto;
         }
 
-        /* Desktop: Full Glass Effect */
         @media (min-width: 768px) {
             .liquid-glass {
                 background: rgba(255, 255, 255, 0.015);
                 backdrop-filter: blur(25px) saturate(180%);
                 -webkit-backdrop-filter: blur(25px) saturate(180%);
-                box-shadow: 
-                    0 20px 40px -10px rgba(0, 0, 0, 0.5),
-                    inset 0 0 20px rgba(255, 255, 255, 0.02);
             }
         }
-
-        .liquid-glass::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.0) 50%);
-            transform: translateX(-150%); transition: transform 0.6s ease; pointer-events: none; z-index: 10;
-        }
-
-        .liquid-glass:hover {
-            transform: translateY(-5px);
-            border-color: rgba(165, 180, 252, 0.5);
-            background: rgba(99, 102, 241, 0.08);
-            box-shadow: 
-                0 20px 50px -12px rgba(79, 70, 229, 0.25),
-                inset 0 0 20px rgba(99, 102, 241, 0.1);
-        }
-        
-        .liquid-glass:hover::after { transform: translateX(150%); }
-
-        /* --- LANGUAGE SELECTOR STYLES --- */
-        #planet-modal {
-            /* Simpler background for mobile */
-            background: rgba(0,0,0,0.9);
-            perspective: 1000px;
-        }
-        
-        @media (min-width: 768px) {
-            #planet-modal { background: radial-gradient(circle at center, #0a0a12 0%, #020202 100%); }
-        }
-
-        #lang-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1400px; padding: 20px; z-index: 50; }
-        .lang-card { position: relative; width: 150px; height: 220px; cursor: pointer; perspective: 1000px; transform: translateZ(0); }
-        
-        .lang-card .glass-surface {
-            position: absolute; inset: 0; border-radius: 24px;
-            /* Mobile: Solid semi-transparent */
-            background: rgba(30, 30, 35, 0.9);
-            border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: all 0.4s ease;
-        }
-        
-        @media (min-width: 768px) {
-            .lang-card .glass-surface {
-                background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-                backdrop-filter: blur(30px);
-                box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            }
-        }
-
-        .flag-img {
-            width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
-            border: 3px solid rgba(255,255,255,0.1); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: all 0.4s ease; 
-            filter: grayscale(0.2);
-        }
-
-        .lang-label {
-            margin-top: 20px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; font-size: 13px; letter-spacing: 2px;
-            text-transform: uppercase; color: rgba(255,255,255,0.7);
-            transition: all 0.3s ease;
-        }
-
-        .lang-card:hover .glass-surface {
-            transform: translateY(-8px);
-            background: linear-gradient(145deg, rgba(99,102,241,0.2), rgba(99,102,241,0.05));
-            border-color: rgba(165,180,252,0.8);
-        }
-        
-        .lang-card:hover .flag-img {
-            transform: scale(1.1);
-            border-color: #fff;
-            filter: grayscale(0);
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
-        }
-        
-        .lang-card:hover .lang-label { color: white; text-shadow: 0 0 10px rgba(165,180,252,0.8); }
-
-        /* Split Flag */
-        .split-flag-container { width: 90px; height: 90px; border-radius: 50%; position: relative; overflow: hidden; border: 3px solid rgba(255,255,255,0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.4s ease; }
-        .split-half { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; transition: filter 0.3s ease; }
-        .half-br { clip-path: polygon(0 0, 100% 0, 0 100%); background-image: url('https://flagcdn.com/w160/br.png'); z-index: 2; }
-        .half-pt { clip-path: polygon(100% 0, 100% 100%, 0 100%); background-image: url('https://flagcdn.com/w160/pt.png'); z-index: 1; }
-        .split-indicator { position: absolute; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 10px; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.9); z-index: 20; opacity: 0.9; pointer-events: none; }
-        .ind-br { top: 22%; left: 18%; } .ind-pt { bottom: 22%; right: 18%; }
-        
-        .lang-card:hover .split-flag-container { transform: scale(1.1); border-color: #fff; box-shadow: 0 0 30px rgba(99, 102, 241, 0.6); }
-        .half-br:hover, .half-pt:hover { filter: brightness(1.2); z-index: 5; cursor: pointer; }
-
-        /* Beacon Effect */
-        .beacon-btn { position: relative; }
-        .beacon-btn::before, .beacon-btn::after { content: ''; position: absolute; inset: -2px; border-radius: 9999px; border: 2px solid #818cf8; opacity: 0; z-index: -1; pointer-events: none; }
-        .beacon-active::before { animation: beacon-wave 2s infinite; }
-        .beacon-active::after { animation: beacon-wave 2s infinite 0.6s; }
-        @keyframes beacon-wave { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
-
-        .hint-arrow { display: inline-block; margin-left: 8px; animation: bounce-up 1s infinite; }
-        @keyframes bounce-up { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* LOADING BAR STYLES */
-        #loader-bar { transition: width 0.1s linear; }
+        /* Branding Specific Styles */
+        .brand-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .brand-dot:hover { transform: scale(1.2) translateY(-2px); border-color: white; }
+
+        .matheus-preview-bg {
+            background-color: #0c0a09;
+            background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col relative selection:bg-brand-500/30 selection:text-brand-300">
 
-    <!-- MOBILE LOADER OVERLAY -->
-    <div id="mobile-loader" class="fixed inset-0 z-[9999] bg-[#030304] flex flex-col items-center justify-center hidden">
-        <!-- Logo Icon - Static for performance -->
-        <div class="mb-8 relative w-16 h-16 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.3)]">
-            <span class="font-display font-bold text-white text-2xl">FC</span>
-        </div>
-        
-        <div class="w-64 h-1 bg-white/10 rounded-full overflow-hidden relative mb-4">
-            <div id="loader-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-600 to-brand-400 w-0 shadow-[0_0_10px_rgba(99,102,241,0.8)]"></div>
-        </div>
-        
-        <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500 animate-pulse">
-            Inicializando Sistema...
-        </p>
-    </div>
-
-    <!-- CURSOR (Desktop Only via JS) -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- BACKGROUND (Static on Mobile, Animated on Desktop) -->
-    <!-- Mobile: Simple Gradient -->
-    <div class="fixed inset-0 z-0 bg-gradient-to-br from-[#0a0a0c] via-[#050505] to-[#121215] md:hidden"></div>
-
-    <!-- Desktop: Blobs -->
+    <!-- BACKGROUND BLOBS -->
     <div class="fixed inset-0 z-0 w-full h-full pointer-events-none overflow-hidden hidden md:block">
         <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[130px] animate-blob"></div>
         <div class="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[120px] animate-blob" style="animation-delay: 5s"></div>
         <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[140px] animate-blob" style="animation-delay: 8s"></div>
-        
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-brand-500/10 rounded-full mix-blend-screen filter blur-[80px] animate-pulse-glow"></div>
     </div>
 
-    <!-- NAVIGATION -->
+    <!-- NAV -->
     <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
-        <div class="absolute inset-0 bg-black/50 backdrop-blur-md md:backdrop-blur-xl border-b border-white/5"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex items-center gap-3 group cursor-pointer hoverable" onclick="window.scrollTo(0,0)">
-                    <div class="relative w-10 h-10 overflow-hidden rounded-xl border border-white/10 group-hover:border-brand-500/50 transition-colors bg-white/5 backdrop-blur-sm shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                        <div class="absolute inset-0 flex items-center justify-center font-display font-bold text-white group-hover:scale-110 transition-transform text-lg">FC</div>
-                    </div>
-                    <div class="flex flex-col group">
-                        <span class="font-display font-bold text-xl tracking-tight text-liquid-glow" style="letter-spacing: -0.5px;">FELIPE CANNELI</span>
-                        <span class="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold group-hover:text-white group-hover:tracking-[0.4em] transition-all duration-500 ease-out ml-0.5">Portfolio</span>
-                    </div>
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-md border-b border-white/5"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 group cursor-pointer hoverable" onclick="window.scrollTo(0,0)">
+                <div class="relative w-10 h-10 overflow-hidden rounded-xl border border-white/10 bg-white/5 flex items-center justify-center font-display font-bold text-white group-hover:scale-110 transition-transform text-lg">FC</div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-xl tracking-tight text-liquid-glow">FELIPE CANNELI</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold ml-0.5">Visual Experience</span>
                 </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8">
-                    <div class="flex items-baseline space-x-2 bg-white/5 p-1 rounded-full border border-white/5 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
-                        <a href="#home" data-i18n="nav_home" class="hoverable px-5 py-2 rounded-full text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/10 transition-all hover:shadow-[0_0_10px_rgba(255,255,255,0.1)]">Início</a>
-                        <a href="#projects" data-i18n="nav_projects" class="hoverable px-5 py-2 rounded-full text-sm font-medium text-brand-400 bg-brand-500/10 border border-brand-500/20 hover:bg-brand-500/20 transition-all shadow-[0_0_15px_rgba(99,102,241,0.2)] hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]">Projetos</a>
-                        <a href="#contact" data-i18n="nav_contact" class="hoverable px-5 py-2 rounded-full text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/10 transition-all hover:shadow-[0_0_10px_rgba(255,255,255,0.1)]">Contato</a>
-                    </div>
-                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 bg-white/5 p-1 rounded-full border border-white/5">
+                <a href="#home" data-i18n="nav_home" class="hoverable px-5 py-2 rounded-full text-sm font-medium text-zinc-300 hover:text-white transition-all">Início</a>
+                <a href="#projects" data-i18n="nav_projects" class="hoverable px-5 py-2 rounded-full text-sm font-medium text-brand-400 bg-brand-500/10 border border-brand-500/20">Projetos</a>
+                <a href="#branding" data-i18n="nav_design" class="hoverable px-5 py-2 rounded-full text-sm font-medium text-zinc-300 hover:text-white transition-all">Design</a>
+                <a href="#contact" data-i18n="nav_contact" class="hoverable px-5 py-2 rounded-full text-sm font-medium text-zinc-300 hover:text-white transition-all">Contato</a>
+            </div>
 
-                <!-- RIGHT SIDE (Language + Mobile Menu) -->
-                <div class="flex items-center gap-4">
-                     <!-- LANGUAGE TAB -->
-                     <div class="relative flex flex-col items-end group/lang">
-                        <button id="lang-btn" onclick="toggleLang()" class="hoverable beacon-btn beacon-active flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-zinc-200 hover:text-white hover:bg-brand-500/20 hover:border-brand-400/50 transition-all group backdrop-blur-md shadow-[0_0_15px_rgba(99,102,241,0.3)]">
-                            <i data-lucide="globe" class="w-4 h-4 group-hover:rotate-180 transition-transform duration-700 text-brand-400"></i>
-                            <span class="text-xs font-bold uppercase tracking-wider" id="current-lang-label">PT</span>
-                        </button>
-                        
-                        <!-- Hint Below Button -->
-                        <div id="lang-hint" class="absolute top-full right-0 mt-3 opacity-0 transition-opacity duration-1000 pointer-events-none z-50 flex flex-col items-end">
-                            <div class="h-3 w-[1px] bg-brand-400/50 mr-4 mb-1"></div>
-                            <span class="text-xs font-bold text-white bg-brand-600/90 px-3 py-1.5 rounded-lg shadow-[0_0_20px_rgba(99,102,241,0.6)] backdrop-blur-md border border-white/20 flex items-center whitespace-nowrap">
-                                <span data-i18n="lang_hint">Select Language</span> <span class="hint-arrow">↑</span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Mobile Menu Icon -->
-                    <button class="md:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 rounded-full border border-white/10">
-                        <i data-lucide="menu"></i>
-                    </button>
-                </div>
+            <div class="relative flex flex-col items-end group/lang">
+                <button id="lang-btn" onclick="toggleLang()" class="hoverable flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-zinc-200 text-xs font-bold uppercase tracking-wider">
+                    <i data-lucide="globe" class="w-4 h-4 text-brand-400"></i>
+                    <span id="current-lang-label">PT</span>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- STATIC LANGUAGE MODAL -->
+    <!-- LANGUAGE MODAL -->
     <div id="planet-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-500 flex flex-col items-center justify-center backdrop-blur-md bg-black/80">
-        <!-- Close Button -->
-        <div class="absolute top-8 right-8 z-50">
-            <button onclick="toggleLang()" class="hoverable p-4 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 hover:border-white/30">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-        </div>
-
-        <!-- Header -->
-        <div class="text-center mb-12 relative z-20 transition-all duration-500 transform translate-y-[-20px]" id="planet-text">
-            <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight" data-i18n="planet_title" style="text-shadow: 0 0 20px rgba(255,255,255,0.3);">Select Language</h2>
-            <div class="h-1 w-24 bg-gradient-to-r from-transparent via-brand-500 to-transparent mx-auto mb-4"></div>
-            <p class="text-brand-300 text-sm uppercase tracking-[0.4em] font-bold opacity-80">Global Access</p>
-        </div>
-
-        <!-- Static Grid Container -->
-        <div id="lang-grid">
-            <!-- Items injected by JS -->
-        </div>
+        <div id="lang-grid" class="flex gap-4"></div>
     </div>
 
-    <!-- HERO SECTION -->
-    <section id="home" class="relative pt-44 pb-24 lg:pt-60 lg:pb-40 overflow-hidden flex flex-col items-center justify-center text-center z-10">
+    <!-- HERO -->
+    <section id="home" class="relative pt-44 pb-24 lg:pt-60 lg:pb-40 text-center z-10">
         <div class="max-w-5xl mx-auto px-4 relative">
-            <div class="reveal inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand-500/30 bg-brand-900/30 text-brand-200 text-xs font-bold tracking-widest uppercase mb-10 backdrop-blur-md shadow-[0_0_20px_rgba(99,102,241,0.2)] animate-float">
+            <div class="reveal inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand-500/30 bg-brand-900/30 text-brand-200 text-xs font-bold tracking-widest uppercase mb-10 backdrop-blur-md animate-float">
                 <span class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
@@ -401,69 +213,162 @@
                 <span data-i18n="hero_badge">Disponível para novos projetos</span>
             </div>
             
-            <h1 class="font-display font-bold text-6xl sm:text-8xl lg:text-9xl tracking-tighter text-white mb-8 leading-[0.9] reveal" style="transition-delay: 0.1s;">
+            <h1 class="font-display font-bold text-6xl sm:text-8xl lg:text-9xl tracking-tighter text-white mb-8 leading-[0.9] reveal">
                 <span class="block hover:text-brand-400 transition-colors duration-500 cursor-default" data-i18n="hero_title_1">Visual</span>
-                <span class="block bg-gradient-to-r from-white via-zinc-400 to-zinc-600 bg-clip-text text-transparent hover:tracking-wide transition-all duration-700 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" data-i18n="hero_title_2">Experience</span>
+                <span class="block bg-gradient-to-r from-white via-zinc-400 to-zinc-600 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" data-i18n="hero_title_2">Experience</span>
             </h1>
             
-            <p data-i18n="hero_subtitle" class="reveal mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-zinc-300 font-light leading-relaxed" style="transition-delay: 0.2s; text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-                Transformando narrativas complexas em motion graphics de alta performance e edição cinematográfica.
+            <p data-i18n="hero_subtitle" class="reveal mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-zinc-300 font-light leading-relaxed">
+                Transformando narrativas complexas em motion graphics de alta performance e identidade visual memorável.
             </p>
             
-            <div class="reveal mt-12 flex flex-col sm:flex-row items-center justify-center gap-6" style="transition-delay: 0.3s;">
+            <div class="reveal mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
                 <a href="#projects" class="hoverable group relative px-8 py-4 bg-white text-black rounded-full font-bold overflow-hidden transition-transform hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.4)]">
                     <div class="absolute inset-0 bg-brand-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                     <span class="relative flex items-center gap-2 group-hover:text-white transition-colors">
                         <i data-lucide="play-circle" class="w-5 h-5"></i>
-                        <span data-i18n="hero_cta">Ver Projetos</span>
+                        <span data-i18n="hero_cta">Ver Portfólio</span>
                     </span>
                 </a>
-                
-                <a href="#contact" class="hoverable px-8 py-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-medium hover:bg-white/10 hover:border-white/40 transition-all flex items-center gap-2 group shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <a href="#contact" class="hoverable px-8 py-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-medium hover:bg-white/10 transition-all flex items-center gap-2 group">
                     <span data-i18n="nav_contact">Entrar em Contato</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </div>
-        
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-float">
-            <div class="w-[1px] h-16 bg-gradient-to-b from-transparent via-brand-400 to-transparent"></div>
-        </div>
     </section>
 
-    <!-- PROJECTS SECTION -->
+    <!-- PROJECTS GRID (VÍDEOS ORIGINAIS) -->
     <section id="projects" class="py-32 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-end justify-between mb-24 gap-6 border-b border-white/5 pb-8 reveal">
                 <div id="section-header">
-                    <h2 class="font-display text-5xl md:text-6xl font-bold text-white mb-3" data-i18n="projects_header" style="text-shadow: 0 0 30px rgba(255,255,255,0.1);">Selected Works</h2>
-                    <p class="text-zinc-400 text-lg max-w-md border-l-2 border-brand-500/50 pl-4" data-i18n="projects_subheader">Uma curadoria de projetos focados em impacto visual e retenção.</p>
+                    <h2 class="font-display text-5xl md:text-6xl font-bold text-white mb-3" data-i18n="projects_header">Selected Works</h2>
+                    <p class="text-zinc-400 text-lg max-w-md border-l-2 border-brand-500/50 pl-4" data-i18n="projects_subheader">Produção audiovisual e edição cinematográfica.</p>
                 </div>
-                
-                <button id="back-btn" onclick="showCategories()" class="hoverable hidden group flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900/80 border border-zinc-700 text-zinc-300 hover:text-white hover:border-brand-500 hover:bg-brand-900/30 transition-all backdrop-blur-md">
+                <button id="back-btn" onclick="showCategories()" class="hoverable hidden group flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900/80 border border-zinc-700 text-zinc-300 hover:text-white hover:border-brand-500 transition-all backdrop-blur-md">
                     <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
                     <span data-i18n="btn_back">Voltar para Categorias</span>
                 </button>
             </div>
+            <div id="dynamic-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]"></div>
+        </div>
+    </section>
 
-            <!-- PROJECTS GRID -->
-            <div id="dynamic-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
-                <!-- Javascript fills this -->
+    <!-- BRANDING & DESIGN (CASE MATHEUS) -->
+    <section id="branding" class="py-32 relative z-10 overflow-hidden border-t border-white/5 bg-black/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Strategy -->
+                <div class="lg:col-span-5 space-y-12 reveal">
+                    <div>
+                        <h2 class="font-display text-5xl font-bold text-white mb-6" data-i18n="design_title">Branding & Strategy</h2>
+                        <p class="text-zinc-400 text-lg leading-relaxed mb-8" data-i18n="design_intro">
+                            Design não é apenas o que se vê, mas o que se <span class="text-white font-bold italic underline decoration-brand-500 underline-offset-4">sente</span>. No projeto do Matheus, traduzi o aroma e o requinte da gastronomia em uma experiência digital única.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="liquid-glass p-6 rounded-2xl border-l-4 border-l-chef-gold group">
+                            <h4 class="text-white font-bold text-xl mb-2 flex items-center gap-3">
+                                <i data-lucide="award" class="text-chef-gold w-5 h-5"></i>
+                                <span data-i18n="design_point1_title">Identidade de Alto Padrão</span>
+                            </h4>
+                            <p class="text-zinc-500 text-sm" data-i18n="design_point1_desc">Cores e fontes que comunicam excelência antes mesmo do primeiro prato ser servido.</p>
+                        </div>
+                        <div class="liquid-glass p-6 rounded-2xl border-l-4 border-l-brand-400 group">
+                            <h4 class="text-white font-bold text-xl mb-2 flex items-center gap-3">
+                                <i data-lucide="layout" class="text-brand-400 w-5 h-5"></i>
+                                <span data-i18n="design_point2_title">UX Focada em Conteúdo</span>
+                            </h4>
+                            <p class="text-zinc-500 text-sm" data-i18n="design_point2_desc">Interface limpa para que o prato seja a estrela, mantendo a legibilidade e sofisticação.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Case -->
+                <div class="lg:col-span-7 reveal" style="transition-delay: 0.2s;">
+                    <div class="liquid-glass rounded-[40px] p-1 bg-gradient-to-br from-white/10 to-transparent shadow-2xl overflow-hidden group">
+                        <div class="matheus-preview-bg rounded-[38px] p-8 md:p-12 relative">
+                            
+                            <!-- Header Project -->
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i data-lucide="chef-hat" class="w-4 h-4 text-chef-gold"></i>
+                                        <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-400 font-black">Digital Branding</span>
+                                    </div>
+                                    <h3 class="text-white font-matheus_serif text-4xl font-bold">Matheus Fonseca</h3>
+                                </div>
+                                <a href="https://canneli.github.io/matheus/" target="_blank" class="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full bg-chef-gold text-stone-900 text-xs font-black uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                                    Explorar Blog <i data-lucide="external-link" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+
+                            <!-- Visual Assets -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                <!-- Colors -->
+                                <div class="space-y-6">
+                                    <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold border-b border-white/5 pb-2">Style Palette</p>
+                                    <div class="flex items-center gap-4">
+                                        <div class="flex flex-col items-center gap-2 group/color">
+                                            <div class="brand-dot bg-chef-gold" title="#d4af37"></div>
+                                            <span class="text-[9px] text-zinc-500 font-mono">GOLD</span>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-2 group/color">
+                                            <div class="brand-dot bg-chef-accent" title="#ea580c"></div>
+                                            <span class="text-[9px] text-zinc-500 font-mono">ACCENT</span>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-2 group/color">
+                                            <div class="brand-dot bg-chef-dark" title="#1c1917"></div>
+                                            <span class="text-[9px] text-zinc-500 font-mono">DARK</span>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-2 group/color">
+                                            <div class="brand-dot bg-chef-light" title="#e7e5e4"></div>
+                                            <span class="text-[9px] text-zinc-500 font-mono">LIGHT</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-zinc-400 leading-relaxed italic">"O dourado evoca o prestígio da gastronomia clássica, enquanto os tons de pedra (stone) trazem o aspecto rústico dos ingredientes naturais."</p>
+                                </div>
+
+                                <!-- Typography -->
+                                <div class="space-y-6">
+                                    <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold border-b border-white/5 pb-2">Typography</p>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <p class="text-3xl font-matheus_serif text-chef-gold font-bold">Playfair Display</p>
+                                            <p class="text-[10px] text-zinc-500 uppercase tracking-tighter">Serif - Títulos e Destaques</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xl font-matheus_sans text-white font-bold">Inter Regular</p>
+                                            <p class="text-[10px] text-zinc-500 uppercase tracking-tighter">Sans - Conteúdo e Interface</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Decorative Element -->
+                            <div class="absolute bottom-6 right-10 opacity-10 rotate-12">
+                                <i data-lucide="utensils-cross" class="w-24 h-24 text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- MORE TOPICS -->
-    <section class="py-32 relative z-10 overflow-hidden border-t border-white/5 bg-black/40 backdrop-blur-sm">
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 reveal">
-            <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-zinc-900/80 border border-zinc-700 mb-8 shadow-[0_0_50px_rgba(99,102,241,0.2)] rotate-6 hover:rotate-12 transition-transform duration-500 group backdrop-blur-xl">
-                <i data-lucide="plus" class="w-10 h-10 text-brand-400 group-hover:scale-125 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.8)]"></i>
+    <!-- CTA -->
+    <section class="py-32 relative z-10 border-t border-white/5 bg-black/40 backdrop-blur-sm">
+        <div class="max-w-4xl mx-auto px-4 text-center reveal">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-zinc-900/80 border border-zinc-700 mb-8 shadow-xl">
+                <i data-lucide="palette" class="w-8 h-8 text-brand-400"></i>
             </div>
-            
-            <h2 class="font-display text-4xl sm:text-5xl font-bold text-white mb-6" data-i18n="more_topics_title">Em breve: Mais Projetos</h2>
-            <p class="text-zinc-400 text-xl mb-12 max-w-lg mx-auto" data-i18n="more_topics_desc">Novas categorias serão adicionadas conforme novos projetos forem finalizados.</p>
-            
-            <a href="https://wa.me/5531965547183" target="_blank" data-i18n="btn_quote" class="hoverable inline-flex items-center gap-3 px-10 py-5 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-full transition-all shadow-[0_0_30px_-5px_rgba(79,70,229,0.4)] hover:shadow-[0_0_50px_-5px_rgba(79,70,229,0.6)] hover:-translate-y-1">
+            <h2 class="font-display text-4xl font-bold text-white mb-6" data-i18n="cta_title">Criação Visual sem Fronteiras</h2>
+            <p class="text-zinc-400 text-xl mb-12 max-w-lg mx-auto" data-i18n="cta_desc">Do movimento do vídeo à precisão da marca. Vamos elevar o patamar do seu projeto.</p>
+            <a href="https://wa.me/5531965547183" target="_blank" data-i18n="btn_quote" class="hoverable inline-flex items-center gap-3 px-10 py-5 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-full transition-all shadow-[0_0_30px_rgba(79,70,229,0.3)]">
                 <span>Solicitar Orçamento</span>
                 <i data-lucide="message-circle" class="w-5 h-5"></i>
             </a>
@@ -472,39 +377,29 @@
 
     <!-- FOOTER -->
     <footer id="contact" class="bg-black pt-20 pb-10 border-t border-zinc-900 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-                <div>
-                    <h3 class="font-display text-3xl text-white font-bold mb-6">Let's create together.</h3>
-                    <div class="flex gap-4">
-                        <a href="https://instagram.com/felipecanneli" target="_blank" class="hoverable w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-900 hover:border-zinc-700 transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                        <a href="https://www.linkedin.com/in/felipecanneli/" target="_blank" class="hoverable w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-900 hover:border-zinc-700 transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                        <a href="mailto:canellifelipe@gmail.com" class="hoverable w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-900 hover:border-zinc-700 transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"><i data-lucide="mail" class="w-5 h-5"></i></a>
-                    </div>
-                </div>
-                <div class="md:text-right flex flex-col md:items-end justify-center">
-                    <span class="font-display font-bold text-lg text-white">FELIPE CANNELI</span>
-                    <p class="text-zinc-600 text-sm mt-1" data-i18n="footer_rights">© 2024 All rights reserved.</p>
-                </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex gap-4">
+                <a href="https://instagram.com/felipecanneli" target="_blank" class="hoverable w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-all"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="mailto:canellifelipe@gmail.com" class="hoverable w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-all"><i data-lucide="mail" class="w-5 h-5"></i></a>
+            </div>
+            <div class="text-right">
+                <span class="font-display font-bold text-white tracking-widest uppercase">Felipe Canneli</span>
+                <p class="text-zinc-600 text-sm mt-1" data-i18n="footer_rights">© 2024 All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- VIDEO MODAL -->
+    <!-- MODAL -->
     <div id="video-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-500">
         <div class="flex flex-col items-center w-full max-w-7xl scale-95 transition-transform duration-500" id="modal-content">
             <div class="w-full flex justify-end mb-4">
-                 <button onclick="closeModal()" class="hoverable p-3 bg-white/5 hover:bg-white/10 rounded-full text-white transition-colors border border-white/5">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+                 <button onclick="closeModal()" class="hoverable p-3 bg-white/5 rounded-full text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
             </div>
-            
-            <div class="relative w-full aspect-video bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl shadow-brand-900/30 ring-1 ring-white/10">
+            <div class="relative w-full aspect-video bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10">
                 <iframe id="modal-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
             </div>
-            
-            <div class="mt-8 flex gap-4">
-                <a id="modal-external-link" href="#" target="_blank" class="hoverable inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 rounded-full text-sm text-white transition-colors border border-zinc-800 hover:border-zinc-700">
+            <div class="mt-8">
+                <a id="modal-external-link" href="#" target="_blank" class="hoverable inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 rounded-full text-sm text-white border border-zinc-800">
                     <i data-lucide="external-link" class="w-4 h-4"></i>
                     <span data-i18n="modal_open_original">Abrir link externo</span>
                 </a>
@@ -512,202 +407,63 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- 1. GLOBAL VARIABLES ---
+        // --- 1. GLOBAL VARS ---
         let currentLang = localStorage.getItem('siteLang') || 'pt';
         let isLangOpen = false;
-        let planetModal, langGrid, langBtn, cursorDot, cursorOutline;
+        let planetModal, langGrid, cursorDot, cursorOutline;
 
-        // --- 2. DATA (Languages & Config) ---
-        const langs = [
-            { code: 'pt-combined', label: 'Português', isSplit: true },
-            { code: 'en', label: 'English', flag: 'us' },
-            { code: 'es', label: 'Español', flag: 'es' },
-            { code: 'fr', label: 'Français', flag: 'fr' },
-            { code: 'it', label: 'Italiano', flag: 'it' }
+        // --- 2. DATA (VÍDEOS ORIGINAIS TOTALMENTE RESTAURADOS) ---
+        const marketingVideos = [{ title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct" },{ title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly" },{ title: "10k Stories", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2" },{ title: "Engage", id: "1y4lmSSGnz8kuhVmbo0U3PS2rq-WGlqCZ" },{ title: "High Ticket", id: "1OoFFZlMFz4zGd8seJ9zBA5AwAzvQ05xT" },{ title: "IA e o Futuro", id: "1yCi0mSVTmr6vGXcvabcvgnPo4pSq6LAO" },{ title: "IA Secretaria", id: "1veSV7mpgozq6EPQCDK34X1cIa3s0rAw0" },{ title: "Nicho de Oportunidades", id: "1mHGWIMU1o5X8rIjHP8ovsnyXoNIjlxzP" },{ title: "Objeção Oculta", id: "1t58XstU5Nzis6Lh6yVJIgjR4RWVNWgun" },{ title: "Project Business Check", id: "1CiOOI9rtaImNGZUTAGYC3LE2Ur4vJmqm" },{ title: "Responder Whatsapp", id: "1SZ8x6oZo6_1rMHZ5TXJ3E2oYhn3lGQCp" },{ title: "Tráfego Pago Morreu", id: "1pSg2wwIHVskqZUY7RItDUpZh2YpY-uSc" },{ title: "Vendas", id: "1cg9nIgjWejsqsoN15GD9qlMzk8CN4Zu0" },{ title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p" }];
+        const oryVideos = [{ title: "Vídeo Ory 1", id: "1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC" },{ title: "Vídeo Ory 2", id: "1TIpRumKxHaH_U6c6ZuV25Eom0IV3KC6P" }];
+        const aecVideos = [{ title: "Vídeo AeC 1", id: "1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G" },{ title: "Vídeo AeC 2", id: "1u96j8o7CkxDh3zEkv1ph1otV23U05epp" },{ title: "Vídeo AeC 3", id: "1egrGgX4O5nmAZBDOyelSHsM-xxGHmpwz" }];
+        const unigrandeVideos = [{ title: "Vídeo UNIGRANDE 1", id: "1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B" },{ title: "Vídeo UNIGRANDE 2", id: "1w_tAUw_n6MKQPJr1o6Y4m93EaqmljYz1" },{ title: "Vídeo UNIGRANDE 3", id: "1O7TP-ue6NRI2WpU_3aRgpSfd_2ZOJcNS" },{ title: "Vídeo UNIGRANDE 4", id: "17YINTRqEBHnHYoy903eZRy1qylsGLFGM" }];
+        const vanessaVideos = [{ title: "Vídeo Vanessa 1", id: "10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN" },{ title: "Vídeo Vanessa 2", id: "11D822i55Q-6_x9v1D3ZP2IYMMGTuXvrg" },{ title: "Vídeo Vanessa 3", id: "1BzPS__2-s3hgDe8t76ntIegvAxCDEIhN" },{ title: "Vídeo Vanessa 4", id: "1GfH3Ewk6RjPfciXM5hONTZYhiOILnZHP" },{ title: "Vídeo Vanessa 5", id: "1Q89l3bX4KACw2ayaSq0ZvdFsU9ds-6nn" },{ title: "Vídeo Vanessa 6", id: "1_Euy9QQovmTJcDYKoNoAIYDDl394kNr5" },{ title: "Vídeo Vanessa 7", id: "1ndisi-g9Nw5JtVM7U53NNmvpl6DfhpFr" },{ title: "Vídeo Vanessa 8", id: "1rTPQebGyQMLeFMbEbgv_sdoAHTzzfjLr" }];
+        const unianchietaVideos = [{ title: "Vídeo UNIANCHIETA 1", id: "1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U" },{ title: "Vídeo UNIANCHIETA 2", id: "1jKJseAWQD5qWo5Xzy8kxobHUOezAhHnz" },{ title: "Vídeo UNIANCHIETA 3", id: "1kVENsSyafJc3YYj7jVSYCw_L5NLEU_tz" }];
+        const caesbVideos = [{ title: "Vídeo CAESB 1", id: "1MgqWRiBM7M2hQVYk8PEETJC1UjsKTEB2" },{ title: "Vídeo CAESB 2", id: "1QRMShNqdxI0HMfkr4YaQAsaE4_TPa7Oh" }];
+        const segueOBaileVideos = [{ title: "Superação com João da Verde e Rosa", id: "2r_2mpd4uUA", type: "youtube" },{ title: "Vitinho Agita na Ilha da Gigóia", id: "MhaYlLIOo0g", type: "youtube" },{ title: "Felipe Ferreira: Bastidores", id: "9deIRMk93jA", type: "youtube" }];
+
+        const categories = [
+            { id: 'unianchieta', title: 'UNIANCHIETA', descriptions: { pt: 'Audiovisual acadêmico.' }, count: unianchietaVideos.length, icon: 'library', coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U', items: unianchietaVideos },
+            { id: 'nexhub', title: 'NexHub', descriptions: { pt: 'Estratégias digitais.' }, count: marketingVideos.length, icon: 'trending-up', coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', items: marketingVideos },
+            { id: 'ory_clinica', title: 'Ory Clínica', descriptions: { pt: 'Saúde e estética.' }, count: oryVideos.length, icon: 'heart-pulse', coverId: '1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC', items: oryVideos },
+            { id: 'aec_estetica', title: 'AeC Estética', descriptions: { pt: 'Beleza e cuidados.' }, count: aecVideos.length, icon: 'sparkles', coverId: '1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G', items: aecVideos },
+            { id: 'unigrande', title: 'UNIGRANDE', descriptions: { pt: 'Educacional e Institucional.' }, count: unigrandeVideos.length, icon: 'graduation-cap', coverId: '1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B', items: unigrandeVideos },
+            { id: 'vanessa_nutri', title: 'Vanessa Nutri', descriptions: { pt: 'Nutrição e Saúde.' }, count: vanessaVideos.length, icon: 'apple', coverId: '10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN', items: vanessaVideos },
+            { id: 'caesb', title: 'CAESB', descriptions: { pt: 'Comunicação Hídrica.' }, count: caesbVideos.length, icon: 'droplets', coverType: 'image', coverUrl: 'https://www.politicadistrital.com.br/wp-content/uploads/2019/06/caesb-desconto.jpg', items: caesbVideos },
+            { id: 'segue_o_baile', title: 'Segue o Baile', descriptions: { pt: 'Eventos e Entrevistas.' }, count: segueOBaileVideos.length, icon: 'tv', coverId: '2r_2mpd4uUA', coverType: 'youtube', items: segueOBaileVideos },
+            { id: 'remaster_ia', title: 'Remaster IA', descriptions: { pt: 'Upscaling e tratamento.' }, count: 2, icon: 'wand-2', coverId: '1ClQPFQYwystqP6hIWSeZeANDeel1hjpk', items: [], specialType: 'comparison', videoOriginal: '070jjUxiiaY', videoRemaster: 'IKeYemyRtqU' }
         ];
 
         const translations = {
             pt: {
-                nav_home: "Início", nav_projects: "Projetos", nav_contact: "Contato",
-                hero_badge: "Disponível para novos projetos",
-                hero_title_1: "Visual", hero_title_2: "Experience",
-                hero_subtitle: "Especialista em edição de vídeo, motion graphics e storytelling.",
-                hero_cta: "Ver Portfólio", projects_header: "Projetos", projects_subheader: "Explore minhas produções por categoria.",
+                nav_home: "Início", nav_projects: "Projetos", nav_design: "Design", nav_contact: "Contato",
+                hero_badge: "Disponível para novos projetos", hero_cta: "Ver Portfólio", projects_header: "Selected Works", projects_subheader: "Uma curadoria de projetos focados em impacto visual e retenção.",
+                design_title: "Branding & Strategy", design_intro: "Design não é apenas o que se vê, mas o que se <span class='text-white font-bold italic underline decoration-brand-500 underline-offset-4'>sente</span>. No projeto do Matheus, traduzi o aroma e o requinte da gastronomia em uma experiência digital única.",
+                design_point1_title: "Identidade de Alto Padrão", design_point1_desc: "Cores e fontes que comunicam excelência antes mesmo do primeiro prato ser servido.",
+                design_point2_title: "UX Focada em Conteúdo", design_point2_desc: "Interface limpa para que o prato seja a estrela, mantendo a legibilidade e sofisticação.",
+                cta_title: "Criação Visual sem Fronteiras", cta_desc: "Do movimento do vídeo à precisão da marca. Vamos elevar o patamar do seu projeto.",
                 btn_back: "Voltar para Categorias", video_count: "Projetos", btn_open_folder: "Explorar", btn_open_compare: "Ver Comparação",
-                more_topics_title: "Em breve: Mais Projetos", more_topics_desc: "Novas categorias serão adicionadas conforme novos projetos forem finalizados.",
-                btn_quote: "Solicitar Orçamento", footer_rights: "© 2024 Todos os direitos reservados.",
-                modal_error: "Problemas na reprodução?", modal_open_original: "Abrir link original", watch_now: "Assistir",
-                planet_title: "Selecionar Idioma", lang_hint: "Selecione seu idioma"
-            },
-            'pt-PT': {
-                nav_home: "Início", nav_projects: "Projetos", nav_contact: "Contacto",
-                hero_badge: "Disponível para novos projetos",
-                hero_title_1: "Visual", hero_title_2: "Experience",
-                hero_subtitle: "Especialista em edição de vídeo, motion graphics e storytelling.",
-                hero_cta: "Ver Portfólio", projects_header: "Projetos", projects_subheader: "Explore as minhas produções por categoria.",
-                btn_back: "Voltar para Categorias", video_count: "Projetos", btn_open_folder: "Explorar", btn_open_compare: "Ver Comparação",
-                more_topics_title: "Em breve: Mais Projetos", more_topics_desc: "Novas categorias serão adicionadas brevemente.",
-                btn_quote: "Pedir Orçamento", footer_rights: "© 2024 Todos os direitos reservados.",
-                modal_error: "Problemas na reprodução?", modal_open_original: "Abrir original", watch_now: "Assistir",
-                planet_title: "Selecionar Idioma", lang_hint: "Selecione o seu idioma"
+                btn_quote: "Solicitar Orçamento", footer_rights: "© 2024 Todos os direitos reservados.", watch_now: "Assistir", modal_open_original: "Abrir link original"
             },
             en: {
-                nav_home: "Home", nav_projects: "Projects", nav_contact: "Contact",
-                hero_badge: "Available for new projects",
-                hero_title_1: "Visual", hero_title_2: "Experience",
-                hero_subtitle: "Specialist in video editing, motion graphics, and storytelling.",
-                hero_cta: "View Portfolio", projects_header: "Projects", projects_subheader: "Explore my productions by category.",
-                btn_back: "Back to Categories", video_count: "Projects", btn_open_folder: "Explore", btn_open_compare: "View Comparison",
-                more_topics_title: "Coming Soon: More Projects", more_topics_desc: "New categories will be added soon.",
-                btn_quote: "Request Quote", footer_rights: "© 2024 All rights reserved.",
-                modal_error: "Playback issues?", modal_open_original: "Open original link", watch_now: "Watch Now",
-                planet_title: "Select Language", lang_hint: "Select your language"
-            },
-            es: {
-                nav_home: "Inicio", nav_projects: "Proyectos", nav_contact: "Contacto",
-                hero_badge: "Disponible para proyectos",
-                hero_title_1: "Visual", hero_title_2: "Experience",
-                hero_subtitle: "Especialista en edición de video, motion graphics y storytelling.",
-                hero_cta: "Ver Portafolio", projects_header: "Proyectos", projects_subheader: "Explore mis producciones por categoría.",
-                btn_back: "Volver", video_count: "Proyectos", btn_open_folder: "Explorar", btn_open_compare: "Ver Comparación",
-                more_topics_title: "Más proyectos pronto", more_topics_desc: "Nuevas categorías serán añadidas próximamente.",
-                btn_quote: "Solicitar Presupuesto", footer_rights: "© 2024 Todos los derechos reservados.",
-                modal_error: "¿No carga el video?", modal_open_original: "Abrir original", watch_now: "Ver ahora",
-                planet_title: "Seleccionar Idioma", lang_hint: "Selecciona tu idioma"
-            },
-            fr: {
-                nav_home: "Accueil", nav_projects: "Projets", nav_contact: "Contact",
-                hero_badge: "Disponible pour projets",
-                hero_title_1: "Visual", hero_title_2: "Experience",
-                hero_subtitle: "Spécialiste en montage vidéo, motion graphics et storytelling.",
-                hero_cta: "Voir Portfolio", projects_header: "Projets", projects_subheader: "Parcourez mes productions par catégorie.",
-                btn_back: "Retour", video_count: "Projets", btn_open_folder: "Explorer", btn_open_compare: "Voir Comparaison",
-                more_topics_title: "Plus de projets bientôt", more_topics_desc: "De nouvelles catégories seront ajoutées prochainement.",
-                btn_quote: "Demander Devis", footer_rights: "© 2024 Tous droits réservés.",
-                modal_error: "La vidéo ne charge pas ?", modal_open_original: "Ouvrir l'original", watch_now: "Regarder",
-                planet_title: "Choisir la Langue", lang_hint: "Sélectionnez votre langue"
-            },
-            it: {
-                nav_home: "Home", nav_projects: "Progetti", nav_contact: "Contatto",
-                hero_badge: "Disponibile per progetti",
-                hero_title_1: "Visual", hero_title_2: "Experience",
-                hero_subtitle: "Specialista in montaggio video, motion graphics e storytelling.",
-                hero_cta: "Vedi Portfolio", projects_header: "Progetti", projects_subheader: "Esplora le mie produzioni per categoria.",
-                btn_back: "Indietro", video_count: "Progetti", btn_open_folder: "Esplorare", btn_open_compare: "Vedi Confronto",
-                more_topics_title: "Altri progetti presto", more_topics_desc: "Nuove categorie verranno aggiunte a breve.",
-                btn_quote: "Richiedi Preventivo", footer_rights: "© 2024 Tutti i diritti riservati.",
-                modal_error: "Problemi di riproduzione?", modal_open_original: "Apri originale", watch_now: "Guarda",
-                planet_title: "Seleziona Lingua", lang_hint: "Seleziona la tua lingua"
+                nav_home: "Home", nav_projects: "Projects", nav_design: "Design", nav_contact: "Contact",
+                hero_badge: "Available for new projects", hero_cta: "View Portfolio", projects_header: "Selected Works", projects_subheader: "A curated selection of projects focused on visual impact.",
+                design_title: "Branding & Identity", design_intro: "Design isn't just about visuals; it's about <span class='text-white font-bold italic'>feeling</span>. For Matheus's project, I translated culinary sophistication into a unique digital experience.",
+                cta_title: "Visual Creation Without Borders", cta_desc: "From video motion to brand precision. Let's level up your project.",
+                btn_back: "Back to Categories", btn_quote: "Request Quote", footer_rights: "© 2024 All rights reserved."
             }
         };
 
-        const marketingVideos = [
-            { title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct" },
-            { title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly" },
-            { title: "10k Stories", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2" },
-            { title: "Engage", id: "1y4lmSSGnz8kuhVmbo0U3PS2rq-WGlqCZ" },
-            { title: "High Ticket", id: "1OoFFZlMFz4zGd8seJ9zBA5AwAzvQ05xT" },
-            { title: "IA e o Futuro", id: "1yCi0mSVTmr6vGXcvabcvgnPo4pSq6LAO" },
-            { title: "IA Secretaria", id: "1veSV7mpgozq6EPQCDK34X1cIa3s0rAw0" },
-            { title: "Nicho de Oportunidades", id: "1mHGWIMU1o5X8rIjHP8ovsnyXoNIjlxzP" },
-            { title: "Objeção Oculta", id: "1t58XstU5Nzis6Lh6yVJIgjR4RWVNWgun" },
-            { title: "Project Business Check", id: "1CiOOI9rtaImNGZUTAGYC3LE2Ur4vJmqm" },
-            { title: "Responder Whatsapp", id: "1SZ8x6oZo6_1rMHZ5TXJ3E2oYhn3lGQCp" },
-            { title: "Tráfego Pago Morreu", id: "1pSg2wwIHVskqZUY7RItDUpZh2YpY-uSc" },
-            { title: "Vendas", id: "1cg9nIgjWejsqsoN15GD9qlMzk8CN4Zu0" },
-            { title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p" }
-        ];
-        const oryVideos = [
-            { title: "Vídeo Ory 1", id: "1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC" },
-            { title: "Vídeo Ory 2", id: "1TIpRumKxHaH_U6c6ZuV25Eom0IV3KC6P" }
-        ];
-        const aecVideos = [
-            { title: "Vídeo AeC 1", id: "1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G" },
-            { title: "Vídeo AeC 2", id: "1u96j8o7CkxDh3zEkv1ph1otV23U05epp" },
-            { title: "Vídeo AeC 3", id: "1egrGgX4O5nmAZBDOyelSHsM-xxGHmpwz" }
-        ];
-        const unigrandeVideos = [
-            { title: "Vídeo UNIGRANDE 1", id: "1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B" },
-            { title: "Vídeo UNIGRANDE 2", id: "1w_tAUw_n6MKQPJr1o6Y4m93EaqmljYz1" },
-            { title: "Vídeo UNIGRANDE 3", id: "1O7TP-ue6NRI2WpU_3aRgpSfd_2ZOJcNS" },
-            { title: "Vídeo UNIGRANDE 4", id: "17YINTRqEBHnHYoy903eZRy1qylsGLFGM" }
-        ];
-        const vanessaVideos = [
-            { title: "Vídeo Vanessa 1", id: "10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN" },
-            { title: "Vídeo Vanessa 2", id: "11D822i55Q-6_x9v1D3ZP2IYMMGTuXvrg" },
-            { title: "Vídeo Vanessa 3", id: "1BzPS__2-s3hgDe8t76ntIegvAxCDEIhN" },
-            { title: "Vídeo Vanessa 4", id: "1GfH3Ewk6RjPfciXM5hONTZYhiOILnZHP" },
-            { title: "Vídeo Vanessa 5", id: "1Q89l3bX4KACw2ayaSq0ZvdFsU9ds-6nn" },
-            { title: "Vídeo Vanessa 6", id: "1_Euy9QQovmTJcDYKoNoAIYDDl394kNr5" },
-            { title: "Vídeo Vanessa 7", id: "1ndisi-g9Nw5JtVM7U53NNmvpl6DfhpFr" },
-            { title: "Vídeo Vanessa 8", id: "1rTPQebGyQMLeFMbEbgv_sdoAHTzzfjLr" }
-        ];
-        const unianchietaVideos = [
-            { title: "Vídeo UNIANCHIETA 1", id: "1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U" },
-            { title: "Vídeo UNIANCHIETA 2", id: "1jKJseAWQD5qWo5Xzy8kxobHUOezAhHnz" },
-            { title: "Vídeo UNIANCHIETA 3", id: "1kVENsSyafJc3YYj7jVSYCw_L5NLEU_tz" }
-        ];
-        const caesbVideos = [
-            { title: "Vídeo CAESB 1", id: "1MgqWRiBM7M2hQVYk8PEETJC1UjsKTEB2" },
-            { title: "Vídeo CAESB 2", id: "1QRMShNqdxI0HMfkr4YaQAsaE4_TPa7Oh" }
-        ];
-        const segueOBaileVideos = [
-            { title: "Superação com João da Verde e Rosa", id: "2r_2mpd4uUA", type: "youtube" },
-            { title: "Vitinho Agita na Ilha da Gigóia", id: "MhaYlLIOo0g", type: "youtube" },
-            { title: "Felipe Ferreira: Bastidores", id: "9deIRMk93jA", type: "youtube" }
-        ];
-
-        const categories = [
-            { id: 'unianchieta', title: 'UNIANCHIETA', descriptions: { pt: 'Projetos audiovisuais acadêmicos.' }, count: unianchietaVideos.length, icon: 'library', coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U', items: unianchietaVideos },
-            { id: 'nexhub', title: 'NexHub', descriptions: { pt: 'Estratégias e lançamentos digitais.' }, count: marketingVideos.length, icon: 'trending-up', coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', items: marketingVideos },
-            { id: 'ory_clinica', title: 'Ory Clínica', descriptions: { pt: 'Saúde, bem-estar e estética.' }, count: oryVideos.length, icon: 'heart-pulse', coverId: '1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC', items: oryVideos },
-            { id: 'aec_estetica', title: 'AeC Estética', descriptions: { pt: 'Produções para beleza e cuidados.' }, count: aecVideos.length, icon: 'sparkles', coverId: '1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G', items: aecVideos },
-            { id: 'unigrande', title: 'UNIGRANDE', descriptions: { pt: 'Conteúdo institucional e educacional.' }, count: unigrandeVideos.length, icon: 'graduation-cap', coverId: '1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B', items: unigrandeVideos },
-            { id: 'vanessa_nutri', title: 'Vanessa Nutri', descriptions: { pt: 'Alimentação saudável e nutrição.' }, count: vanessaVideos.length, icon: 'apple', coverId: '10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN', items: vanessaVideos },
-            { id: 'caesb', title: 'CAESB', descriptions: { pt: 'Comunicação corporativa hídrica.' }, count: caesbVideos.length, icon: 'droplets', coverType: 'image', coverUrl: 'https://www.politicadistrital.com.br/wp-content/uploads/2019/06/caesb-desconto.jpg', items: caesbVideos },
-            { id: 'segue_o_baile', title: 'Segue o Baile', descriptions: { pt: 'Cobertura de eventos e entrevistas.' }, count: segueOBaileVideos.length, icon: 'tv', coverId: '2r_2mpd4uUA', coverType: 'youtube', items: segueOBaileVideos },
-            { id: 'remaster_ia', title: 'Remaster com IA', descriptions: { pt: 'Upscaling e tratamento com IA.' }, count: 2, icon: 'wand-2', coverId: '1ClQPFQYwystqP6hIWSeZeANDeel1hjpk', items: [], specialType: 'comparison', videoOriginal: '070jjUxiiaY', videoRemaster: 'IKeYemyRtqU' }
-        ];
-
-        // --- 3. HELPER FUNCTIONS ---
-        
+        // --- 3. FUNCTIONS ---
         function initLangGrid() {
             if(!langGrid) return;
             langGrid.innerHTML = ''; 
-
-            langs.forEach(lang => {
+            [{ code: 'pt', label: 'Português', flag: 'br' },{ code: 'en', label: 'English', flag: 'us' }].forEach(lang => {
                 const card = document.createElement('div');
-                card.className = 'lang-card';
-                
-                if (lang.isSplit) {
-                    card.innerHTML = `
-                        <div class="glass-surface">
-                            <div class="split-flag-container">
-                                <div class="split-half half-br" title="Português Brasil"></div>
-                                <div class="split-indicator ind-br">BR</div>
-                                <div class="split-half half-pt" title="Português Portugal"></div>
-                                <div class="split-indicator ind-pt">PT</div>
-                            </div>
-                            <div class="lang-label">${lang.label}</div>
-                        </div>
-                    `;
-                    setTimeout(() => {
-                        const brPart = card.querySelector('.half-br');
-                        const ptPart = card.querySelector('.half-pt');
-                        if(brPart) brPart.onclick = (e) => { e.stopPropagation(); selectLanguage('pt'); };
-                        if(ptPart) ptPart.onclick = (e) => { e.stopPropagation(); selectLanguage('pt-PT'); };
-                    }, 0);
-                } else {
-                    card.innerHTML = `
-                        <div class="glass-surface">
-                            <img src="https://flagcdn.com/w160/${lang.flag}.png" class="flag-img">
-                            <div class="lang-label">${lang.label}</div>
-                        </div>
-                    `;
-                    card.onclick = () => selectLanguage(lang.code);
-                }
+                card.className = 'lang-card p-4 bg-white/5 rounded-2xl cursor-pointer hover:bg-white/10 transition-all';
+                card.innerHTML = `<img src="https://flagcdn.com/w160/${lang.flag}.png" class="w-12 h-12 rounded-full mx-auto mb-2"><div class="text-white font-bold text-xs">${lang.label}</div>`;
+                card.onclick = () => selectLanguage(lang.code);
                 langGrid.appendChild(card);
             });
         }
@@ -715,96 +471,42 @@
         function toggleLang() {
             if(!planetModal) return;
             isLangOpen = !isLangOpen;
-            if (isLangOpen) {
-                planetModal.classList.remove('pointer-events-none', 'opacity-0');
-                document.body.style.overflow = 'hidden';
-                if(langBtn) langBtn.classList.remove('beacon-active');
-            } else {
-                planetModal.classList.add('pointer-events-none', 'opacity-0');
-                document.body.style.overflow = '';
-            }
+            planetModal.classList.toggle('opacity-0', !isLangOpen);
+            planetModal.classList.toggle('pointer-events-none', !isLangOpen);
         }
 
         function selectLanguage(code) {
-            changeLanguage(code);
-            setTimeout(() => toggleLang(), 300);
-        }
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('siteLang', lang);
-            
+            currentLang = code;
+            localStorage.setItem('siteLang', code);
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+                if (translations[code][key]) el.innerHTML = translations[code][key];
             });
-
-            const label = document.getElementById('current-lang-label');
-            if(label) label.innerText = lang.split('-')[0].toUpperCase();
-
-            // Refresh categories to update text if visible
-            const backBtn = document.getElementById('back-btn');
-            if (backBtn && backBtn.classList.contains('hidden')) {
-                 showCategories();
-            } else {
-                // If inside a category, we might want to refresh title/desc but complex logic omitted for simplicity
-                showCategories(); 
-            }
+            document.getElementById('current-lang-label').innerText = code.toUpperCase();
+            showCategories();
+            toggleLang();
         }
 
         function showCategories() {
             const gridContainer = document.getElementById('dynamic-grid');
             const headerTitle = document.querySelector('#section-header h2');
-            const headerDesc = document.querySelector('#section-header p');
             const backBtn = document.getElementById('back-btn');
-
             if(!gridContainer) return;
-
             gridContainer.style.opacity = '0';
             setTimeout(() => {
                 if(headerTitle) headerTitle.textContent = translations[currentLang].projects_header;
-                if(headerDesc) headerDesc.textContent = translations[currentLang].projects_subheader;
                 if(backBtn) backBtn.classList.add('hidden');
-                
                 gridContainer.innerHTML = '';
-                gridContainer.classList.remove('!flex', '!flex-col');
-                gridContainer.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
-
-                categories.forEach((cat, index) => {
-                    let thumbUrl;
-                    if (cat.coverType === 'youtube') thumbUrl = `https://img.youtube.com/vi/${cat.coverId}/maxresdefault.jpg`;
-                    else if (cat.coverType === 'image') thumbUrl = cat.coverUrl;
-                    else thumbUrl = `https://drive.google.com/thumbnail?id=${cat.coverId}&sz=w640-h360`;
-
+                gridContainer.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
+                categories.forEach(cat => {
+                    let thumb = cat.coverType === 'youtube' ? `https://img.youtube.com/vi/${cat.coverId}/maxresdefault.jpg` : (cat.coverType === 'image' ? cat.coverUrl : `https://drive.google.com/thumbnail?id=${cat.coverId}&sz=w640-h360`);
                     const card = document.createElement('div');
                     card.className = 'liquid-glass group rounded-3xl cursor-pointer flex flex-col reveal';
-                    card.style.transitionDelay = `${index * 30}ms`;
                     card.onclick = () => openCategory(cat.id);
-                    const btnText = cat.specialType === 'comparison' ? translations[currentLang].btn_open_compare : translations[currentLang].btn_open_folder;
-
-                    card.innerHTML = `
-                        <div class="h-56 w-full relative overflow-hidden bg-zinc-900/50">
-                             <div class="absolute inset-0 bg-dark-900/20 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
-                             <img src="${thumbUrl}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1 opacity-80 group-hover:opacity-100" onerror="this.src='https://via.placeholder.com/640x360/121215/333?text=Cover'">
-                             <div class="absolute top-4 right-4 w-10 h-10 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white z-20 shadow-lg group-hover:bg-brand-600 group-hover:border-brand-500 transition-all duration-300">
-                                <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
-                             </div>
-                        </div>
-                        <div class="p-8 flex-1 flex flex-col relative z-20">
-                            <h3 class="font-display text-2xl font-bold text-white mb-2 group-hover:text-brand-400 transition-colors">${cat.title}</h3>
-                            <p class="text-zinc-500 text-sm mb-6 leading-relaxed flex-1">${cat.descriptions[currentLang] || cat.descriptions['pt']}</p>
-                            <div class="flex items-center justify-between pt-4 border-t border-white/5">
-                                <span class="text-xs font-bold uppercase tracking-widest text-zinc-600">${cat.count} Itens</span>
-                                <span class="text-sm font-bold text-white flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                                    ${btnText} <i data-lucide="arrow-right" class="w-4 h-4 text-brand-500"></i>
-                                </span>
-                            </div>
-                        </div>
-                    `;
+                    card.innerHTML = `<div class="h-56 w-full relative overflow-hidden bg-zinc-900/50"><img src="${thumb}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"><div class="absolute top-4 right-4 w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white z-20 group-hover:bg-brand-600 transition-all"><i data-lucide="${cat.icon}" class="w-5 h-5"></i></div></div><div class="p-8 flex-1 flex flex-col relative z-20"><h3 class="font-display text-2xl font-bold text-white mb-2 group-hover:text-brand-400 transition-colors">${cat.title}</h3><p class="text-zinc-500 text-sm mb-6 flex-1">${cat.descriptions[currentLang] || cat.descriptions['pt']}</p><div class="flex items-center justify-between pt-4 border-t border-white/5"><span class="text-xs font-bold uppercase tracking-widest text-zinc-600">${cat.count} Itens</span><span class="text-sm font-bold text-white flex items-center gap-2 group-hover:translate-x-1 transition-transform">Explorar <i data-lucide="arrow-right" class="w-4 h-4 text-brand-500"></i></span></div></div>`;
                     gridContainer.appendChild(card);
                 });
                 lucide.createIcons();
-                addHoverEvents();
                 initScrollReveal();
                 gridContainer.style.opacity = '1';
             }, 300);
@@ -813,80 +515,28 @@
         function openCategory(catId) {
             const category = categories.find(c => c.id === catId);
             if (!category) return;
-            
             const gridContainer = document.getElementById('dynamic-grid');
             const headerTitle = document.querySelector('#section-header h2');
-            const headerDesc = document.querySelector('#section-header p');
             const backBtn = document.getElementById('back-btn');
-
             gridContainer.style.opacity = '0';
             setTimeout(() => {
-                if(headerTitle) headerTitle.textContent = category.title;
-                if(headerDesc) headerDesc.textContent = category.descriptions[currentLang] || category.descriptions['pt'];
-                if(backBtn) backBtn.classList.remove('hidden');
-                
+                headerTitle.textContent = category.title;
+                backBtn.classList.remove('hidden');
                 gridContainer.innerHTML = '';
-                
                 if (category.specialType === 'comparison') {
-                    gridContainer.classList.remove('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
-                    gridContainer.classList.add('!flex', '!flex-col');
-                    const t = translations[currentLang];
-                    gridContainer.innerHTML = `
-                        <div class="w-full space-y-8 max-w-6xl mx-auto reveal">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div class="liquid-glass p-6 rounded-3xl bg-zinc-900/50">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-xl font-bold text-zinc-400 flex items-center gap-2"><i data-lucide="history" class="w-5 h-5"></i> ${t.compare_orig_label}</h3>
-                                        <span class="text-xs font-bold text-zinc-600 bg-black/50 px-3 py-1 rounded-full border border-white/5">SD 480p</span>
-                                    </div>
-                                    <div class="aspect-video rounded-2xl overflow-hidden bg-black shadow-inner ring-1 ring-white/5">
-                                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${category.videoOriginal}" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                </div>
-                                <div class="liquid-glass p-6 rounded-3xl bg-brand-900/10 border-brand-500/20">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-xl font-bold text-brand-300 flex items-center gap-2"><i data-lucide="sparkles" class="w-5 h-5 text-brand-400"></i> ${t.compare_remaster_label}</h3>
-                                        <span class="text-xs font-bold text-brand-200 bg-brand-500/20 px-3 py-1 rounded-full border border-brand-500/30 animate-pulse">4K ULTRA HD</span>
-                                    </div>
-                                    <div class="aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl relative">
-                                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${category.videoRemaster}?vq=hd2160" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                    gridContainer.className = '!flex !flex-col w-full';
+                    gridContainer.innerHTML = `<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 reveal"><div class="liquid-glass p-6 rounded-3xl"><h3 class="text-xl font-bold text-zinc-400 mb-4">Original</h3><iframe width="100%" class="aspect-video rounded-2xl" src="https://www.youtube.com/embed/${category.videoOriginal}" frameborder="0" allowfullscreen></iframe></div><div class="liquid-glass p-6 rounded-3xl"><h3 class="text-xl font-bold text-brand-300 mb-4">Remaster IA</h3><iframe width="100%" class="aspect-video rounded-2xl" src="https://www.youtube.com/embed/${category.videoRemaster}" frameborder="0" allowfullscreen></iframe></div></div>`;
                 } else {
-                    gridContainer.classList.remove('!flex', '!flex-col');
-                    gridContainer.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
-                    
-                    category.items.forEach((video, index) => {
-                        const isYoutube = video.type === 'youtube';
-                        const thumbUrl = isYoutube ? `https://img.youtube.com/vi/${video.id}/maxresdefault.jpg` : `https://drive.google.com/thumbnail?id=${video.id}&sz=w640-h360`;
+                    gridContainer.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
+                    category.items.forEach(video => {
+                        const thumb = video.type === 'youtube' ? `https://img.youtube.com/vi/${video.id}/maxresdefault.jpg` : `https://drive.google.com/thumbnail?id=${video.id}&sz=w640-h360`;
                         const card = document.createElement('div');
                         card.className = 'liquid-glass group rounded-3xl overflow-hidden flex flex-col reveal';
-                        card.innerHTML = `
-                            <div class="relative aspect-video bg-zinc-800 cursor-pointer overflow-hidden" onclick="openModal('${video.id}', '${video.type || 'drive'}')">
-                                <img src="${thumbUrl}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')">
-                                <div class="hidden absolute inset-0 bg-zinc-800 flex items-center justify-center text-zinc-600 font-bold">No Preview</div>
-                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 bg-black/20 backdrop-blur-[2px]">
-                                    <div class="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center transform scale-50 group-hover:scale-100 transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.3)]">
-                                        <i data-lucide="play" class="w-6 h-6 fill-current translate-x-0.5"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-5 flex-1 flex flex-col justify-between border-t border-white/5 bg-zinc-900/40 relative z-20">
-                                <h3 class="font-display font-bold text-white text-lg leading-tight group-hover:text-brand-400 transition-colors">${video.title}</h3>
-                                <div class="mt-4 flex items-center gap-2 text-xs text-zinc-500 font-medium uppercase tracking-wider">
-                                    <div class="w-2 h-2 rounded-full bg-brand-500"></div>
-                                    <span>${translations[currentLang].watch_now}</span>
-                                </div>
-                            </div>
-                        `;
+                        card.innerHTML = `<div class="relative aspect-video bg-zinc-800 cursor-pointer overflow-hidden" onclick="openModal('${video.id}', '${video.type || 'drive'}')"><img src="${thumb}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700"><div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 bg-black/20"><div class="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center"><i data-lucide="play" class="w-6 h-6"></i></div></div></div><div class="p-5 flex-1 bg-zinc-900/40 border-t border-white/5"><h3 class="font-display font-bold text-white text-lg">${video.title}</h3></div>`;
                         gridContainer.appendChild(card);
                     });
                 }
                 lucide.createIcons();
-                addHoverEvents();
                 initScrollReveal();
                 gridContainer.style.opacity = '1';
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
@@ -894,142 +544,46 @@
         }
 
         const modal = document.getElementById('video-modal');
-        const modalContent = document.getElementById('modal-content');
         const modalIframe = document.getElementById('modal-iframe');
         const modalLink = document.getElementById('modal-external-link');
 
         function openModal(id, type) {
-            let embedUrl = type === 'youtube' ? `https://www.youtube.com/embed/${id}?autoplay=1` : `https://drive.google.com/file/d/${id}/preview`;
-            let directLink = type === 'youtube' ? `https://www.youtube.com/watch?v=${id}` : `https://drive.google.com/file/d/${id}/view`;
-            modalIframe.src = embedUrl;
-            modalLink.href = directLink;
+            modalIframe.src = type === 'youtube' ? `https://www.youtube.com/embed/${id}?autoplay=1` : `https://drive.google.com/file/d/${id}/preview`;
+            modalLink.href = type === 'youtube' ? `https://www.youtube.com/watch?v=${id}` : `https://drive.google.com/file/d/${id}/view`;
             modal.classList.remove('hidden');
-            setTimeout(() => { modal.classList.remove('opacity-0'); modalContent.classList.remove('scale-95'); modalContent.classList.add('scale-100'); }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('modal-content').classList.remove('scale-95'); }, 10);
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            modal.classList.add('opacity-0'); modalContent.classList.add('scale-95'); modalContent.classList.remove('scale-100');
+            modal.classList.add('opacity-0'); document.getElementById('modal-content').classList.add('scale-95');
             setTimeout(() => { modal.classList.add('hidden'); modalIframe.src = ''; }, 500);
             document.body.style.overflow = '';
         }
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
-
-        const addHoverEvents = () => {
-            const hoverables = document.querySelectorAll('a, button, .hoverable, .liquid-glass, .lang-card');
-            hoverables.forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-            });
-        };
 
         const initScrollReveal = () => {
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('active');
-                });
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
             }, { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         };
 
-        // --- APP START LOGIC ---
-        function startApp() {
-            lucide.createIcons();
-            
-            // Initialize Lang
-            const label = document.getElementById('current-lang-label');
-            if(label) label.innerText = currentLang.split('-')[0].toUpperCase();
-
-            initLangGrid();
-            
-            // Initial content
-            showCategories();
-            addHoverEvents();
-            initScrollReveal();
-            
-            // Show hint after delay
-            const hint = document.getElementById('lang-hint');
-            if (hint) {
-                setTimeout(() => {
-                    hint.classList.remove('opacity-0');
-                    const arrow = hint.querySelector('.hint-arrow');
-                    if(arrow) arrow.style.animation = 'bounce-up 1s infinite';
-                }, 1500);
-                
-                const hideHint = () => {
-                    hint.classList.add('opacity-0');
-                    setTimeout(() => hint.remove(), 1000);
-                    const langBtn = document.getElementById('lang-btn');
-                    if(langBtn) langBtn.classList.remove('beacon-active');
-                    document.removeEventListener('click', hideHint);
-                };
-                document.addEventListener('click', hideHint);
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            // Assign DOM elements
             planetModal = document.getElementById('planet-modal');
             langGrid = document.getElementById('lang-grid');
-            langBtn = document.getElementById('lang-btn');
             cursorDot = document.querySelector('.cursor-dot');
             cursorOutline = document.querySelector('.cursor-outline');
-
-            const isMobile = window.innerWidth < 768;
-            const loader = document.getElementById('mobile-loader');
-            const loaderBar = document.getElementById('loader-bar');
-
-            // Initial Scroll Reset
-            window.scrollTo(0, 0);
-
-            // Cursor Logic
-            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            if (!isTouchDevice && cursorDot && cursorOutline) {
+            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (!isTouch && cursorDot && cursorOutline) {
                 document.body.classList.add('custom-cursor');
                 window.addEventListener('mousemove', (e) => {
-                    const posX = e.clientX;
-                    const posY = e.clientY;
-                    cursorDot.style.left = `${posX}px`;
-                    cursorDot.style.top = `${posY}px`;
-                    cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+                    cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
+                    cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
                 });
             }
-
-            if (isMobile && loader) {
-                loader.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-
-                let progress = 0;
-                // 2.5 seconds = 2500ms
-                const duration = 2500; 
-                const interval = 100; // Update every 100ms
-                const step = 100 / (duration / interval); 
-
-                const timer = setInterval(() => {
-                    progress += step;
-                    // Ease out at the end visually by capping
-                    if (loaderBar) loaderBar.style.width = `${Math.min(progress, 100)}%`;
-
-                    if (progress >= 100) {
-                        clearInterval(timer);
-                        
-                        // Fade out loader
-                        loader.style.transition = 'opacity 0.6s ease';
-                        loader.style.opacity = '0';
-                        
-                        setTimeout(() => {
-                            loader.classList.add('hidden');
-                            document.body.style.overflow = '';
-                            startApp(); // Start animations
-                        }, 600);
-                    }
-                }, interval);
-
-            } else {
-                // Desktop: Start immediately
-                startApp();
-            }
+            initLangGrid();
+            showCategories();
+            initScrollReveal();
         });
     </script>
 </body>
