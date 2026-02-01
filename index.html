@@ -45,6 +45,12 @@
                             dark: '#1c1917',
                             light: '#e7e5e4',
                             bg: '#0c0a09'
+                        },
+                        angel: {
+                            copper: '#B87333',
+                            brown: '#8B4513',
+                            light: '#E5A070',
+                            bg: '#0C0A09'
                         }
                     },
                     animation: {
@@ -140,7 +146,6 @@
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Branding Specific Styles */
         .brand-dot {
             width: 32px;
             height: 32px;
@@ -154,6 +159,11 @@
         .matheus-preview-bg {
             background-color: #0c0a09;
             background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
+        }
+
+        .angelina-preview-bg {
+            background-color: #0c0a09;
+            background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
         }
     </style>
 </head>
@@ -238,7 +248,7 @@
         </div>
     </section>
 
-    <!-- PROJECTS GRID (VÍDEOS ORIGINAIS) -->
+    <!-- PROJECTS GRID (VÍDEOS) -->
     <section id="projects" class="py-32 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-end justify-between mb-24 gap-6 border-b border-white/5 pb-8 reveal">
@@ -255,104 +265,122 @@
         </div>
     </section>
 
-    <!-- BRANDING & DESIGN (CASE MATHEUS) -->
+    <!-- BRANDING & DESIGN -->
     <section id="branding" class="py-32 relative z-10 overflow-hidden border-t border-white/5 bg-black/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            
+            <!-- SECTION HEADER -->
+            <div class="max-w-3xl mb-20 reveal">
+                <h2 class="font-display text-5xl font-bold text-white mb-6" data-i18n="design_title">Branding & Strategy</h2>
+                <p class="text-zinc-400 text-lg leading-relaxed" data-i18n="design_intro">
+                    Design não é apenas o que se vê, mas o que se <span class="text-white font-bold italic underline decoration-brand-500 underline-offset-4">sente</span>. Transformando conceitos em identidades visuais que comunicam autoridade e sofisticação.
+                </p>
+            </div>
+
+            <!-- CASE LIST -->
+            <div class="space-y-24">
                 
-                <!-- Strategy -->
-                <div class="lg:col-span-5 space-y-12 reveal">
-                    <div>
-                        <h2 class="font-display text-5xl font-bold text-white mb-6" data-i18n="design_title">Branding & Strategy</h2>
-                        <p class="text-zinc-400 text-lg leading-relaxed mb-8" data-i18n="design_intro">
-                            Design não é apenas o que se vê, mas o que se <span class="text-white font-bold italic underline decoration-brand-500 underline-offset-4">sente</span>. No projeto do Matheus, traduzi o aroma e o requinte da gastronomia em uma experiência digital única.
-                        </p>
-                    </div>
-                    
-                    <div class="space-y-6">
-                        <div class="liquid-glass p-6 rounded-2xl border-l-4 border-l-chef-gold group">
-                            <h4 class="text-white font-bold text-xl mb-2 flex items-center gap-3">
-                                <i data-lucide="award" class="text-chef-gold w-5 h-5"></i>
-                                <span data-i18n="design_point1_title">Identidade de Alto Padrão</span>
-                            </h4>
-                            <p class="text-zinc-500 text-sm" data-i18n="design_point1_desc">Cores e fontes que comunicam excelência antes mesmo do primeiro prato ser servido.</p>
+                <!-- CASE 1: MATHEUS -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center reveal">
+                    <div class="lg:col-span-5 space-y-8">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-chef-gold/10 border border-chef-gold/20 text-chef-gold text-[10px] font-bold uppercase tracking-[0.2em]">Gastronomia & Blog</div>
+                        <h3 class="text-white font-matheus_serif text-4xl font-bold">Matheus Fonseca</h3>
+                        <p class="text-zinc-500 leading-relaxed">Desenvolvimento de identidade digital para um chef profissional. O desafio era unir a rusticidade dos ingredientes mineiros com o refinamento da alta gastronomia.</p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="liquid-glass p-4 rounded-xl border-l-2 border-l-chef-gold">
+                                <span class="block text-white font-bold text-sm mb-1">Autoridade</span>
+                                <span class="text-xs text-zinc-500">Paleta Gold para exclusividade.</span>
+                            </div>
+                            <div class="liquid-glass p-4 rounded-xl border-l-2 border-l-chef-accent">
+                                <span class="block text-white font-bold text-sm mb-1">Engajamento</span>
+                                <span class="text-xs text-zinc-500">CTA's em tom vibrante.</span>
+                            </div>
                         </div>
-                        <div class="liquid-glass p-6 rounded-2xl border-l-4 border-l-brand-400 group">
-                            <h4 class="text-white font-bold text-xl mb-2 flex items-center gap-3">
-                                <i data-lucide="layout" class="text-brand-400 w-5 h-5"></i>
-                                <span data-i18n="design_point2_title">UX Focada em Conteúdo</span>
-                            </h4>
-                            <p class="text-zinc-500 text-sm" data-i18n="design_point2_desc">Interface limpa para que o prato seja a estrela, mantendo a legibilidade e sofisticação.</p>
+                    </div>
+
+                    <div class="lg:col-span-7">
+                        <div class="liquid-glass rounded-[40px] p-1 bg-gradient-to-br from-white/10 to-transparent shadow-2xl overflow-hidden group">
+                            <div class="matheus-preview-bg rounded-[38px] p-8 md:p-12 relative">
+                                <div class="flex justify-between items-start mb-12">
+                                    <div class="brand-dot bg-chef-gold scale-150"></div>
+                                    <a href="https://canneli.github.io/matheus/" target="_blank" class="hoverable flex items-center gap-2 text-white/50 hover:text-chef-gold transition-colors text-xs font-bold uppercase tracking-widest">
+                                        Explorar <i data-lucide="external-link" class="w-3 h-3"></i>
+                                    </a>
+                                </div>
+                                <div class="grid grid-cols-2 gap-8">
+                                    <div class="space-y-4">
+                                        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Palette</p>
+                                        <div class="flex gap-2">
+                                            <div class="brand-dot bg-chef-gold"></div>
+                                            <div class="brand-dot bg-chef-accent"></div>
+                                            <div class="brand-dot bg-chef-dark"></div>
+                                            <div class="brand-dot bg-chef-light"></div>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Typography</p>
+                                        <p class="text-2xl font-matheus_serif text-white">Playfair Display</p>
+                                        <p class="text-sm font-matheus_sans text-zinc-500">Inter Regular</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Visual Case -->
-                <div class="lg:col-span-7 reveal" style="transition-delay: 0.2s;">
-                    <div class="liquid-glass rounded-[40px] p-1 bg-gradient-to-br from-white/10 to-transparent shadow-2xl overflow-hidden group">
-                        <div class="matheus-preview-bg rounded-[38px] p-8 md:p-12 relative">
-                            
-                            <!-- Header Project -->
-                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16">
-                                <div>
-                                    <div class="flex items-center gap-2 mb-2">
-                                        <i data-lucide="chef-hat" class="w-4 h-4 text-chef-gold"></i>
-                                        <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-400 font-black">Digital Branding</span>
+                <!-- CASE 2: ANGELINA PEREIRA -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center reveal" style="transition-delay: 0.2s;">
+                    <div class="lg:col-span-7 order-2 lg:order-1">
+                        <div class="liquid-glass rounded-[40px] p-1 bg-gradient-to-br from-white/10 to-transparent shadow-2xl overflow-hidden group">
+                            <div class="angelina-preview-bg rounded-[38px] p-8 md:p-12 relative">
+                                <div class="flex justify-between items-start mb-12">
+                                    <div class="brand-dot bg-angel-copper scale-150 shadow-[0_0_20px_rgba(184,115,51,0.5)]"></div>
+                                    <div class="flex items-center gap-2 text-white/50 text-xs font-bold uppercase tracking-widest">
+                                        Beauty & Expert <i data-lucide="sparkles" class="w-3 h-3 text-angel-copper"></i>
                                     </div>
-                                    <h3 class="text-white font-matheus_serif text-4xl font-bold">Matheus Fonseca</h3>
                                 </div>
-                                <a href="https://canneli.github.io/matheus/" target="_blank" class="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full bg-chef-gold text-stone-900 text-xs font-black uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-                                    Explorar Blog <i data-lucide="external-link" class="w-3 h-3"></i>
-                                </a>
-                            </div>
-
-                            <!-- Visual Assets -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                                <!-- Colors -->
-                                <div class="space-y-6">
-                                    <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold border-b border-white/5 pb-2">Style Palette</p>
-                                    <div class="flex items-center gap-4">
-                                        <div class="flex flex-col items-center gap-2 group/color">
-                                            <div class="brand-dot bg-chef-gold" title="#d4af37"></div>
-                                            <span class="text-[9px] text-zinc-500 font-mono">GOLD</span>
-                                        </div>
-                                        <div class="flex flex-col items-center gap-2 group/color">
-                                            <div class="brand-dot bg-chef-accent" title="#ea580c"></div>
-                                            <span class="text-[9px] text-zinc-500 font-mono">ACCENT</span>
-                                        </div>
-                                        <div class="flex flex-col items-center gap-2 group/color">
-                                            <div class="brand-dot bg-chef-dark" title="#1c1917"></div>
-                                            <span class="text-[9px] text-zinc-500 font-mono">DARK</span>
-                                        </div>
-                                        <div class="flex flex-col items-center gap-2 group/color">
-                                            <div class="brand-dot bg-chef-light" title="#e7e5e4"></div>
-                                            <span class="text-[9px] text-zinc-500 font-mono">LIGHT</span>
-                                        </div>
-                                    </div>
-                                    <p class="text-xs text-zinc-400 leading-relaxed italic">"O dourado evoca o prestígio da gastronomia clássica, enquanto os tons de pedra (stone) trazem o aspecto rústico dos ingredientes naturais."</p>
-                                </div>
-
-                                <!-- Typography -->
-                                <div class="space-y-6">
-                                    <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold border-b border-white/5 pb-2">Typography</p>
+                                <div class="grid grid-cols-2 gap-8">
                                     <div class="space-y-4">
-                                        <div>
-                                            <p class="text-3xl font-matheus_serif text-chef-gold font-bold">Playfair Display</p>
-                                            <p class="text-[10px] text-zinc-500 uppercase tracking-tighter">Serif - Títulos e Destaques</p>
-                                        </div>
-                                        <div>
-                                            <p class="text-xl font-matheus_sans text-white font-bold">Inter Regular</p>
-                                            <p class="text-[10px] text-zinc-500 uppercase tracking-tighter">Sans - Conteúdo e Interface</p>
+                                        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Visual Language</p>
+                                        <div class="flex gap-2">
+                                            <div class="brand-dot bg-angel-copper"></div>
+                                            <div class="brand-dot bg-angel-brown"></div>
+                                            <div class="brand-dot bg-angel-light"></div>
+                                            <div class="brand-dot bg-white/80"></div>
                                         </div>
                                     </div>
+                                    <div class="space-y-4">
+                                        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Typography</p>
+                                        <p class="text-2xl font-matheus_serif text-angel-copper italic">Playfair Display</p>
+                                        <p class="text-sm font-matheus_sans text-zinc-500">Inter Medium</p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!-- Decorative Element -->
-                            <div class="absolute bottom-6 right-10 opacity-10 rotate-12">
-                                <i data-lucide="utensils-cross" class="w-24 h-24 text-white"></i>
+                                <div class="mt-10 flex gap-4 opacity-20">
+                                    <i data-lucide="scissors" class="w-8 h-8 text-white"></i>
+                                    <i data-lucide="gem" class="w-8 h-8 text-white"></i>
+                                </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-8 order-1 lg:order-2">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-angel-copper/10 border border-angel-copper/20 text-angel-copper text-[10px] font-bold uppercase tracking-[0.2em]">Hair Stylist & Estética</div>
+                        <h3 class="text-white font-matheus_serif text-4xl font-bold italic">Angelina Pereira</h3>
+                        <p class="text-zinc-500 leading-relaxed">Criação de marca para especialista com 15 anos de mercado. O objetivo era elevar a percepção de valor para o mercado Europeu (Portugal), focando em sofisticação e visagismo personalizado.</p>
+                        
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="liquid-glass p-5 rounded-xl border-l-2 border-l-angel-copper flex items-center gap-4">
+                                <i data-lucide="shield-check" class="text-angel-copper w-6 h-6"></i>
+                                <div>
+                                    <span class="block text-white font-bold text-sm">Legado de Excelência</span>
+                                    <span class="text-xs text-zinc-500">Cores acobreadas para transmitir tradição e luxo.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="https://www.instagram.com/abelezaangel/" target="_blank" class="hoverable inline-flex items-center gap-3 px-8 py-3 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-white hover:bg-angel-copper hover:text-white transition-all">
+                            Ver Identidade Completa <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -389,7 +417,7 @@
         </div>
     </footer>
 
-    <!-- MODAL -->
+    <!-- VIDEO MODAL -->
     <div id="video-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-500">
         <div class="flex flex-col items-center w-full max-w-7xl scale-95 transition-transform duration-500" id="modal-content">
             <div class="w-full flex justify-end mb-4">
@@ -408,12 +436,10 @@
     </div>
 
     <script>
-        // --- 1. GLOBAL VARS ---
         let currentLang = localStorage.getItem('siteLang') || 'pt';
         let isLangOpen = false;
-        let planetModal, langGrid, cursorDot, cursorOutline;
+        let planetModal, langGrid;
 
-        // --- 2. DATA (VÍDEOS ORIGINAIS TOTALMENTE RESTAURADOS) ---
         const marketingVideos = [{ title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct" },{ title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly" },{ title: "10k Stories", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2" },{ title: "Engage", id: "1y4lmSSGnz8kuhVmbo0U3PS2rq-WGlqCZ" },{ title: "High Ticket", id: "1OoFFZlMFz4zGd8seJ9zBA5AwAzvQ05xT" },{ title: "IA e o Futuro", id: "1yCi0mSVTmr6vGXcvabcvgnPo4pSq6LAO" },{ title: "IA Secretaria", id: "1veSV7mpgozq6EPQCDK34X1cIa3s0rAw0" },{ title: "Nicho de Oportunidades", id: "1mHGWIMU1o5X8rIjHP8ovsnyXoNIjlxzP" },{ title: "Objeção Oculta", id: "1t58XstU5Nzis6Lh6yVJIgjR4RWVNWgun" },{ title: "Project Business Check", id: "1CiOOI9rtaImNGZUTAGYC3LE2Ur4vJmqm" },{ title: "Responder Whatsapp", id: "1SZ8x6oZo6_1rMHZ5TXJ3E2oYhn3lGQCp" },{ title: "Tráfego Pago Morreu", id: "1pSg2wwIHVskqZUY7RItDUpZh2YpY-uSc" },{ title: "Vendas", id: "1cg9nIgjWejsqsoN15GD9qlMzk8CN4Zu0" },{ title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p" }];
         const oryVideos = [{ title: "Vídeo Ory 1", id: "1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC" },{ title: "Vídeo Ory 2", id: "1TIpRumKxHaH_U6c6ZuV25Eom0IV3KC6P" }];
         const aecVideos = [{ title: "Vídeo AeC 1", id: "1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G" },{ title: "Vídeo AeC 2", id: "1u96j8o7CkxDh3zEkv1ph1otV23U05epp" },{ title: "Vídeo AeC 3", id: "1egrGgX4O5nmAZBDOyelSHsM-xxGHmpwz" }];
@@ -439,40 +465,22 @@
             pt: {
                 nav_home: "Início", nav_projects: "Projetos", nav_design: "Design", nav_contact: "Contato",
                 hero_badge: "Disponível para novos projetos", hero_cta: "Ver Portfólio", projects_header: "Selected Works", projects_subheader: "Uma curadoria de projetos focados em impacto visual e retenção.",
-                design_title: "Branding & Strategy", design_intro: "Design não é apenas o que se vê, mas o que se <span class='text-white font-bold italic underline decoration-brand-500 underline-offset-4'>sente</span>. No projeto do Matheus, traduzi o aroma e o requinte da gastronomia em uma experiência digital única.",
-                design_point1_title: "Identidade de Alto Padrão", design_point1_desc: "Cores e fontes que comunicam excelência antes mesmo do primeiro prato ser servido.",
-                design_point2_title: "UX Focada em Conteúdo", design_point2_desc: "Interface limpa para que o prato seja a estrela, mantendo a legibilidade e sofisticação.",
+                design_title: "Branding & Strategy", design_intro: "Design não é apenas o que se vê, mas o que se <span class='text-white font-bold italic underline decoration-brand-500 underline-offset-4'>sente</span>. Transformando conceitos em identidades visuais que comunicam autoridade e sofisticação.",
                 cta_title: "Criação Visual sem Fronteiras", cta_desc: "Do movimento do vídeo à precisão da marca. Vamos elevar o patamar do seu projeto.",
-                btn_back: "Voltar para Categorias", video_count: "Projetos", btn_open_folder: "Explorar", btn_open_compare: "Ver Comparação",
-                btn_quote: "Solicitar Orçamento", footer_rights: "© 2024 Todos os direitos reservados.", watch_now: "Assistir", modal_open_original: "Abrir link original"
+                btn_back: "Voltar para Categorias", watch_now: "Assistir", modal_open_original: "Abrir link original"
             },
             en: {
                 nav_home: "Home", nav_projects: "Projects", nav_design: "Design", nav_contact: "Contact",
                 hero_badge: "Available for new projects", hero_cta: "View Portfolio", projects_header: "Selected Works", projects_subheader: "A curated selection of projects focused on visual impact.",
-                design_title: "Branding & Identity", design_intro: "Design isn't just about visuals; it's about <span class='text-white font-bold italic'>feeling</span>. For Matheus's project, I translated culinary sophistication into a unique digital experience.",
+                design_title: "Branding & Identity", design_intro: "Design isn't just about visuals; it's about <span class='text-white font-bold italic'>feeling</span>. Transforming concepts into visual identities that communicate authority.",
                 cta_title: "Visual Creation Without Borders", cta_desc: "From video motion to brand precision. Let's level up your project.",
-                btn_back: "Back to Categories", btn_quote: "Request Quote", footer_rights: "© 2024 All rights reserved."
+                btn_back: "Back to Categories"
             }
         };
 
-        // --- 3. FUNCTIONS ---
-        function initLangGrid() {
-            if(!langGrid) return;
-            langGrid.innerHTML = ''; 
-            [{ code: 'pt', label: 'Português', flag: 'br' },{ code: 'en', label: 'English', flag: 'us' }].forEach(lang => {
-                const card = document.createElement('div');
-                card.className = 'lang-card p-4 bg-white/5 rounded-2xl cursor-pointer hover:bg-white/10 transition-all';
-                card.innerHTML = `<img src="https://flagcdn.com/w160/${lang.flag}.png" class="w-12 h-12 rounded-full mx-auto mb-2"><div class="text-white font-bold text-xs">${lang.label}</div>`;
-                card.onclick = () => selectLanguage(lang.code);
-                langGrid.appendChild(card);
-            });
-        }
-
         function toggleLang() {
-            if(!planetModal) return;
-            isLangOpen = !isLangOpen;
-            planetModal.classList.toggle('opacity-0', !isLangOpen);
-            planetModal.classList.toggle('pointer-events-none', !isLangOpen);
+            planetModal.classList.toggle('opacity-0');
+            planetModal.classList.toggle('pointer-events-none');
         }
 
         function selectLanguage(code) {
@@ -503,7 +511,7 @@
                     const card = document.createElement('div');
                     card.className = 'liquid-glass group rounded-3xl cursor-pointer flex flex-col reveal';
                     card.onclick = () => openCategory(cat.id);
-                    card.innerHTML = `<div class="h-56 w-full relative overflow-hidden bg-zinc-900/50"><img src="${thumb}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"><div class="absolute top-4 right-4 w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white z-20 group-hover:bg-brand-600 transition-all"><i data-lucide="${cat.icon}" class="w-5 h-5"></i></div></div><div class="p-8 flex-1 flex flex-col relative z-20"><h3 class="font-display text-2xl font-bold text-white mb-2 group-hover:text-brand-400 transition-colors">${cat.title}</h3><p class="text-zinc-500 text-sm mb-6 flex-1">${cat.descriptions[currentLang] || cat.descriptions['pt']}</p><div class="flex items-center justify-between pt-4 border-t border-white/5"><span class="text-xs font-bold uppercase tracking-widest text-zinc-600">${cat.count} Itens</span><span class="text-sm font-bold text-white flex items-center gap-2 group-hover:translate-x-1 transition-transform">Explorar <i data-lucide="arrow-right" class="w-4 h-4 text-brand-500"></i></span></div></div>`;
+                    card.innerHTML = `<div class="h-56 w-full relative overflow-hidden bg-zinc-900/50"><img src="${thumb}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"><div class="absolute top-4 right-4 w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white z-20 group-hover:bg-brand-600 transition-all"><i data-lucide="${cat.icon}" class="w-5 h-5"></i></div></div><div class="p-8 flex-1 flex flex-col relative z-20"><h3 class="font-display text-2xl font-bold text-white mb-2 group-hover:text-brand-400 transition-colors">${cat.title}</h3><p class="text-zinc-500 text-sm mb-6 flex-1">${cat.descriptions[currentLang] || cat.descriptions['pt']}</p></div>`;
                     gridContainer.appendChild(card);
                 });
                 lucide.createIcons();
@@ -571,8 +579,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             planetModal = document.getElementById('planet-modal');
             langGrid = document.getElementById('lang-grid');
-            cursorDot = document.querySelector('.cursor-dot');
-            cursorOutline = document.querySelector('.cursor-outline');
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
             const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
             if (!isTouch && cursorDot && cursorOutline) {
                 document.body.classList.add('custom-cursor');
@@ -581,9 +589,16 @@
                     cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
                 });
             }
-            initLangGrid();
+            [{ code: 'pt', label: 'Português', flag: 'br' },{ code: 'en', label: 'English', flag: 'us' }].forEach(lang => {
+                const card = document.createElement('div');
+                card.className = 'lang-card p-4 bg-white/5 rounded-2xl cursor-pointer hover:bg-white/10 transition-all';
+                card.innerHTML = `<img src="https://flagcdn.com/w160/${lang.flag}.png" class="w-12 h-12 rounded-full mx-auto mb-2"><div class="text-white font-bold text-xs">${lang.label}</div>`;
+                card.onclick = () => selectLanguage(lang.code);
+                langGrid.appendChild(card);
+            });
             showCategories();
             initScrollReveal();
+            lucide.createIcons();
         });
     </script>
 </body>
