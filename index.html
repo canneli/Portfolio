@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23818cf8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/svg%3E">
 
     <title>Felipe Canneli - Visual Experience</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
@@ -100,10 +96,9 @@
             position: fixed; top: 0; left: 0;
             transform: translate(-50%, -50%); border-radius: 50%;
             z-index: 9999; pointer-events: none; mix-blend-mode: difference;
-            display: none;
+            display: block;
             will-change: transform;
         }
-        body.custom-cursor .cursor-dot, body.custom-cursor .cursor-outline { display: block; }
         .cursor-dot { width: 8px; height: 8px; background-color: white; box-shadow: 0 0 10px white; }
         .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.8); transition: width 0.1s, height 0.1s, background-color 0.2s; }
         body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(255, 255, 255, 0.1); border-color: transparent; backdrop-filter: blur(4px); }
@@ -172,14 +167,12 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- BACKGROUND BLOBS -->
     <div class="fixed inset-0 z-0 w-full h-full pointer-events-none overflow-hidden hidden md:block">
         <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-brand-900/30 rounded-full mix-blend-screen filter blur-[130px] animate-blob"></div>
         <div class="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-800/25 rounded-full mix-blend-screen filter blur-[120px] animate-blob" style="animation-delay: 5s"></div>
         <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[140px] animate-blob" style="animation-delay: 8s"></div>
     </div>
 
-    <!-- NAV -->
     <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
         <div class="absolute inset-0 bg-black/50 backdrop-blur-md border-b border-white/5"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative h-20 flex items-center justify-between">
@@ -207,12 +200,10 @@
         </div>
     </nav>
 
-    <!-- LANGUAGE MODAL -->
     <div id="planet-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-500 flex flex-col items-center justify-center backdrop-blur-md bg-black/80">
         <div id="lang-grid" class="flex gap-4"></div>
     </div>
 
-    <!-- HERO -->
     <section id="home" class="relative pt-44 pb-24 lg:pt-60 lg:pb-40 text-center z-10">
         <div class="max-w-5xl mx-auto px-4 relative">
             <div class="reveal inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand-500/30 bg-brand-900/30 text-brand-200 text-xs font-bold tracking-widest uppercase mb-10 backdrop-blur-md animate-float">
@@ -248,7 +239,6 @@
         </div>
     </section>
 
-    <!-- PROJECTS GRID (VÍDEOS) -->
     <section id="projects" class="py-32 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-end justify-between mb-24 gap-6 border-b border-white/5 pb-8 reveal">
@@ -265,11 +255,9 @@
         </div>
     </section>
 
-    <!-- BRANDING & DESIGN -->
     <section id="branding" class="py-32 relative z-10 overflow-hidden border-t border-white/5 bg-black/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <!-- SECTION HEADER -->
             <div class="max-w-3xl mb-20 reveal">
                 <h2 class="font-display text-5xl font-bold text-white mb-6" data-i18n="design_title">Branding & Strategy</h2>
                 <p class="text-zinc-400 text-lg leading-relaxed" data-i18n="design_intro">
@@ -277,10 +265,8 @@
                 </p>
             </div>
 
-            <!-- CASE LIST -->
             <div class="space-y-24">
                 
-                <!-- CASE 1: MATHEUS -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center reveal">
                     <div class="lg:col-span-5 space-y-8">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-chef-gold/10 border border-chef-gold/20 text-chef-gold text-[10px] font-bold uppercase tracking-[0.2em]">Gastronomia & Blog</div>
@@ -329,7 +315,6 @@
                     </div>
                 </div>
 
-                <!-- CASE 2: ANGELINA PEREIRA -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center reveal" style="transition-delay: 0.2s;">
                     <div class="lg:col-span-7 order-2 lg:order-1">
                         <div class="liquid-glass rounded-[40px] p-1 bg-gradient-to-br from-white/10 to-transparent shadow-2xl overflow-hidden group">
@@ -388,7 +373,6 @@
         </div>
     </section>
 
-    <!-- CTA -->
     <section class="py-32 relative z-10 border-t border-white/5 bg-black/40 backdrop-blur-sm">
         <div class="max-w-4xl mx-auto px-4 text-center reveal">
             <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-zinc-900/80 border border-zinc-700 mb-8 shadow-xl">
@@ -403,7 +387,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer id="contact" class="bg-black pt-20 pb-10 border-t border-zinc-900 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex gap-4">
@@ -417,7 +400,6 @@
         </div>
     </footer>
 
-    <!-- VIDEO MODAL -->
     <div id="video-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-500">
         <div class="flex flex-col items-center w-full max-w-7xl scale-95 transition-transform duration-500" id="modal-content">
             <div class="w-full flex justify-end mb-4">
@@ -429,7 +411,7 @@
             <div class="mt-8">
                 <a id="modal-external-link" href="#" target="_blank" class="hoverable inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 rounded-full text-sm text-white border border-zinc-800">
                     <i data-lucide="external-link" class="w-4 h-4"></i>
-                    <span data-i18n="modal_open_original">Abrir link externo</span>
+                    <span data-i18n="modal_open_original">Abrir link original</span>
                 </a>
             </div>
         </div>
@@ -441,7 +423,14 @@
         let planetModal, langGrid;
 
         const marketingVideos = [{ title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct" },{ title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly" },{ title: "10k Stories", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2" },{ title: "Engage", id: "1y4lmSSGnz8kuhVmbo0U3PS2rq-WGlqCZ" },{ title: "High Ticket", id: "1OoFFZlMFz4zGd8seJ9zBA5AwAzvQ05xT" },{ title: "IA e o Futuro", id: "1yCi0mSVTmr6vGXcvabcvgnPo4pSq6LAO" },{ title: "IA Secretaria", id: "1veSV7mpgozq6EPQCDK34X1cIa3s0rAw0" },{ title: "Nicho de Oportunidades", id: "1mHGWIMU1o5X8rIjHP8ovsnyXoNIjlxzP" },{ title: "Objeção Oculta", id: "1t58XstU5Nzis6Lh6yVJIgjR4RWVNWgun" },{ title: "Project Business Check", id: "1CiOOI9rtaImNGZUTAGYC3LE2Ur4vJmqm" },{ title: "Responder Whatsapp", id: "1SZ8x6oZo6_1rMHZ5TXJ3E2oYhn3lGQCp" },{ title: "Tráfego Pago Morreu", id: "1pSg2wwIHVskqZUY7RItDUpZh2YpY-uSc" },{ title: "Vendas", id: "1cg9nIgjWejsqsoN15GD9qlMzk8CN4Zu0" },{ title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p" }];
-        const oryVideos = [{ title: "Vídeo Ory 1", id: "1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC" },{ title: "Vídeo Ory 2", id: "1TIpRumKxHaH_U6c6ZuV25Eom0IV3KC6P" }];
+        
+        // ADICIONADO NOVO VÍDEO ORY NO TOPO
+        const oryVideos = [
+            { title: "Ory Institucional", id: "1qO0SVDmP--cx7LGgjQObjf_9T7CUvzGF" },
+            { title: "Vídeo Ory 1", id: "1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC" },
+            { title: "Vídeo Ory 2", id: "1TIpRumKxHaH_U6c6ZuV25Eom0IV3KC6P" }
+        ];
+
         const aecVideos = [{ title: "Vídeo AeC 1", id: "1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G" },{ title: "Vídeo AeC 2", id: "1u96j8o7CkxDh3zEkv1ph1otV23U05epp" },{ title: "Vídeo AeC 3", id: "1egrGgX4O5nmAZBDOyelSHsM-xxGHmpwz" }];
         const unigrandeVideos = [{ title: "Vídeo UNIGRANDE 1", id: "1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B" },{ title: "Vídeo UNIGRANDE 2", id: "1w_tAUw_n6MKQPJr1o6Y4m93EaqmljYz1" },{ title: "Vídeo UNIGRANDE 3", id: "1O7TP-ue6NRI2WpU_3aRgpSfd_2ZOJcNS" },{ title: "Vídeo UNIGRANDE 4", id: "17YINTRqEBHnHYoy903eZRy1qylsGLFGM" }];
         const vanessaVideos = [{ title: "Vídeo Vanessa 1", id: "10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN" },{ title: "Vídeo Vanessa 2", id: "11D822i55Q-6_x9v1D3ZP2IYMMGTuXvrg" },{ title: "Vídeo Vanessa 3", id: "1BzPS__2-s3hgDe8t76ntIegvAxCDEIhN" },{ title: "Vídeo Vanessa 4", id: "1GfH3Ewk6RjPfciXM5hONTZYhiOILnZHP" },{ title: "Vídeo Vanessa 5", id: "1Q89l3bX4KACw2ayaSq0ZvdFsU9ds-6nn" },{ title: "Vídeo Vanessa 6", id: "1_Euy9QQovmTJcDYKoNoAIYDDl394kNr5" },{ title: "Vídeo Vanessa 7", id: "1ndisi-g9Nw5JtVM7U53NNmvpl6DfhpFr" },{ title: "Vídeo Vanessa 8", id: "1rTPQebGyQMLeFMbEbgv_sdoAHTzzfjLr" }];
@@ -452,7 +441,8 @@
         const categories = [
             { id: 'unianchieta', title: 'UNIANCHIETA', descriptions: { pt: 'Audiovisual acadêmico.' }, count: unianchietaVideos.length, icon: 'library', coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U', items: unianchietaVideos },
             { id: 'nexhub', title: 'NexHub', descriptions: { pt: 'Estratégias digitais.' }, count: marketingVideos.length, icon: 'trending-up', coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', items: marketingVideos },
-            { id: 'ory_clinica', title: 'Ory Clínica', descriptions: { pt: 'Saúde e estética.' }, count: oryVideos.length, icon: 'heart-pulse', coverId: '1ksbRvvqcLbnP8JsWPxVep0oFEImey7zC', items: oryVideos },
+            // CAPA ATUALIZADA PARA O NOVO VÍDEO
+            { id: 'ory_clinica', title: 'Ory Clínica', descriptions: { pt: 'Saúde e estética.' }, count: oryVideos.length, icon: 'heart-pulse', coverId: '1qO0SVDmP--cx7LGgjQObjf_9T7CUvzGF', items: oryVideos },
             { id: 'aec_estetica', title: 'AeC Estética', descriptions: { pt: 'Beleza e cuidados.' }, count: aecVideos.length, icon: 'sparkles', coverId: '1D3YVAJV7InmdjK7Xq5sWfqHHxKRwqH0G', items: aecVideos },
             { id: 'unigrande', title: 'UNIGRANDE', descriptions: { pt: 'Educacional e Institucional.' }, count: unigrandeVideos.length, icon: 'graduation-cap', coverId: '1Gke_0FzoiBpsE4sLtdNtzgbYygQtI08B', items: unigrandeVideos },
             { id: 'vanessa_nutri', title: 'Vanessa Nutri', descriptions: { pt: 'Nutrição e Saúde.' }, count: vanessaVideos.length, icon: 'apple', coverId: '10iNS0EAZNJAVAQoVZo5CRdJOTw7-a4WN', items: vanessaVideos },
@@ -556,8 +546,9 @@
         const modalLink = document.getElementById('modal-external-link');
 
         function openModal(id, type) {
-            modalIframe.src = type === 'youtube' ? `https://www.youtube.com/embed/${id}?autoplay=1` : `https://drive.google.com/file/d/${id}/preview`;
-            modalLink.href = type === 'youtube' ? `https://www.youtube.com/watch?v=${id}` : `https://drive.google.com/file/d/${id}/view`;
+            // PADRONIZAÇÃO 720P ADICIONADA: &vq=hd720
+            modalIframe.src = type === 'youtube' ? `https://www.youtube.com/embed/${id}?autoplay=1` : `https://drive.google.com/file/d/${id}/preview?vq=hd720`;
+            modalLink.href = type === 'youtube' ? `https://www.watch?v=${id}` : `https://drive.google.com/file/d/${id}/view`;
             modal.classList.remove('hidden');
             setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('modal-content').classList.remove('scale-95'); }, 10);
             document.body.style.overflow = 'hidden';
