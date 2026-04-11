@@ -47,6 +47,12 @@
                             brown: '#8B4513',
                             light: '#E5A070',
                             bg: '#0C0A09'
+                        },
+                        modularte: {
+                            taupe: '#8C7D70',
+                            sand: '#D5CABD',
+                            dark: '#232323',
+                            light: '#F4F1ED'
                         }
                     },
                     animation: {
@@ -160,6 +166,47 @@
             background-color: #0c0a09;
             background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
         }
+
+        .modularte-preview-bg {
+            background-color: #232323;
+            background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
+        }
+
+        /* NOVOS ESTILOS EDITORIAIS PARA BRANDING */
+        .editorial-number {
+            font-size: 15rem;
+            line-height: 1;
+            font-weight: 800;
+            position: absolute;
+            top: -50px;
+            left: -30px;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .spin-slow {
+            animation: spin 15s linear infinite;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .tag-pill {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #a1a1aa;
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col relative selection:bg-brand-500/30 selection:text-brand-300">
@@ -255,59 +302,98 @@
         </div>
     </section>
 
-    <section id="branding" class="py-32 relative z-10 overflow-hidden border-t border-white/5 bg-black/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="branding" class="py-32 relative z-10 overflow-hidden border-t border-white/5 bg-[#030304]">
+        <!-- Background Noise/Gradient -->
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30 mix-blend-overlay pointer-events-none"></div>
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-900/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
-            <div class="max-w-3xl mb-20 reveal">
-                <h2 class="font-display text-5xl font-bold text-white mb-6" data-i18n="design_title">Branding & Strategy</h2>
-                <p class="text-zinc-400 text-lg leading-relaxed" data-i18n="design_intro">
-                    Design não é apenas o que se vê, mas o que se <span class="text-white font-bold italic underline decoration-brand-500 underline-offset-4">sente</span>. Transformando conceitos em identidades visuais que comunicam autoridade e sofisticação.
+            <div class="max-w-4xl mb-32 reveal flex flex-col md:flex-row md:items-end justify-between gap-8">
+                <div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-px bg-brand-500"></div>
+                        <span class="text-brand-400 text-xs font-bold uppercase tracking-[0.3em]">Design Essencial</span>
+                    </div>
+                    <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tight" data-i18n="design_title">Branding &<br>Strategy</h2>
+                </div>
+                <p class="text-zinc-400 text-lg md:text-xl leading-relaxed max-w-lg font-light" data-i18n="design_intro">
+                    Design não é apenas estética, é <span class="text-white font-medium italic border-b border-brand-500/50 pb-0.5">engenharia de percepção</span>. Elevando o posicionamento de marcas através de identidades visuais sofisticadas e intencionais.
                 </p>
             </div>
 
-            <div class="space-y-24">
+            <div class="space-y-40">
                 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center reveal">
-                    <div class="lg:col-span-5 space-y-8">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-chef-gold/10 border border-chef-gold/20 text-chef-gold text-[10px] font-bold uppercase tracking-[0.2em]">Gastronomia & Blog</div>
-                        <h3 class="text-white font-matheus_serif text-4xl font-bold">Matheus Fonseca</h3>
-                        <p class="text-zinc-500 leading-relaxed">Desenvolvimento de identidade digital para um chef profissional. O desafio era unir a rusticidade dos ingredientes mineiros com o refinamento da alta gastronomia.</p>
+                <!-- 1. Matheus Fonseca -->
+                <div class="relative group reveal">
+                    <div class="editorial-number text-chef-gold">01</div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
                         
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="liquid-glass p-4 rounded-xl border-l-2 border-l-chef-gold">
-                                <span class="block text-white font-bold text-sm mb-1">Autoridade</span>
-                                <span class="text-xs text-zinc-500">Paleta Gold para exclusividade.</span>
+                        <div class="lg:col-span-5 space-y-8 order-2 lg:order-1">
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="tag-pill">Art Direction</span>
+                                <span class="tag-pill">Visual Identity</span>
+                                <span class="tag-pill">Gastronomy</span>
                             </div>
-                            <div class="liquid-glass p-4 rounded-xl border-l-2 border-l-chef-accent">
-                                <span class="block text-white font-bold text-sm mb-1">Engajamento</span>
-                                <span class="text-xs text-zinc-500">CTA's em tom vibrante.</span>
+                            <h3 class="text-white font-matheus_serif text-5xl md:text-6xl font-bold leading-none">Matheus<br><span class="italic text-zinc-400">Fonseca</span></h3>
+                            <p class="text-zinc-400 text-lg leading-relaxed font-light">Identidade digital para chef profissional. O desafio exigia a fusão do aspecto rústico dos ingredientes mineiros com o minimalismo e refinamento exigidos pela alta gastronomia contemporânea.</p>
+                            
+                            <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+                                <div class="flex -space-x-3">
+                                    <div class="w-10 h-10 rounded-full bg-chef-gold border-2 border-[#030304] shadow-lg"></div>
+                                    <div class="w-10 h-10 rounded-full bg-chef-accent border-2 border-[#030304] shadow-lg"></div>
+                                    <div class="w-10 h-10 rounded-full bg-chef-dark border-2 border-[#030304] shadow-lg"></div>
+                                </div>
+                                <a href="https://canneli.github.io/matheus/" target="_blank" class="hoverable group/btn flex items-center gap-3 text-white hover:text-chef-gold transition-colors text-xs font-bold uppercase tracking-[0.2em]">
+                                    Explorar Projeto 
+                                    <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover/btn:border-chef-gold/50 group-hover/btn:bg-chef-gold/10 transition-all">
+                                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="lg:col-span-7">
-                        <div class="liquid-glass rounded-[40px] p-1 bg-gradient-to-br from-white/10 to-transparent shadow-2xl overflow-hidden group">
-                            <div class="matheus-preview-bg rounded-[38px] p-8 md:p-12 relative">
-                                <div class="flex justify-between items-start mb-12">
-                                    <div class="brand-dot bg-chef-gold scale-150"></div>
-                                    <a href="https://canneli.github.io/matheus/" target="_blank" class="hoverable flex items-center gap-2 text-white/50 hover:text-chef-gold transition-colors text-xs font-bold uppercase tracking-widest">
-                                        Explorar <i data-lucide="external-link" class="w-3 h-3"></i>
-                                    </a>
-                                </div>
-                                <div class="grid grid-cols-2 gap-8">
-                                    <div class="space-y-4">
-                                        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Palette</p>
-                                        <div class="flex gap-2">
-                                            <div class="brand-dot bg-chef-gold"></div>
-                                            <div class="brand-dot bg-chef-accent"></div>
-                                            <div class="brand-dot bg-chef-dark"></div>
-                                            <div class="brand-dot bg-chef-light"></div>
+                        <div class="lg:col-span-7 order-1 lg:order-2 relative">
+                            <!-- Glow Effect Background -->
+                            <div class="absolute -inset-1 bg-gradient-to-r from-chef-gold/20 to-chef-accent/20 rounded-[40px] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
+                            
+                            <!-- Main Visual Container -->
+                            <div class="relative bg-[#0a0a0a] border border-white/10 rounded-[32px] overflow-hidden aspect-[4/3] flex items-center justify-center shadow-2xl">
+                                <!-- Abstract decorative -->
+                                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-chef-gold/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3"></div>
+                                
+                                <!-- Floating Elements Mockup Style -->
+                                <div class="relative w-full h-full p-8 md:p-12 flex flex-col justify-between z-10">
+                                    <div class="flex justify-between items-start">
+                                        <div class="w-16 h-16 relative flex items-center justify-center">
+                                            <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full text-chef-gold/20 spin-slow">
+                                                <path id="curve" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent"/>
+                                                <text class="text-[11px] uppercase tracking-[0.25em]" fill="currentColor"><textPath href="#curve">ALTA GASTRONOMIA • CULINÁRIA AUTORAL •</textPath></text>
+                                            </svg>
+                                            <span class="font-matheus_serif text-2xl text-chef-gold">M</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-white/30 text-[9px] uppercase tracking-[0.3em] mb-1">Tipografia</p>
+                                            <p class="text-white font-matheus_serif text-2xl">Playfair</p>
+                                            <p class="text-zinc-500 font-matheus_sans text-xs mt-1">Inter Typeface</p>
                                         </div>
                                     </div>
-                                    <div class="space-y-4">
-                                        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Typography</p>
-                                        <p class="text-2xl font-matheus_serif text-white">Playfair Display</p>
-                                        <p class="text-sm font-matheus_sans text-zinc-500">Inter Regular</p>
+
+                                    <!-- Mockup Card -->
+                                    <div class="self-center w-full max-w-sm glass-panel p-8 rounded-2xl border-t border-l border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform transition-transform duration-700 group-hover:-translate-y-4 group-hover:rotate-1">
+                                        <div class="flex items-center gap-4 mb-8">
+                                            <div class="w-12 h-12 bg-chef-gold/20 rounded-full flex items-center justify-center">
+                                                <i data-lucide="chef-hat" class="w-6 h-6 text-chef-gold"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-white font-matheus_serif text-xl">Chef Matheus</h4>
+                                                <p class="text-chef-gold text-xs tracking-widest uppercase mt-1">Consultoria</p>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-3">
+                                            <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden"><div class="h-full w-1/3 bg-chef-gold"></div></div>
+                                            <div class="h-1 w-5/6 bg-white/5 rounded-full overflow-hidden"><div class="h-full w-1/2 bg-chef-accent"></div></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -315,57 +401,119 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center reveal" style="transition-delay: 0.2s;">
-                    <div class="lg:col-span-7 order-2 lg:order-1">
-                        <div class="liquid-glass rounded-[40px] p-1 bg-gradient-to-br from-white/10 to-transparent shadow-2xl overflow-hidden group">
-                            <div class="angelina-preview-bg rounded-[38px] p-8 md:p-12 relative">
-                                <div class="flex justify-between items-start mb-12">
-                                    <div class="brand-dot bg-angel-copper scale-150 shadow-[0_0_20px_rgba(184,115,51,0.5)]"></div>
-                                    <div class="flex items-center gap-2 text-white/50 text-xs font-bold uppercase tracking-widest">
-                                        Beauty & Expert <i data-lucide="sparkles" class="w-3 h-3 text-angel-copper"></i>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-8">
-                                    <div class="space-y-4">
-                                        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Visual Language</p>
-                                        <div class="flex gap-2">
-                                            <div class="brand-dot bg-angel-copper"></div>
-                                            <div class="brand-dot bg-angel-brown"></div>
-                                            <div class="brand-dot bg-angel-light"></div>
-                                            <div class="brand-dot bg-white/80"></div>
+                <!-- 2. Angelina Pereira -->
+                <div class="relative group reveal">
+                    <div class="editorial-number text-angel-copper right-0 left-auto text-right">02</div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
+                        
+                        <div class="lg:col-span-7 relative">
+                            <div class="absolute -inset-1 bg-gradient-to-l from-angel-copper/20 to-transparent rounded-[40px] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
+                            
+                            <div class="relative bg-[#110d0a] border border-angel-copper/10 rounded-[32px] overflow-hidden aspect-[4/3] flex items-center justify-center shadow-2xl">
+                                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                                
+                                <div class="relative w-full h-full p-8 md:p-12 flex flex-col items-center justify-center z-10">
+                                    <!-- Elegant Typography Display -->
+                                    <div class="text-center transform transition-transform duration-700 group-hover:scale-105">
+                                        <p class="text-angel-copper/50 text-xs tracking-[0.4em] uppercase mb-6 font-medium">Beauty & Visagismo</p>
+                                        <h4 class="font-matheus_serif text-6xl md:text-7xl text-white italic font-light mb-2">Angelina</h4>
+                                        <h4 class="font-matheus_serif text-4xl md:text-5xl text-angel-copper tracking-widest uppercase">Pereira</h4>
+                                        
+                                        <div class="mt-12 flex items-center justify-center gap-8">
+                                            <div class="text-center">
+                                                <div class="w-16 h-1 bg-angel-copper mb-3"></div>
+                                                <p class="text-white/40 text-[9px] uppercase tracking-[0.2em]">Elegância</p>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="w-16 h-1 bg-angel-brown mb-3"></div>
+                                                <p class="text-white/40 text-[9px] uppercase tracking-[0.2em]">Tradição</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="space-y-4">
-                                        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Typography</p>
-                                        <p class="text-2xl font-matheus_serif text-angel-copper italic">Playfair Display</p>
-                                        <p class="text-sm font-matheus_sans text-zinc-500">Inter Medium</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-5 space-y-8">
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="tag-pill">Brand Strategy</span>
+                                <span class="tag-pill">Europe Market</span>
+                                <span class="tag-pill">Esthetics</span>
+                            </div>
+                            <h3 class="text-white font-matheus_serif text-5xl md:text-6xl font-bold leading-none italic">Angelina<br><span class="text-angel-copper not-italic">Pereira</span></h3>
+                            <p class="text-zinc-400 text-lg leading-relaxed font-light">Posicionamento de alto valor para especialista com 15 anos de mercado. O design foi concebido para o mercado europeu (Portugal), comunicando excelência, visagismo personalizado e luxo atemporal.</p>
+                            
+                            <div class="pt-6 border-t border-white/10">
+                                <a href="https://www.instagram.com/abelezaangel/" target="_blank" class="hoverable group/btn flex items-center gap-3 text-white hover:text-angel-copper transition-colors text-xs font-bold uppercase tracking-[0.2em]">
+                                    Ver Identidade no Instagram
+                                    <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover/btn:border-angel-copper/50 group-hover/btn:bg-angel-copper/10 transition-all group-hover/btn:translate-x-2">
+                                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
                                     </div>
-                                </div>
-                                <div class="mt-10 flex gap-4 opacity-20">
-                                    <i data-lucide="scissors" class="w-8 h-8 text-white"></i>
-                                    <i data-lucide="gem" class="w-8 h-8 text-white"></i>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="lg:col-span-5 space-y-8 order-1 lg:order-2">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-angel-copper/10 border border-angel-copper/20 text-angel-copper text-[10px] font-bold uppercase tracking-[0.2em]">Hair Stylist & Estética</div>
-                        <h3 class="text-white font-matheus_serif text-4xl font-bold italic">Angelina Pereira</h3>
-                        <p class="text-zinc-500 leading-relaxed">Criação de marca para especialista com 15 anos de mercado. O objetivo era elevar a percepção de valor para o mercado Europeu (Portugal), focando em sofisticação e visagismo personalizado.</p>
+                <!-- 3. Modularte Móveis -->
+                <div class="relative group reveal">
+                    <div class="editorial-number text-modularte-taupe">03</div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
                         
-                        <div class="grid grid-cols-1 gap-4">
-                            <div class="liquid-glass p-5 rounded-xl border-l-2 border-l-angel-copper flex items-center gap-4">
-                                <i data-lucide="shield-check" class="text-angel-copper w-6 h-6"></i>
-                                <div>
-                                    <span class="block text-white font-bold text-sm">Legado de Excelência</span>
-                                    <span class="text-xs text-zinc-500">Cores acobreadas para transmitir tradição e luxo.</span>
+                        <div class="lg:col-span-5 space-y-8 order-2 lg:order-1">
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="tag-pill">3D Identity</span>
+                                <span class="tag-pill">Architecture</span>
+                                <span class="tag-pill">Minimalism</span>
+                            </div>
+                            <h3 class="text-white font-display text-5xl md:text-6xl font-bold leading-none tracking-tight">Modul<span class="text-modularte-taupe">arte</span></h3>
+                            <p class="text-zinc-400 text-lg leading-relaxed font-light">Identidade visual baseada na interseção de linhas finas que criam uma ilusão de profundidade geométrica. Um design que reflete a precisão e o alto padrão da marcenaria sob medida.</p>
+                            
+                            <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+                                <div class="flex gap-2">
+                                    <div class="w-2 h-10 bg-modularte-taupe rounded-full"></div>
+                                    <div class="w-2 h-10 bg-modularte-sand rounded-full"></div>
+                                    <div class="w-2 h-10 bg-modularte-light rounded-full"></div>
+                                </div>
+                                <a href="modularte.html" target="_blank" class="hoverable group/btn flex items-center gap-3 text-white hover:text-modularte-sand transition-colors text-xs font-bold uppercase tracking-[0.2em]">
+                                    Acessar Manual da Marca
+                                    <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover/btn:border-modularte-sand/50 group-hover/btn:bg-modularte-sand/10 transition-all">
+                                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-7 order-1 lg:order-2 relative">
+                            <div class="absolute -inset-1 bg-gradient-to-br from-modularte-taupe/20 to-transparent rounded-[40px] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
+                            
+                            <div class="relative bg-[#1a1a1a] border border-modularte-taupe/20 rounded-[32px] overflow-hidden aspect-[4/3] flex items-center justify-center shadow-2xl">
+                                <!-- Architectural Grid lines -->
+                                <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+                                
+                                <div class="relative w-full h-full p-12 flex flex-col items-center justify-center z-10 perspective-1000">
+                                    <!-- 3D Logo Mockup Graphic -->
+                                    <div class="relative transform transition-transform duration-700 group-hover:rotate-x-12 group-hover:-rotate-y-12 preserve-3d">
+                                        <!-- Shadow -->
+                                        <div class="absolute -inset-4 bg-black/40 blur-xl translate-y-8 translate-x-4 rounded-full"></div>
+                                        
+                                        <div class="w-40 h-40 border-2 border-modularte-taupe flex items-center justify-center relative bg-[#1a1a1a]/80 backdrop-blur-sm">
+                                            <div class="absolute top-4 left-4 w-12 h-12 border-t-2 border-l-2 border-modularte-light"></div>
+                                            <div class="absolute bottom-4 right-4 w-12 h-12 border-b-2 border-r-2 border-modularte-sand"></div>
+                                            <span class="font-display text-5xl text-white font-light tracking-widest">M</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="absolute bottom-8 left-8 right-8 flex justify-between items-end border-t border-white/10 pt-4">
+                                        <div>
+                                            <p class="text-white/40 text-[9px] uppercase tracking-[0.3em]">Concept</p>
+                                            <p class="text-white text-sm font-display tracking-widest mt-1">SPATIAL MINIMALISM</p>
+                                        </div>
+                                        <i data-lucide="layers" class="w-6 h-6 text-modularte-taupe/50"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <a href="https://www.instagram.com/abelezaangel/" target="_blank" class="hoverable inline-flex items-center gap-3 px-8 py-3 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-white hover:bg-angel-copper hover:text-white transition-all">
-                            Ver Identidade Completa <i data-lucide="instagram" class="w-4 h-4"></i>
-                        </a>
                     </div>
                 </div>
 
@@ -422,10 +570,14 @@
         let isLangOpen = false;
         let planetModal, langGrid;
 
-        // VÍDEOS NOVOS - AUTOPEÇAS ELITE
         const autoPecasVideos = [
             { title: "Vídeo Elite 1", id: "1-CNIO-H9h1csmZxoZkovni2x83W3Uokk" },
-            { title: "Vídeo Elite 2", id: "1_thyUPP720Eyh1bXYsG08APPP_wptaCZ" }
+            { title: "Vídeo Elite 2", id: "1_thyUPP720Eyh1bXYsG08APPP_wptaCZ" },
+            { title: "Vídeo Elite 3", id: "12d9MTuBn-YQBsY22SEnDKWLCK2xrT9QB" } // NOVO VÍDEO
+        ];
+
+        const modularteVideos = [
+            { title: "Vídeo Modularte", id: "1ag34jflUUdnEPKqGAf-ue2foUVs8K-bq" } // NOVO VÍDEO E NOVA CATEGORIA
         ];
 
         const marketingVideos = [{ title: "Treinamento", id: "1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct" },{ title: "6 Públicos", id: "1CXsIPfSVqHgz3H6O4IeIhQvCwuECK0Ly" },{ title: "10k Stories", id: "1Niz41hdIzsWlDtambSlElsTbbnnPkSA2" },{ title: "Engage", id: "1y4lmSSGnz8kuhVmbo0U3PS2rq-WGlqCZ" },{ title: "High Ticket", id: "1OoFFZlMFz4zGd8seJ9zBA5AwAzvQ05xT" },{ title: "IA e o Futuro", id: "1yCi0mSVTmr6vGXcvabcvgnPo4pSq6LAO" },{ title: "IA Secretaria", id: "1veSV7mpgozq6EPQCDK34X1cIa3s0rAw0" },{ title: "Nicho de Oportunidades", id: "1mHGWIMU1o5X8rIjHP8ovsnyXoNIjlxzP" },{ title: "Objeção Oculta", id: "1t58XstU5Nzis6Lh6yVJIgjR4RWVNWgun" },{ title: "Project Business Check", id: "1CiOOI9rtaImNGZUTAGYC3LE2Ur4vJmqm" },{ title: "Responder Whatsapp", id: "1SZ8x6oZo6_1rMHZ5TXJ3E2oYhn3lGQCp" },{ title: "Tráfego Pago Morreu", id: "1pSg2wwIHVskqZUY7RItDUpZh2YpY-uSc" },{ title: "Vendas", id: "1cg9nIgjWejsqsoN15GD9qlMzk8CN4Zu0" },{ title: "Criativo", id: "1aTlPK4nczSAHqaF95PuroOtgP5iqHc2p" }];
@@ -438,9 +590,8 @@
         const segueOBaileVideos = [{ title: "Superação com João da Verde e Rosa", id: "2r_2mpd4uUA", type: "youtube" },{ title: "Vitinho Agita na Ilha da Gigóia", id: "MhaYlLIOo0g", type: "youtube" },{ title: "Felipe Ferreira: Bastidores", id: "9deIRMk93jA", type: "youtube" }];
 
         const categories = [
-            // CATEGORIA ADICIONADA NO TOPO
-            { id: 'autopecas_elite', title: 'Autopeças Elite', descriptions: { pt: 'Vendas e Peças Automotivas.' }, count: autoPecasVideos.length, icon: 'car', coverId: '147DfKUCNuKC-O8LHn6ZTJssGMz_9Pi5O', items: autoPecasVideos },
-            
+            { id: 'modularte_moveis', title: 'Modularte Móveis', descriptions: { pt: 'Móveis Planejados 3D.' }, count: modularteVideos.length, icon: 'box', coverId: '1ag34jflUUdnEPKqGAf-ue2foUVs8K-bq', items: modularteVideos }, // NOVA CATEGORIA NO TOPO
+            { id: 'autopecas_elite', title: 'Autopeças Elite', descriptions: { pt: 'Vendas e Peças Automotivas.' }, count: autoPecasVideos.length, icon: 'car', coverId: '12d9MTuBn-YQBsY22SEnDKWLCK2xrT9QB', items: autoPecasVideos }, // COVER ATUALIZADO PARA O NOVO VÍDEO
             { id: 'unianchieta', title: 'UNIANCHIETA', descriptions: { pt: 'Audiovisual acadêmico.' }, count: unianchietaVideos.length, icon: 'library', coverId: '1050T6hAHxUHwKzUa-yS9ZAX6_i7fQe5U', items: unianchietaVideos },
             { id: 'nexhub', title: 'NexHub', descriptions: { pt: 'Estratégias digitais.' }, count: marketingVideos.length, icon: 'trending-up', coverId: '1X74WBhj2T8Te3HR4P5sNJGbYUYvP-Jct', items: marketingVideos },
             { id: 'ory_clinica', title: 'Ory Clínica', descriptions: { pt: 'Saúde e estética.' }, count: oryVideos.length, icon: 'heart-pulse', coverId: '1qO0SVDmP--cx7LGgjQObjf_9T7CUvzGF', items: oryVideos },
